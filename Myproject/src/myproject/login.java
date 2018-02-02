@@ -114,34 +114,32 @@ public class login extends javax.swing.JFrame {
         //Get username and password from textboxes
         String username = txtLogin.getText();
         String password = new String(txtPassword.getPassword());
-        //String passTest = "4966f10a4ba770f4e8ffd30e2d128003fe68738d48b38638045835e5cabe097a889e8ed4918638acb1b1557ed765989a1361620e24faa4aeb174ea0186d88aed";
-        String passTest = "";
-        String result = "";
+                
+        String passBD = "";
+        ResultSet result;
         try {
             //Checking whether the login match the password
             //need a try-catch onn.connection("SELECT Password FROM here in case the login isn't in the database
-            //ResultSet result = conn.connection("SELECT Password FROM employe WHERE Matricule=\"E1\"");  
-            result = conn.connection("SELECT Password FROM employe WHERE Matricule=\"E1\"");
-            //passTest = conn.getString(result,"Password");
-            //passTest = "4966f10a4ba770f4e8ffd30e2d128003fe68738d48b38638045835e5cabe097a889e8ed4918638acb1b1557ed765989a1361620e24faa4aeb174ea0186d88aed";
-            //javax.swing.JOptionPane.showMessageDialog(null,result); 
+            result = conn.connection("SELECT Password FROM employe WHERE Matricule=\""+username+"\"");
+            
+           if (result.next()){
+           passBD = result.getString(1);
+           }
            
-            /*if (((String)result).equals((String)password)){
-                System.out.println("Sa marche");
-                new Tech().setVisible(true);
-                this.setVisible(false);
-            }*/
             
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             
         }
-        System.out.println(result);
-        System.out.println(password);
-        if (result.replaceAll("\\s+","") == password.replaceAll("\\s+","")){
-         new Tech().setVisible(true);
-         this.setVisible(false);
+       
+        System.out.println(passBD.equals(password));
+        if (passBD.equals(password)){
+            
+            new Tech().setVisible(true);
+            this.setVisible(false);
         
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(null,"Nom d'utiliisateur et/ou mot de passe incorrecte"); 
         }
         
     }//GEN-LAST:event_btnLoginActionPerformed

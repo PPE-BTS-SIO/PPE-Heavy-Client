@@ -18,36 +18,26 @@ import java.sql.Statement;
  * @author Joel
  */
 class Connecting {
-    private String url = "jdbc:mysql://localhost:3306/PPE";
+    private String url = "jdbc:mysql://localhost:3306/jrt";
     private String username = "root";
     private String password = "";
     private String resultat = "";
-    public String connection(String Query) throws SQLException{
+    public ResultSet connection(String Query) throws SQLException{
          //Ouverture de connexion avec MySQL tournant sur la meme machine
          Connection conn = DriverManager.getConnection(url, username, password);
          Statement state = conn.createStatement();
          
          ResultSet result = state.executeQuery(Query);
          /*ResultSetMetaData resultMeta = result.getMetaData();*/
-         if (result.next()){
-            //resultat = result.getString(result,"Password");
-            resultat = getString(result,"Password");
+         /*if (result.next()){
+           resultat = result.getString(1);
+           // resultat = getString(result,"Password");
          }
-       return resultat; 
+          System.out.println("proce :" + resultat);
+                 */
+       return result; 
     }
-     public  String getString(ResultSet result, String column) {
-        String str = new String();
-        try {
-        InputStreamReader in = new InputStreamReader(result
-        .getAsciiStream(column));
-        while (in.ready())
-        str = str + (char) in.read();
-        } catch (SQLException e) {
-        e.printStackTrace();
-        } catch (IOException e) {
-        e.printStackTrace();
-        } finally {
-        return str;
-        }
+     
 }
-}
+
+
