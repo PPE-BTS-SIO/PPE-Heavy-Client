@@ -18,7 +18,7 @@ import java.sql.Statement;
  * @author Joel
  */
 class Connecting {
-    private String url = "jdbc:mysql://localhost:3306/jrt";
+    private String url = "jdbc:mysql://localhost:3306/ppe";
     private String username = "root";
     private String password = "";
     private String resultat = "";

@@ -111,10 +111,14 @@ public class login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         //Establish connection
         Connecting conn = new Connecting();
+        
         //Get username and password from textboxes
         String username = txtLogin.getText();
         String password = new String(txtPassword.getPassword());
-                
+        // Encrypt the password given
+        Encryption encrypt = new Encryption();
+        String encryptedPass = encrypt.Encrypt(password);
+        
         String passBD = "";
         ResultSet result;
         try {
@@ -132,8 +136,8 @@ public class login extends javax.swing.JFrame {
             
         }
        
-        System.out.println(passBD.equals(password));
-        if (passBD.equals(password)){
+        System.out.println(passBD.equals(encryptedPass));
+        if (passBD.equals(encryptedPass)){
             
             new Tech().setVisible(true);
             this.setVisible(false);
