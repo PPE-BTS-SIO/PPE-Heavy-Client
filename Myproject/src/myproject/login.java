@@ -139,7 +139,7 @@ public class login extends javax.swing.JFrame {
         System.out.println(passBD.equals(encryptedPass));
         if (passBD.equals(encryptedPass)){
             
-            new Tech().setVisible(true);
+            new SearchClient().setVisible(true);
             this.setVisible(false);
         
         }else{
