@@ -141,7 +141,6 @@ public class login extends javax.swing.JFrame {
             //Si le nom d'utilisateur et mot de passe sont correct, on va a la page suivante
             //sinon on envoie un message d'erreur
             if (passBD.equals(encryptedPass)){
-                
                 new SearchClient().setVisible(true);
                 this.setVisible(false);
                 
