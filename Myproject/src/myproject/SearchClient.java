@@ -19,8 +19,10 @@ public class SearchClient extends javax.swing.JFrame {
     /**
      * Creates new form SearchClient
      */
-    public SearchClient() {
+    public SearchClient() throws SQLException {
+        
         initComponents();
+        connectionBDD();
     }
 
     /**
@@ -124,6 +126,19 @@ public class SearchClient extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    private void connectionBDD() throws SQLException{
+        System.out.println("1 tentation de prendre le client");
+        Connecting conn = new Connecting();
+        ResultSet result;
+        
+        System.out.println("tentation de prendre le client");
+        result = conn.Select("SELECT Nom FROM client");
+        while(result.next()){
+            String nom = result.getString(1);
+            cboxClient.addItem(nom);
+
+        }
+    }
     public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -151,21 +166,15 @@ public class SearchClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchClient().setVisible(true);
+                try {
+                    new SearchClient().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         //Establish connection
-        System.out.println("1 tentation de prendre le client");
-        Connecting conn = new Connecting();
-        ResultSet result;
         
-        System.out.println("tentation de prendre le client");
-        result = conn.Select("SELECT Nom FROM client");
-        while(result.next()){
-            String nom = result.getString(1);
-            cboxClient.addItem(nom);
-
-        }
             
         
     }

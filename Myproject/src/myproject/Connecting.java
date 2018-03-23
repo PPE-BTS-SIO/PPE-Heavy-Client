@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 //note to self : modify this class so that there's a method for connecting to the database and method for select, insert etc...
 class Connecting {
-    private Connection connexion = null; 
+    private static Connection connexion = null; 
     private String url;
     private String username;
     private String password;
