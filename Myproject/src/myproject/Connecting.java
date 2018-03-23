@@ -37,9 +37,9 @@ class Connecting {
     //Initialise les valeurs
     private boolean ouvrirConnexion() throws SQLException {
         
-        url = "jdbc:mysql://localhost:3306/ppe";
-        username = "root";
-        password = "";
+        url = "jdbc:mysql://78.237.195.145:3306/PPE";
+        username = "ppe";
+        password = "ppe123JRT";
         resultat = "";
         
         //Ouverture de connexion a la base de donnee
@@ -50,10 +50,11 @@ class Connecting {
             //Gestion d'eventuelles erreurs
             switch(ex.getErrorCode()){
                 case 0:
-                    JOptionPane.showMessageDialog(null, "Ne peut pas se connecter au serveur. Contacte l'administrateur", "ERROR 0", JOptionPane.WARNING_MESSAGE );
+                    System.out.println(ex);
+                    JOptionPane.showMessageDialog(null, "Ne peut pas se connecter au serveur. Merci de connecter l'administrateur", "Une erreur est survenue", JOptionPane.WARNING_MESSAGE );
                     break;
                 case 1045:
-                    JOptionPane.showMessageDialog(null, "Username ou mot de passe invalid", "ERROR 0", JOptionPane.WARNING_MESSAGE );
+                    JOptionPane.showMessageDialog(null, "Username ou mot de passe invalid", "Une erreur est survenue", JOptionPane.WARNING_MESSAGE );
             }
             
             
