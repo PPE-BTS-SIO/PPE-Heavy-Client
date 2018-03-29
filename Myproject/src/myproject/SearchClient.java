@@ -19,8 +19,10 @@ public class SearchClient extends javax.swing.JFrame {
     /**
      * Creates new form SearchClient
      */
-    public SearchClient() {
+    public SearchClient() throws SQLException {
+        
         initComponents();
+        connectionBDD();
     }
 
     /**
@@ -35,9 +37,9 @@ public class SearchClient extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cboxClient = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnXml = new javax.swing.JButton();
+        btnContrat = new javax.swing.JButton();
+        btnPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,19 +50,24 @@ public class SearchClient extends javax.swing.JFrame {
         jLabel2.setToolTipText("");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        jButton2.setText("XML");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXml.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        btnXml.setText("XML");
+        btnXml.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXmlActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        jButton3.setText("Contrat de Maintenance");
+        btnContrat.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        btnContrat.setText("Contrat de Maintenance");
 
-        jButton4.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        jButton4.setText("PDF");
+        btnPDF.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        btnPDF.setText("PDF");
+        btnPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,17 +79,17 @@ public class SearchClient extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel1)
-                        .addGap(40, 40, 40)
+                        .addGap(89, 89, 89)
                         .addComponent(cboxClient, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jButton4)
+                                    .addComponent(btnPDF)
                                     .addGap(119, 119, 119))
-                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnContrat, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jButton2)
+                                    .addComponent(btnXml)
                                     .addGap(113, 113, 113)))
                             .addGap(108, 108, 108))
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -97,25 +104,42 @@ public class SearchClient extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(cboxClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnXml)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btnContrat)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btnPDF)
                 .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnXmlActionPerformed
+
+    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
+        //When we click on this button I want 
+    }//GEN-LAST:event_btnPDFActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private void connectionBDD() throws SQLException{
+        System.out.println("1 tentation de prendre le client");
+        Connecting conn = new Connecting();
+        ResultSet result;
+        
+        System.out.println("tentation de prendre le client");
+        result = conn.Select("SELECT Nom FROM client");
+        while(result.next()){
+            String nom = result.getString(1);
+            cboxClient.addItem(nom);
+
+        }
+    }
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -142,29 +166,24 @@ public class SearchClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchClient().setVisible(true);
+                try {
+                    new SearchClient().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         //Establish connection
-        Connecting conn = new Connecting();
-        ResultSet result;
-        try {
-            result = conn.connection("SELECT Nom FROM client");
-            while(result.next()){
-                String nom = result.getString(1);
-                cboxClient.addItem(nom);
-            }
+        
             
-        } catch (SQLException ex) {
-            Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnContrat;
+    private javax.swing.JButton btnPDF;
+    private javax.swing.JButton btnXml;
     private static javax.swing.JComboBox<String> cboxClient;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

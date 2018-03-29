@@ -22,12 +22,16 @@ public class Myproject {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        Encryption e = new Encryption();
+        System.out.println(e.Encrypt("joel"));
+    }
         /*login start = new login();
         start.setVisible(true);
         */
-        try {
+       /* try {
         String url = "jdbc:mysql://localhost:3306/PPE";
         String username = "root";
         String password = "";
@@ -75,5 +79,5 @@ public class Myproject {
         return str;
         }
 }
-    
+    */
 }

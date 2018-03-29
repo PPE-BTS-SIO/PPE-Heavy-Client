@@ -109,41 +109,48 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        //Establish connection
-        Connecting conn = new Connecting();
-        
-        //Get username and password from textboxes
-        String username = txtLogin.getText();
-        String password = new String(txtPassword.getPassword());
-        // Encrypt the password given
-        Encryption encrypt = new Encryption();
-        String encryptedPass = encrypt.Encrypt(password);
-        
-        String passBD = "";
-        ResultSet result;
-        try {
-            //Checking whether the login match the password
-            //need a try-catch onn.connection("SELECT Password FROM here in case the login isn't in the database
-            result = conn.connection("SELECT Password FROM employe WHERE Matricule=\""+username+"\"");
+        try {                                         
+            //Etablie connection
+            Connecting conn = new Connecting();
             
-           if (result.next()){
-           passBD = result.getString(1);
-           }
-           
+            //Prend le nom d'utilisateur et le mot de passe
+            String username = txtLogin.getText();
+            String password = new String(txtPassword.getPassword());
+            // Encrypt le mot de passe donne
+            Encryption encrypt = new Encryption();
+            String encryptedPass = encrypt.Encrypt(password);
+            
+            String passBD = "";
+            ResultSet result;
+            try {
+                //Verifie si the nom d'utilisateur et le mot de passe correspond a ce que l'on a dans la base de donne
+                
+                result = conn.Select("SELECT Password FROM employe WHERE Matricule=\""+username+"\"");
+                
+                if (result.next()){
+                    passBD = result.getString(1);
+                }
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                
+            }
+            System.out.println("encrypted " + encryptedPass);
+            System.out.println("bd pass "+passBD);
+            //Si le nom d'utilisateur et mot de passe sont correct, on va a la page suivante
+            //sinon on envoie un message d'erreur
+            if (passBD.equals(encryptedPass)){
+                new SearchClient().setVisible(true);
+                this.setVisible(false);
+                
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(null,"Nom d'utiliisateur et/ou mot de passe incorrecte");
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             
-        }
-       
-        System.out.println(passBD.equals(encryptedPass));
-        if (passBD.equals(encryptedPass)){
-            
-            new SearchClient().setVisible(true);
-            this.setVisible(false);
-        
-        }else{
-            javax.swing.JOptionPane.showMessageDialog(null,"Nom d'utiliisateur et/ou mot de passe incorrecte"); 
         }
         
     }//GEN-LAST:event_btnLoginActionPerformed
