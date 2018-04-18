@@ -127,7 +127,6 @@ public class SearchClient extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     private void connectionBDD() throws SQLException{
-        System.out.println("1 tentation de prendre le client");
         Connecting conn = new Connecting();
         ResultSet result;
         

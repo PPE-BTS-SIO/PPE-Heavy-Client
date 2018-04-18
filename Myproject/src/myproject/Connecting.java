@@ -36,12 +36,16 @@ class Connecting {
     }
     //Initialise les valeurs
     private boolean ouvrirConnexion() throws SQLException {
-        
+        /*
         url = "jdbc:mysql://78.237.195.145:3306/PPE";
         username = "ppe";
         password = "ppe123JRT";
         resultat = "";
-        
+        */
+        url = "jdbc:mysql://localhost:3306/ppe";
+        username = "root";
+        password = "";
+        resultat = "";
         //Ouverture de connexion a la base de donnee
         try {
             connexion = DriverManager.getConnection(url, username, password);
@@ -89,7 +93,13 @@ class Connecting {
     }
     
     //Update 
-    
+  public void UpdateInsert(String Query) throws SQLException{
+      if (this.ouvrirConnexion() == true){
+        Statement statement = connexion.createStatement();
+        /* Execution d'une requete d'update */
+        int statut = statement.executeUpdate(Query);
+      }
+  }
     
     
     /*

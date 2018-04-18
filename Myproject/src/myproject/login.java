@@ -126,7 +126,7 @@ public class login extends javax.swing.JFrame {
                 //Verifie si the nom d'utilisateur et le mot de passe correspond a ce que l'on a dans la base de donne
                 
                 result = conn.Select("SELECT Password FROM employe WHERE Matricule=\""+username+"\"");
-                
+                conn.UpdateInsert("UPDATE tpe_materiel SET Ref='M4' WHERE Ref='M3'");
                 if (result.next()){
                     passBD = result.getString(1);
                 }
