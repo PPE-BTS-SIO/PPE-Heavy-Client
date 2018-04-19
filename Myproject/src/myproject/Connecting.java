@@ -5,6 +5,10 @@
  */
 package myproject;
 
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -100,6 +104,31 @@ class Connecting {
         int statut = statement.executeUpdate(Query);
       }
   }
+    public void rangerDansBase(Object unObjet) throws SQLException{
+        this.ouvrirConnexion();
+        if (unObjet instanceof Client){
+            this.UpdateInsert("INSERT INTO client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Duree_Deplacement, DistanceKm, Num_Agence) VALUES (" + ((Client) unObjet).getNumClient() + "," + ((Client) unObjet).getNom()+ "," + ((Client) unObjet).getRaisonSocial() + "," + ((Client) unObjet).getSiren() + "," + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm()+ "," + ((Client) unObjet).getNumAgence() + ")" );
+           
+        } 
+        if (unObjet instanceof Materiel){
+          this.UpdateInsert("INSERT INTO materiel(NumSerie, Nom, DateVente, DateInstallation, Prix, Emplacement, Ref, Num_contrat) VALUES ("+ ((Materiel) unObjet).getNumSerie() + "," + ((Materiel) unObjet).getNom() + "," + ((Materiel) unObjet).getDateVente() + "," + ((Materiel) unObjet).getDateInstallation() + "," + ((Materiel) unObjet).getPrixVente() + "," + ((Materiel) unObjet).getEmplacement() + "," + ((Materiel) unObjet).getRef() + ","+ ((Materiel) unObjet).getNumContrat());
+    }
+        if (unObjet instanceof TypeMateriel){
+            this.UpdateInsert("INSERT INTO type_materiel(Ref, Libelle, Code) VALUES ("+ ((TypeMateriel) unObjet).getReferenceInterne() + "," + ((TypeMateriel) unObjet).getLibelleTypeMateriel() + "," + ((TypeMateriel) unObjet).getCode() + ")");
+        }
+        
+    }
+    
+    public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
+        this.ouvrirConnexion();
+        Object unObjet;
+        ResultSet result;
+        if (nomClasse == "Client"){
+            result = this.Select("SELECT ")
+        }
+        
+       return null; 
+    }
     
     
     /*

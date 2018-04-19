@@ -10,7 +10,19 @@ package myproject;
  * @author Joel
  */
 public class TypeMateriel {
-    private String referenceInterne, libelleTypeMateriel;
+    private String referenceInterne, libelleTypeMateriel, code ;
     private Famille laFamille;
+
+    public String getReferenceInterne() {
+        return referenceInterne;
+    }
+
+    public String getLibelleTypeMateriel() {
+        return libelleTypeMateriel;
+    }
+    public String getCode(){
+        return code;
+    }
+    
     
 }
