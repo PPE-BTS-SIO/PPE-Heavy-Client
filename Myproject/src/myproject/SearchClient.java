@@ -65,6 +65,7 @@ public class SearchClient extends javax.swing.JFrame {
         btnPDF.setText("PDF");
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+
                 btnPDFActionPerformed(evt);
             }
         });
@@ -119,9 +120,9 @@ public class SearchClient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXmlActionPerformed
 
-    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
-        //When we click on this button I want 
-    }//GEN-LAST:event_btnPDFActionPerformed
+    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("test");
+    }
 
     /**
      * @param args the command line arguments
@@ -130,7 +131,7 @@ public class SearchClient extends javax.swing.JFrame {
         Connecting conn = new Connecting();
         ResultSet result;
         
-        System.out.println("tentation de prendre le client");
+        System.out.println("tentative de prendre le client");
         result = conn.Select("SELECT Nom FROM client");
         while(result.next()){
             String nom = result.getString(1);

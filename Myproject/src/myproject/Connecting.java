@@ -46,11 +46,11 @@ class Connecting {
         password = "ppe123JRT";
         resultat = "";
         */
-        url = "jdbc:mysql://localhost:3306/ppe";
-        username = "root";
-        password = "";
+        url = "jdbc:mysql://78.237.195.145:3306/PPE";
+        username = "ppe";
+        password = "ppe123JRT";
         resultat = "";
-        //Ouverture de connexion a la base de donnee
+        //Ouverture de connexion a la base de donnée
         try {
             connexion = DriverManager.getConnection(url, username, password);
             return true;
@@ -58,11 +58,10 @@ class Connecting {
             //Gestion d'eventuelles erreurs
             switch(ex.getErrorCode()){
                 case 0:
-                    System.out.println(ex);
-                    JOptionPane.showMessageDialog(null, "Ne peut pas se connecter au serveur. Merci de connecter l'administrateur", "Une erreur est survenue", JOptionPane.WARNING_MESSAGE );
+                    JOptionPane.showMessageDialog(null, "Ne peut pas se connecter au serveur. Merci de contacter l'administrateur", "Une erreur est survenue", JOptionPane.WARNING_MESSAGE );
                     break;
                 case 1045:
-                    JOptionPane.showMessageDialog(null, "Username ou mot de passe invalid", "Une erreur est survenue", JOptionPane.WARNING_MESSAGE );
+                    JOptionPane.showMessageDialog(null, "Username ou mot de passe invalide", "Une erreur est survenue", JOptionPane.WARNING_MESSAGE );
             }
             
             
@@ -117,17 +116,6 @@ class Connecting {
             this.UpdateInsert("INSERT INTO type_materiel(Ref, Libelle, Code) VALUES ("+ ((TypeMateriel) unObjet).getReferenceInterne() + "," + ((TypeMateriel) unObjet).getLibelleTypeMateriel() + "," + ((TypeMateriel) unObjet).getCode() + ")");
         }
         
-    }
-    
-    public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
-        this.ouvrirConnexion();
-        Object unObjet;
-        ResultSet result;
-        if (nomClasse == "Client"){
-            result = this.Select("SELECT ")
-        }
-        
-       return null; 
     }
     
     
