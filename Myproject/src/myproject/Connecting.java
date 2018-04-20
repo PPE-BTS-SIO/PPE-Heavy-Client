@@ -118,7 +118,17 @@ class Connecting {
         
     }
     
-
+public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
+        //Au lieu d'utiliser l'ID du client, nous allons utiliser le nom du client 
+        this.ouvrirConnexion();
+        Object unObjet = null;
+        ResultSet result = null;
+        if (nomClasse == "Client"){
+            result = this.Select("SELECT * FROM `client` WHERE Nom = '"+ ((Client) unObjet).getNom() + "'");
+        }
+        
+       return result; 
+    }
     
     /*
     public ResultSet connection(String Query) throws SQLException{
