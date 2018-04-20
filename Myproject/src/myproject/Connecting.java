@@ -107,27 +107,28 @@ class Connecting {
     public void rangerDansBase(Object unObjet) throws SQLException{
         this.ouvrirConnexion();
         if (unObjet instanceof Client){
-            this.UpdateInsert("INSERT INTO client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Duree_Deplacement, DistanceKm, Num_Agence) VALUES (" + ((Client) unObjet).getNumClient() + "," + ((Client) unObjet).getNom()+ "," + ((Client) unObjet).getRaisonSocial() + "," + ((Client) unObjet).getSiren() + "," + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm()+ "," + ((Client) unObjet).getNumAgence() + ")" );
+            this.UpdateInsert("INSERT INTO client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Duree_Deplacement, DistanceKm, Num_Agence) VALUES ('" + ((Client) unObjet).getNumClient() + "','" + ((Client) unObjet).getNom()+ "','" + ((Client) unObjet).getRaisonSocial() + "','" + ((Client) unObjet).getSiren() + "','" + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm()+ "," + ((Client) unObjet).getNumAgence() + ")" );
            
         } 
         if (unObjet instanceof Materiel){
-          this.UpdateInsert("INSERT INTO materiel(NumSerie, Nom, DateVente, DateInstallation, Prix, Emplacement, Ref, Num_contrat) VALUES ("+ ((Materiel) unObjet).getNumSerie() + "," + ((Materiel) unObjet).getNom() + "," + ((Materiel) unObjet).getDateVente() + "," + ((Materiel) unObjet).getDateInstallation() + "," + ((Materiel) unObjet).getPrixVente() + "," + ((Materiel) unObjet).getEmplacement() + "," + ((Materiel) unObjet).getRef() + ","+ ((Materiel) unObjet).getNumContrat());
+          this.UpdateInsert("INSERT INTO materiel(NumSerie, Nom, DateVente, DateInstallation, Prix, Emplacement, Ref, Num_contrat) VALUES ('"+ ((Materiel) unObjet).getNumSerie() + "','" + ((Materiel) unObjet).getNom() + "','" + ((Materiel) unObjet).getDateVente() + "','" + ((Materiel) unObjet).getDateInstallation() + "','" + ((Materiel) unObjet).getPrixVente() + "','" + ((Materiel) unObjet).getEmplacement() + "','" + ((Materiel) unObjet).getRef() + "','"+ ((Materiel) unObjet).getNumContrat()+"'");
     }
         if (unObjet instanceof TypeMateriel){
-            this.UpdateInsert("INSERT INTO type_materiel(Ref, Libelle, Code) VALUES ("+ ((TypeMateriel) unObjet).getReferenceInterne() + "," + ((TypeMateriel) unObjet).getLibelleTypeMateriel() + "," + ((TypeMateriel) unObjet).getCode() + ")");
+            this.UpdateInsert("INSERT INTO type_materiel(Ref, Libelle, Code) VALUES ('"+ ((TypeMateriel) unObjet).getReferenceInterne() + "','" + ((TypeMateriel) unObjet).getLibelleTypeMateriel() + "','" + ((TypeMateriel) unObjet).getCode() + "')");
         }
         
     }
     
     public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
+        //Au lieu d'utiliser l'ID du client, nous allons utiliser le nom du client 
         this.ouvrirConnexion();
-        Object unObjet;
-        ResultSet result;
+        Object unObjet = null;
+        ResultSet result = null;
         if (nomClasse == "Client"){
-            result = this.Select("SELECT ")
+            result = this.Select("SELECT * FROM `client` WHERE Nom = '"+ ((Client) unObjet).getNom() + "'");
         }
         
-       return null; 
+       return result; 
     }
     
     
@@ -148,7 +149,7 @@ class Connecting {
        return result; 
     }
      */
-    
+        
     
 }
 
