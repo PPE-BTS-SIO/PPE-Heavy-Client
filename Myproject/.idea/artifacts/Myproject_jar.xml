@@ -4,6 +4,7 @@
     <root id="archive" name="Myproject.jar">
       <element id="module-output" name="Myproject" />
       <element id="library" level="project" name="bcprov-jdk15on-157" />
+      <element id="library" level="project" name="mysql-connector-java-5.1.46-bin" />
     </root>
   </artifact>
 </component>
