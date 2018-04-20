@@ -5,6 +5,7 @@
       <element id="module-output" name="Myproject" />
       <element id="library" level="project" name="bcprov-jdk15on-157" />
       <element id="library" level="project" name="mysql-connector-java-5.1.46-bin" />
+      <element id="library" level="project" name="itextpdf-5.5.13" />
     </root>
   </artifact>
 </component>
