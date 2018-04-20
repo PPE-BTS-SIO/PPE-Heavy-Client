@@ -5,6 +5,11 @@
  */
 package myproject;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -65,8 +70,11 @@ public class SearchClient extends javax.swing.JFrame {
         btnPDF.setText("PDF");
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-                btnPDFActionPerformed(evt);
+                try {
+                    btnPDFActionPerformed(evt);
+                } catch (DocumentException | FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -120,8 +128,19 @@ public class SearchClient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXmlActionPerformed
 
-    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("test");
+    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) throws DocumentException, FileNotFoundException {
+        System.out.println("1");
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("/home/thomas/test.pdf"));
+
+        document.open();
+        System.out.println(document);
+        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+        Chunk chunk = new Chunk("Hello World", font);
+
+        document.add(chunk);
+        document.close();
+
     }
 
     /**

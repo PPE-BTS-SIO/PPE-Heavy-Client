@@ -10,5 +10,6 @@
     <orderEntry type="library" name="bcprov-jdk15on-157" level="project" />
     <orderEntry type="library" name="ejb3-persistence-3.3.2.Beta1" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.46-bin" level="project" />
+    <orderEntry type="library" name="itextpdf-5.5.13" level="project" />
   </component>
 </module>
