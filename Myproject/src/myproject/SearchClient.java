@@ -8,6 +8,7 @@ package myproject;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
@@ -25,7 +26,6 @@ public class SearchClient extends javax.swing.JFrame {
      * Creates new form SearchClient
      */
     public SearchClient() throws SQLException {
-        
         initComponents();
         connectionBDD();
     }
@@ -125,22 +125,25 @@ public class SearchClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:-
     }//GEN-LAST:event_btnXmlActionPerformed
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) throws DocumentException, FileNotFoundException {
-        System.out.println("1");
+        String DEST = "results/objects/vdef.pdf";
+        File file = new File(DEST);
+        file.getParentFile().mkdirs();
+
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("/home/thomas/test.pdf"));
-
+        PdfWriter.getInstance(document, new FileOutputStream(DEST));
         document.open();
-        System.out.println(document);
-        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-        Chunk chunk = new Chunk("Hello World", font);
-
-        document.add(chunk);
+        Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLDITALIC);
+        Font paragraphFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
+        Chunk chunk = new Chunk("VDEV", chapterFont);
+        Chapter chapter = new Chapter(new Paragraph(chunk), 1);
+        chapter.setNumberDepth(0);
+        chapter.add(new Paragraph("This is the paragraph", paragraphFont));
+        document.add(chapter);
         document.close();
-
     }
 
     /**

@@ -14,12 +14,11 @@ import java.util.ArrayList;
 public class Client {
     
     private String numClient, raisonSocial,siren,codeApe,adresse,telClient, email, numAgence, nom;
-
     private int dureeDeplacement, distanceKm;
 
     private ArrayList<Materiel> lesMateriels = new ArrayList();
-
     private ContratMaintenance leContrat;
+    private static Client lastClient;
 
     public String getNom(){
         return nom;
@@ -108,6 +107,12 @@ public class Client {
     public void setDistanceKm(int distanceKm) {
         this.distanceKm = distanceKm;
     }
-    
-    
+
+    public static void setLastClient(Client lClient) {
+        lastClient = lClient;
+    }
+
+    public Client getLastClient() {
+        return lastClient;
+    }
 }
