@@ -13,12 +13,41 @@ import java.util.ArrayList;
  */
 public class Client {
     
-    private String numClient, raisonSocial,siren,codeApe,adresse,telClient, email, numAgence, nom;
+    private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom;
     private int dureeDeplacement, distanceKm;
 
     private ArrayList<Materiel> lesMateriels = new ArrayList();
     private ContratMaintenance leContrat;
-    private static Client lastClient;
+    private static ArrayList<Client> lesClients = new ArrayList<>();
+
+    public Client(
+            String numClient,
+            String raisonSociale,
+            String siren,
+            String codeApe,
+            String adresse,
+            String telClient,
+            String url,
+            String logo,
+            String numAgence,
+            String nom,
+            int dureeDeplacement,
+            int distanceKm
+    ) {
+        this.numClient = numClient;
+        this.raisonSociale = raisonSociale;
+        this.siren = siren;
+        this.codeApe = codeApe;
+        this.adresse = adresse;
+        this.telClient = telClient;
+        this.url = url;
+        this.logo = logo;
+        this.numAgence = numAgence;
+        this.nom = nom;
+        this.dureeDeplacement = dureeDeplacement;
+        this.distanceKm = distanceKm;
+        addClient(this);
+    }
 
     public String getNom(){
         return nom;
@@ -32,8 +61,8 @@ public class Client {
         return numClient;
     }
 
-    public String getRaisonSocial() {
-        return raisonSocial;
+    public String getRaisonSociale() {
+        return raisonSociale;
     }
 
     public String getSiren() {
@@ -52,8 +81,12 @@ public class Client {
         return telClient;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUrl() {
+        return url;
+    }
+
+    public String getLogo() {
+        return logo;
     }
 
     public int getDureeDeplacement() {
@@ -68,8 +101,8 @@ public class Client {
         this.numClient = numClient;
     }
 
-    public void setRaisonSocial(String raisonSocial) {
-        this.raisonSocial = raisonSocial;
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
     }
 
     public void setSiren(String siren) {
@@ -88,8 +121,12 @@ public class Client {
         this.telClient = telClient;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public void setNumAgence(String numAgence) {
@@ -108,11 +145,11 @@ public class Client {
         this.distanceKm = distanceKm;
     }
 
-    public static void setLastClient(Client lClient) {
-        lastClient = lClient;
+    public static void addClient(Client client) {
+        lesClients.add(client);
     }
 
-    public Client getLastClient() {
-        return lastClient;
+    public static ArrayList<Client> getLesClients() {
+        return lesClients;
     }
 }
