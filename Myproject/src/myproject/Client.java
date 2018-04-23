@@ -12,16 +12,23 @@ import java.util.ArrayList;
  * @author Joel
  */
 public class Client {
+    
     private String numClient, raisonSocial,siren,codeApe,adresse,telClient, email, numAgence, nom;
+
     private int dureeDeplacement, distanceKm;
+
     private ArrayList<Materiel> lesMateriels = new ArrayList();
+
     private ContratMaintenance leContrat;
+
     public String getNom(){
         return nom;
     }
+
     public String getNumAgence(){
         return numAgence;
     }
+
     public String getNumClient(){
         return numClient;
     }
@@ -101,8 +108,6 @@ public class Client {
     public void setDistanceKm(int distanceKm) {
         this.distanceKm = distanceKm;
     }
-    
-    
     
     
 }
