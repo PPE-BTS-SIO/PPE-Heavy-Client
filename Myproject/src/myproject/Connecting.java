@@ -48,17 +48,15 @@ class Connecting {
                 case 1045:
                     JOptionPane.showMessageDialog(null, "Username ou mot de passe invalide", "Une erreur est survenue", JOptionPane.WARNING_MESSAGE);
             }
-
-
         }
-        return true;
+        return false;
     }
 
     //Select Statement
     public ResultSet Select(String Query) throws SQLException {
         ResultSet resultFinal = null;
         //Ouvrir connexion
-        if (this.ouvrirConnexion() == true) {
+        if (this.ouvrirConnexion()) {
             //creation de l'object gerant les requetes
             Statement statement = connexion.createStatement();
             resultFinal = statement.executeQuery(Query);

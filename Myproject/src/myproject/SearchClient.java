@@ -178,7 +178,7 @@ public class SearchClient extends javax.swing.JFrame {
     private void connectionBDD() throws SQLException {
         Connection connection = Connecting.getConnexion();
 
-        System.out.println("Tentative de récupération du client");
+        System.out.println("\nRécupération des clients...");
         ResultSet result = connection.createStatement().executeQuery("SELECT * FROM client");
         while (result.next()) {
             String numClient = result.getString(1);
@@ -196,23 +196,24 @@ public class SearchClient extends javax.swing.JFrame {
             String logo = result.getString(13);
 
             new Client(
-                    numClient,
-                    raisonSociale,
-                    siren,
-                    codeApe,
-                    adresse,
-                    numTelephone,
-                    url,
-                    logo,
-                    numAgence,
-                    nom,
-                    dureeDeplacement,
-                    distanceKm
+                numClient,
+                raisonSociale,
+                siren,
+                codeApe,
+                adresse,
+                numTelephone,
+                url,
+                logo,
+                numAgence,
+                nom,
+                dureeDeplacement,
+                distanceKm
             );
 
             cboxClient.addItem(nom);
         }
-        System.out.println("Clients récupérés : " + Client.getLesClients().size());
+        System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m");
+        TypeContrat.loadAllTypes();
     }
     // End of variables declaration//GEN-END:variables
 }
