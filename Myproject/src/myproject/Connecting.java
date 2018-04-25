@@ -129,24 +129,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         
        return result; 
     }
-    
-    /*
-    public ResultSet connection(String Query) throws SQLException{
-         //Ouverture de connexion avec MySQL tournant sur la meme machine
-         Connection conn = DriverManager.getConnection(url, username, password);
-         Statement state = conn.createStatement();
-         
-         ResultSet result = state.executeQuery(Query);
-         /*ResultSetMetaData resultMeta = result.getMetaData();*/
-         /*if (result.next()){
-           resultat = result.getString(1);
-           // resultat = getString(result,"Password");
-         }
-          System.out.println("proce :" + resultat);
-                 *//*
-       return result; 
-    }
-     */
+       
         
     
 }
