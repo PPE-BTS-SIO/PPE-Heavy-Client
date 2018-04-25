@@ -91,6 +91,7 @@ class Connecting {
   }
     public void rangerDansBase(Object unObjet) throws SQLException{
         this.ouvrirConnexion();
+        //Classe que je dot faire. demander au prof plus de clarite 
         /*
         if (unObjet instanceof Client){
             this.UpdateInsert("INSERT INTO client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Duree_Deplacement, DistanceKm, Num_Agence) VALUES ('" + ((Client) unObjet).getNumClient() + "','" + ((Client) unObjet).getNom()+ "','" + ((Client) unObjet).getRaisonSociale() + "','" + ((Client) unObjet).getSiren() + "','" + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm()+ "," + ((Client) unObjet).getNumAgence() + ")" );
@@ -103,11 +104,7 @@ class Connecting {
             this.UpdateInsert("INSERT INTO type_materiel(Ref, Libelle, Code) VALUES ('"+ ((TypeMateriel) unObjet).getReferenceInterne() + "','" + ((TypeMateriel) unObjet).getLibelleTypeMateriel() + "','" + ((TypeMateriel) unObjet).getCode() + "')");
         }
         */
-        /*if (((ContratMaintenance) unObjet).getNumContrat() == null){
-            
-            this.UpdateInsert("INSERT INTO contrat(Date_signature, Date_renouvellement, Date_expiration, NumeroClient, RefTypeContrat) VALUES (" ));
-        }
-        */
+        
         
         
     }
@@ -128,6 +125,21 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         ResultSet result = null;
         if (nomClasse == "Client"){
             result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ ((Client) unObjet).getNumClient() + "'");
+            while (result.next()){
+                String numClient = result.getString(1);
+                String nom = result.getString(2);
+                String raisonSociale = result.getString(3);
+                String codeAP = result.getString(5);
+                String Addresse = result.getString(6);
+                String numTel = result.getString(7);
+                String url = result.getString(12);
+                String logo = result.getString(13);
+                String numAgence = result.getString(11);
+                int dureeDeplancement = result.getInt(9);
+                int distance = result.getInt(10);
+            }
+            //Des que l'on a les donnees on les places dans une classe 
+            Client unclient = new Client();
         }
         //On a peut etre pas besoin de tout ca 
         else if (nomClasse == "Contrat"){

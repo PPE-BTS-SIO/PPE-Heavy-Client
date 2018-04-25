@@ -11,7 +11,11 @@ package myproject;
  */
 public class GestionMateriels {
     private Connecting donnees;
-    public GestionMateriels(Connecting lesDonnees){
-        
+
+    public GestionMateriels(Connecting donnees) {
+        this.donnees = donnees;
     }
+   public Client getClient(int idClient){
+       //donnees.Select(Query)
+   }
 }
