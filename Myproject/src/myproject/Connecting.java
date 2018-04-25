@@ -16,6 +16,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -40,12 +43,7 @@ class Connecting {
     }
     //Initialise les valeurs
     private boolean ouvrirConnexion() throws SQLException {
-        /*
-        url = "jdbc:mysql://78.237.195.145:3306/PPE";
-        username = "ppe";
-        password = "ppe123JRT";
-        resultat = "";
-        */
+        
         url = "jdbc:mysql://78.237.195.145:3306/PPE";
         username = "ppe";
         password = "ppe123JRT";
@@ -65,19 +63,7 @@ class Connecting {
             }
             
             
-        }/*finally{
-            
-            if (connexion !=null){
-                try{ 
-                    //Fermeture de la connexion pour ne pas sature le serveur
-                    
-                    System.out.println("reached finally");
-                    connexion.close();
-                }catch(SQLException ignore){
-                    /* Si une erreur survient lors de la fermeture, il suffit de l'ignorer. */
-               /* }
-            }
-        }*/
+        }
         
         return true;
     }
@@ -105,6 +91,7 @@ class Connecting {
   }
     public void rangerDansBase(Object unObjet) throws SQLException{
         this.ouvrirConnexion();
+        /*
         if (unObjet instanceof Client){
             this.UpdateInsert("INSERT INTO client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Duree_Deplacement, DistanceKm, Num_Agence) VALUES ('" + ((Client) unObjet).getNumClient() + "','" + ((Client) unObjet).getNom()+ "','" + ((Client) unObjet).getRaisonSociale() + "','" + ((Client) unObjet).getSiren() + "','" + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm()+ "," + ((Client) unObjet).getNumAgence() + ")" );
            
@@ -115,16 +102,39 @@ class Connecting {
         if (unObjet instanceof TypeMateriel){
             this.UpdateInsert("INSERT INTO type_materiel(Ref, Libelle, Code) VALUES ('"+ ((TypeMateriel) unObjet).getReferenceInterne() + "','" + ((TypeMateriel) unObjet).getLibelleTypeMateriel() + "','" + ((TypeMateriel) unObjet).getCode() + "')");
         }
+        */
+        /*if (((ContratMaintenance) unObjet).getNumContrat() == null){
+            
+            this.UpdateInsert("INSERT INTO contrat(Date_signature, Date_renouvellement, Date_expiration, NumeroClient, RefTypeContrat) VALUES (" ));
+        }
+        */
         
+        
+    }
+    private Date UnAnsDePlus(Date laDate){
+        //Classe pour ajouter un ans de plus a une date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(laDate);
+        c.add(Calendar.DATE, 365); // la date de ventre + 1 ans 
+        Date dateUnAnsDePlus = c.getTime();
+        return dateUnAnsDePlus;
     }
     
 public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
-        //Au lieu d'utiliser l'ID du client, nous allons utiliser le nom du client 
+    //Recuperation de classe de la base de donnee
         this.ouvrirConnexion();
         Object unObjet = null;
         ResultSet result = null;
         if (nomClasse == "Client"){
-            result = this.Select("SELECT * FROM `client` WHERE Nom = '"+ ((Client) unObjet).getNom() + "'");
+            result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ ((Client) unObjet).getNumClient() + "'");
+        }
+        //On a peut etre pas besoin de tout ca 
+        else if (nomClasse == "Contrat"){
+            result = this.Select("SELECT * FROM contrat WHERE Num_Contrat=" + "'" + ((ContratMaintenance) unObjet).getNumContrat() + "'" );
+        }
+        else if (nomClasse == "Materiel"){
+            result = this.Select("SELECT * FROM materiel WHERE NumSerie=" + "'"+ ((Materiel) unObjet).getRef());
         }
         
        return result; 

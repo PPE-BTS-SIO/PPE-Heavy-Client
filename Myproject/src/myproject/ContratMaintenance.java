@@ -15,5 +15,9 @@ public class ContratMaintenance {
     private String numContrat;
     private Date dateSignature; 
     private ArrayList<Materiel> lesMaterielsAssures = new ArrayList<Materiel>();
+
+    public String getNumContrat() {
+        return numContrat;
+    }
     
 }
