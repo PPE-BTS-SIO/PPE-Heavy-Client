@@ -62,7 +62,7 @@ class Connecting {
             //creation de l'object gerant les requetes
             Statement statement = connexion.createStatement();
             resultFinal = statement.executeQuery(Query);
-            System.out.println("Connection OK");
+            System.out.println("Successfully connected to database.");
         }
 
         return resultFinal;
