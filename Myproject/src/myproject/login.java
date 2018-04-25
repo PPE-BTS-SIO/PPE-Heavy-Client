@@ -136,16 +136,16 @@ public class login extends javax.swing.JFrame {
                 Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
                 
             }
-            System.out.println("encrypted " + encryptedPass);
-            System.out.println("bd pass "+passBD);
-            //Si le nom d'utilisateur et mot de passe sont correct, on va a la page suivante
-            //sinon on envoie un message d'erreur
+            System.out.println("Encrypted : " + encryptedPass);
+            System.out.println("Database's password " + passBD);
+            // Si le nom d'utilisateur et mot de passe sont corrects, on va a la page suivante.
+            // Sinon on envoie un message d'erreur.
             if (passBD.equals(encryptedPass)){
                 new SearchClient().setVisible(true);
                 this.setVisible(false);
                 
             }else{
-                javax.swing.JOptionPane.showMessageDialog(null,"Nom d'utiliisateur et/ou mot de passe incorrecte");
+                javax.swing.JOptionPane.showMessageDialog(null,"Nom d'utiliisateur et/ou mot de passe incorrect");
             }
             
         } catch (SQLException ex) {

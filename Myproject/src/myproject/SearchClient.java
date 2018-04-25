@@ -8,10 +8,13 @@ package myproject;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,11 +24,12 @@ import java.util.logging.Logger;
  */
 public class SearchClient extends javax.swing.JFrame {
 
+    private Client selectedClient;
+
     /**
      * Creates new form SearchClient
      */
     public SearchClient() throws SQLException {
-        
         initComponents();
         connectionBDD();
     }
@@ -55,26 +59,22 @@ public class SearchClient extends javax.swing.JFrame {
         jLabel2.setToolTipText("");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        cboxClient.addActionListener(this::comboActionPerformed);
+
         btnXml.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         btnXml.setText("XML");
-        btnXml.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXmlActionPerformed(evt);
-            }
-        });
+        btnXml.addActionListener(this::btnXmlActionPerformed);
 
         btnContrat.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         btnContrat.setText("Contrat de Maintenance");
 
         btnPDF.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         btnPDF.setText("PDF");
-        btnPDF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnPDFActionPerformed(evt);
-                } catch (DocumentException | FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        btnPDF.addActionListener(evt -> {
+            try {
+                btnPDFActionPerformed(evt);
+            } catch (DocumentException | FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
 
@@ -124,23 +124,42 @@ public class SearchClient extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void comboActionPerformed(java.awt.event.ActionEvent e) {
+        JComboBox cb = (JComboBox)e.getSource();
+        String clientName = (String)cb.getSelectedItem();
+        for (Client client : Client.getLesClients()) {
+            if (client.getNom().equalsIgnoreCase(clientName)) {
+                this.selectedClient = client;
+                break;
+            }
+        }
+    }
+
     private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:-
     }//GEN-LAST:event_btnXmlActionPerformed
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) throws DocumentException, FileNotFoundException {
-        System.out.println("1");
+        String DEST = "results/objects/vdev_contract_" + selectedClient.getNumClient() + ".pdf";
+        File file = new File(DEST);
+        file.getParentFile().mkdirs();
+
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("/home/thomas/test.pdf"));
-
+        PdfWriter.getInstance(document, new FileOutputStream(DEST));
         document.open();
-        System.out.println(document);
-        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-        Chunk chunk = new Chunk("Hello World", font);
+        Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLDITALIC);
+        Font paragraphFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
+        Chunk chunk = new Chunk("VDEV - " + selectedClient.getNom(), chapterFont);
+        Chapter chapter = new Chapter(new Paragraph(chunk), 1);
+        chapter.setNumberDepth(0);
+        chapter.add(new Paragraph("Détails :", paragraphFont));
+        chapter.add(new Paragraph("Nom : " + selectedClient.getNom(), paragraphFont));
+        chapter.add(new Paragraph("Adresse : " + selectedClient.getAdresse(), paragraphFont));
+        chapter.add(new Paragraph("SIREN : " + selectedClient.getSiren(), paragraphFont));
+        chapter.add(new Paragraph("Téléphone : " + selectedClient.getTelClient(), paragraphFont));
 
-        document.add(chunk);
+        document.add(chapter);
         document.close();
-
     }
 
     /**
@@ -150,13 +169,41 @@ public class SearchClient extends javax.swing.JFrame {
         Connecting conn = new Connecting();
         ResultSet result;
         
-        System.out.println("tentative de prendre le client");
-        result = conn.Select("SELECT Nom FROM client");
+        System.out.println("Tentative de récupération du client");
+        result = conn.Select("SELECT * FROM client");
         while(result.next()){
-            String nom = result.getString(1);
-            cboxClient.addItem(nom);
+            String numClient = result.getString(1);
+            String nom = result.getString(2);
+            String raisonSociale = result.getString(3);
+            String siren = result.getString(4);
+            String codeApe = result.getString(5);
+            String adresse = result.getString(6);
+            String numTelephone = result.getString(7);
+            String fax = result.getString(8);
+            int dureeDeplacement = result.getInt(9);
+            int distanceKm = result.getInt(10);
+            String numAgence = result.getString(11);
+            String url = result.getString(12);
+            String logo = result.getString(13);
 
+            new Client(
+                    numClient,
+                    raisonSociale,
+                    siren,
+                    codeApe,
+                    adresse,
+                    numTelephone,
+                    url,
+                    logo,
+                    numAgence,
+                    nom,
+                    dureeDeplacement,
+                    distanceKm
+            );
+
+            cboxClient.addItem(nom);
         }
+        System.out.println("Clients récupérés : " + Client.getLesClients().size());
     }
     public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
@@ -183,19 +230,14 @@ public class SearchClient extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new SearchClient().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new SearchClient().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         //Establish connection
-        
-            
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
