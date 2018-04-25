@@ -6,7 +6,6 @@
 package myproject;
 
 /**
- *
  * @author Joel
  */
 public class Famille {

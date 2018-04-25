@@ -5,43 +5,30 @@
  */
 package myproject;
 
+import javax.persistence.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
- *
  * @author Joel
  */
 @Entity
 @Table(name = "intervention", catalog = "ppe", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Intervention.findAll", query = "SELECT i FROM Intervention i")
-    , @NamedQuery(name = "Intervention.findByNumeroIntervention", query = "SELECT i FROM Intervention i WHERE i.numeroIntervention = :numeroIntervention")
-    , @NamedQuery(name = "Intervention.findByDateIntervention", query = "SELECT i FROM Intervention i WHERE i.dateIntervention = :dateIntervention")
-    , @NamedQuery(name = "Intervention.findByCommentaire", query = "SELECT i FROM Intervention i WHERE i.commentaire = :commentaire")
-    , @NamedQuery(name = "Intervention.findByLocalisation", query = "SELECT i FROM Intervention i WHERE i.localisation = :localisation")
-    , @NamedQuery(name = "Intervention.findByMatricule", query = "SELECT i FROM Intervention i WHERE i.matricule = :matricule")
-    , @NamedQuery(name = "Intervention.findByNumeroClient", query = "SELECT i FROM Intervention i WHERE i.numeroClient = :numeroClient")})
+        @NamedQuery(name = "Intervention.findAll", query = "SELECT i FROM Intervention i")
+        , @NamedQuery(name = "Intervention.findByNumeroIntervention", query = "SELECT i FROM Intervention i WHERE i.numeroIntervention = :numeroIntervention")
+        , @NamedQuery(name = "Intervention.findByDateIntervention", query = "SELECT i FROM Intervention i WHERE i.dateIntervention = :dateIntervention")
+        , @NamedQuery(name = "Intervention.findByCommentaire", query = "SELECT i FROM Intervention i WHERE i.commentaire = :commentaire")
+        , @NamedQuery(name = "Intervention.findByLocalisation", query = "SELECT i FROM Intervention i WHERE i.localisation = :localisation")
+        , @NamedQuery(name = "Intervention.findByMatricule", query = "SELECT i FROM Intervention i WHERE i.matricule = :matricule")
+        , @NamedQuery(name = "Intervention.findByNumeroClient", query = "SELECT i FROM Intervention i WHERE i.numeroClient = :numeroClient")})
 public class Intervention implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -158,5 +145,5 @@ public class Intervention implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
-    
+
 }

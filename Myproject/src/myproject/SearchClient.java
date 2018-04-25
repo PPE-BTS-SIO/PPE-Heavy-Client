@@ -5,26 +5,26 @@
  */
 package myproject;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author raphaeltribouilloy
  */
 public class SearchClient extends javax.swing.JFrame {
 
+    private static javax.swing.JComboBox<String> cboxClient;
     private Client selectedClient;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnContrat;
+    private javax.swing.JButton btnPDF;
+    private javax.swing.JButton btnXml;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
 
     /**
      * Creates new form SearchClient
@@ -32,6 +32,41 @@ public class SearchClient extends javax.swing.JFrame {
     public SearchClient() throws SQLException {
         initComponents();
         connectionBDD();
+    }
+
+    public static void main(String args[]) throws SQLException {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new SearchClient().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        //Establish connection
     }
 
     /**
@@ -70,63 +105,57 @@ public class SearchClient extends javax.swing.JFrame {
 
         btnPDF.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         btnPDF.setText("PDF");
-        btnPDF.addActionListener(evt -> {
-            try {
-                btnPDFActionPerformed(evt);
-            } catch (DocumentException | FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
+        btnPDF.addActionListener(this::btnPDFActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1)
-                        .addGap(89, 89, 89)
-                        .addComponent(cboxClient, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(btnPDF)
-                                    .addGap(119, 119, 119))
-                                .addComponent(btnContrat, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(btnXml)
-                                    .addGap(113, 113, 113)))
-                            .addGap(108, 108, 108))
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel1)
+                                                .addGap(89, 89, 89)
+                                                .addComponent(cboxClient, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                        .addComponent(btnPDF)
+                                                                        .addGap(119, 119, 119))
+                                                                .addComponent(btnContrat, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                        .addComponent(btnXml)
+                                                                        .addGap(113, 113, 113)))
+                                                        .addGap(108, 108, 108))
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cboxClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(btnXml)
-                .addGap(18, 18, 18)
-                .addComponent(btnContrat)
-                .addGap(18, 18, 18)
-                .addComponent(btnPDF)
-                .addGap(24, 24, 24))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(cboxClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addComponent(btnXml)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnContrat)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPDF)
+                                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboActionPerformed(java.awt.event.ActionEvent e) {
-        JComboBox cb = (JComboBox)e.getSource();
-        String clientName = (String)cb.getSelectedItem();
+        JComboBox cb = (JComboBox) e.getSource();
+        String clientName = (String) cb.getSelectedItem();
         for (Client client : Client.getLesClients()) {
             if (client.getNom().equalsIgnoreCase(clientName)) {
                 this.selectedClient = client;
@@ -139,39 +168,19 @@ public class SearchClient extends javax.swing.JFrame {
         // TODO add your handling code here:-
     }//GEN-LAST:event_btnXmlActionPerformed
 
-    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) throws DocumentException, FileNotFoundException {
-        String DEST = "results/objects/vdev_contract_" + selectedClient.getNumClient() + ".pdf";
-        File file = new File(DEST);
-        file.getParentFile().mkdirs();
-
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(DEST));
-        document.open();
-        Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLDITALIC);
-        Font paragraphFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
-        Chunk chunk = new Chunk("VDEV - " + selectedClient.getNom(), chapterFont);
-        Chapter chapter = new Chapter(new Paragraph(chunk), 1);
-        chapter.setNumberDepth(0);
-        chapter.add(new Paragraph("Détails :", paragraphFont));
-        chapter.add(new Paragraph("Nom : " + selectedClient.getNom(), paragraphFont));
-        chapter.add(new Paragraph("Adresse : " + selectedClient.getAdresse(), paragraphFont));
-        chapter.add(new Paragraph("SIREN : " + selectedClient.getSiren(), paragraphFont));
-        chapter.add(new Paragraph("Téléphone : " + selectedClient.getTelClient(), paragraphFont));
-
-        document.add(chapter);
-        document.close();
+    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {
+        new PDF(selectedClient);
     }
 
     /**
      * @param args the command line arguments
      */
-    private void connectionBDD() throws SQLException{
-        Connecting conn = new Connecting();
-        ResultSet result;
-        
+    private void connectionBDD() throws SQLException {
+        Connection connection = Connecting.getConnexion();
+
         System.out.println("Tentative de récupération du client");
-        result = conn.Select("SELECT * FROM client");
-        while(result.next()){
+        ResultSet result = connection.createStatement().executeQuery("SELECT * FROM client");
+        while (result.next()) {
             String numClient = result.getString(1);
             String nom = result.getString(2);
             String raisonSociale = result.getString(3);
@@ -205,47 +214,5 @@ public class SearchClient extends javax.swing.JFrame {
         }
         System.out.println("Clients récupérés : " + Client.getLesClients().size());
     }
-    public static void main(String args[]) throws SQLException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new SearchClient().setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        //Establish connection
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnContrat;
-    private javax.swing.JButton btnPDF;
-    private javax.swing.JButton btnXml;
-    private static javax.swing.JComboBox<String> cboxClient;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

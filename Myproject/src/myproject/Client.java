@@ -8,17 +8,15 @@ package myproject;
 import java.util.ArrayList;
 
 /**
- *
  * @author Joel
  */
 public class Client {
-    
+
+    private static ArrayList<Client> lesClients = new ArrayList<>();
     private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom;
     private int dureeDeplacement, distanceKm;
-
     private ArrayList<Materiel> lesMateriels = new ArrayList();
-    private ContratMaintenance leContrat;
-    private static ArrayList<Client> lesClients = new ArrayList<>();
+    private Contrat leContrat;
 
     public Client(
             String numClient,
@@ -49,107 +47,111 @@ public class Client {
         addClient(this);
     }
 
-    public String getNom(){
-        return nom;
-    }
-
-    public String getNumAgence(){
-        return numAgence;
-    }
-
-    public String getNumClient(){
-        return numClient;
-    }
-
-    public String getRaisonSociale() {
-        return raisonSociale;
-    }
-
-    public String getSiren() {
-        return siren;
-    }
-
-    public String getCodeApe() {
-        return codeApe;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public String getTelClient() {
-        return telClient;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public int getDureeDeplacement() {
-        return dureeDeplacement;
-    }
-
-    public int getDistanceKm() {
-        return distanceKm;
-    }
-
-    public void setNumClient(String numClient) {
-        this.numClient = numClient;
-    }
-
-    public void setRaisonSociale(String raisonSociale) {
-        this.raisonSociale = raisonSociale;
-    }
-
-    public void setSiren(String siren) {
-        this.siren = siren;
-    }
-
-    public void setCodeApe(String codeApe) {
-        this.codeApe = codeApe;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public void setTelClient(String telClient) {
-        this.telClient = telClient;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public void setNumAgence(String numAgence) {
-        this.numAgence = numAgence;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setDureeDeplacement(int dureeDeplacement) {
-        this.dureeDeplacement = dureeDeplacement;
-    }
-
-    public void setDistanceKm(int distanceKm) {
-        this.distanceKm = distanceKm;
-    }
-
     public static void addClient(Client client) {
         lesClients.add(client);
     }
 
     public static ArrayList<Client> getLesClients() {
         return lesClients;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getNumAgence() {
+        return numAgence;
+    }
+
+    public void setNumAgence(String numAgence) {
+        this.numAgence = numAgence;
+    }
+
+    public String getNumClient() {
+        return numClient;
+    }
+
+    public void setNumClient(String numClient) {
+        this.numClient = numClient;
+    }
+
+    public String getRaisonSociale() {
+        return raisonSociale;
+    }
+
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
+    }
+
+    public String getSiren() {
+        return siren;
+    }
+
+    public void setSiren(String siren) {
+        this.siren = siren;
+    }
+
+    public String getCodeApe() {
+        return codeApe;
+    }
+
+    public void setCodeApe(String codeApe) {
+        this.codeApe = codeApe;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTelClient() {
+        return telClient;
+    }
+
+    public void setTelClient(String telClient) {
+        this.telClient = telClient;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public int getDureeDeplacement() {
+        return dureeDeplacement;
+    }
+
+    public void setDureeDeplacement(int dureeDeplacement) {
+        this.dureeDeplacement = dureeDeplacement;
+    }
+
+    public int getDistanceKm() {
+        return distanceKm;
+    }
+
+    public void setDistanceKm(int distanceKm) {
+        this.distanceKm = distanceKm;
+    }
+
+    public void addMateriel(Materiel material) {
+        this.lesMateriels.add(material);
     }
 }
