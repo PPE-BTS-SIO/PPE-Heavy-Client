@@ -84,7 +84,7 @@ public class PDF {
         document.add(parList);
         document.close();
 
-        System.out.println("PDF generated!");
+        System.out.println("\nFichier PDF pour le contrat avec l'entreprise \u001B[36m" + client.getNom() + "\u001B[0m généré !");
 
         return true;
     }
