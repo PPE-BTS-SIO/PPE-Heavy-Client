@@ -24,6 +24,8 @@ public class TypeContrat {
         this.ref = ref;
         this.delaiIntervention = delaiIntervention;
         this.tauxApplicable = tauxApplicable;
+
+        // Ajout de l'instance TypeContrat dans la liste 'typesContrats'.
         typesContrat.add(this);
     }
 
@@ -68,7 +70,7 @@ public class TypeContrat {
             double tauxApplicable = result.getDouble("TauxApplicable");
             new TypeContrat(ref, delaiIntervention, tauxApplicable);
         }
-        System.out.println("Types de contrats récupérés : \u001B[36m" + TypeContrat.getTypesContrat().size() + "\u001B[0m");
+        System.out.println("Types de contrats récupérés : \u001B[36m" + TypeContrat.getTypesContrat().size() + "\u001B[0m.");
         return true;
     }
 }

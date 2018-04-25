@@ -212,7 +212,7 @@ public class SearchClient extends javax.swing.JFrame {
 
             cboxClient.addItem(nom);
         }
-        System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m");
+        System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
         TypeContrat.loadAllTypes();
     }
     // End of variables declaration//GEN-END:variables

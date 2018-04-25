@@ -38,7 +38,7 @@ public class Materiel {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Calendar c = Calendar.getInstance();
             c.setTime(dateVente); //Utilise la date de vente 
-            c.add(Calendar.DATE, 365); // la date de ventre + 1 ans 
+            c.add(Calendar.DATE, 365); // la date de vente + 1 ans
             Date DateEcheance = c.getTime();
             if (dateVente.after(DateEcheance)) {
                 int diffJour = (int) (DateEcheance.getTime() - dateVente.getTime()) / (1000 * 60 * 60 * 24);
@@ -46,7 +46,6 @@ public class Materiel {
             } else {
                 return 0;
             }
-
         }
         return 0;
     }
@@ -59,11 +58,8 @@ public class Materiel {
         return ref;
     }
 
-    public String getDateInstallation() {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        String strDateInstallation = df.format(dateInstallation);
-
-        return strDateInstallation;
+    public Date getDateInstallation() {
+        return this.dateInstallation;
     }
 
     public String getNom() {

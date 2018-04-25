@@ -16,7 +16,7 @@ public class Client {
     private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom;
     private int dureeDeplacement, distanceKm;
     private ArrayList<Materiel> lesMateriels = new ArrayList();
-    private Contrat leContrat;
+    private ContratMaintenance leContrat;
 
     public Client(
             String numClient,
