@@ -183,7 +183,7 @@ public class Materiel {
 	    e.printStackTrace();
 	}	
        			
-    return "cest null";
+    return "C'est null!";
     }
     
 }
