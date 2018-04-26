@@ -5,7 +5,12 @@
  */
 package myproject;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Joel
@@ -15,8 +20,7 @@ public class Client {
     private static ArrayList<Client> lesClients = new ArrayList<>();
     private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom;
     private int dureeDeplacement, distanceKm;
-    private ArrayList<Materiel> lesMateriels = new ArrayList();
-    private ContratMaintenance leContrat;
+    private ArrayList<ContratMaintenance> lesContrats;
 
     public Client(
             String numClient,
@@ -151,7 +155,26 @@ public class Client {
         this.distanceKm = distanceKm;
     }
 
-    public void addMateriel(Materiel material) {
-        this.lesMateriels.add(material);
+    public ArrayList<ContratMaintenance> getLesContrats() {
+        return lesContrats;
+    }
+
+    public void loadContracts() throws SQLException {
+        Connection connection = Connecting.getConnexion();
+        if (connection == null) return;
+        this.lesContrats = new ArrayList<>();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM `contrat` WHERE `NumeroClient` = ?");
+        ps.setString(1, this.numClient);
+        System.out.println("\nRécupération des contrats de l'entreprise \u001B[36m" + this.nom + "\u001B[0m...");
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            int numContrat = result.getInt("Num_contrat");
+            Date dateSignature = result.getDate("Date_signature");
+            Date dateExpiration = result.getDate("Date_expiration");
+            String typeContrat = result.getString("RefTypeContrat");
+            ContratMaintenance contrat = new ContratMaintenance(numContrat, dateSignature, dateExpiration);
+            this.lesContrats.add(contrat);
+        }
+        System.out.println("Contrats récupérés : \u001B[36m" + this.lesContrats.size() + "\u001B[0m.");
     }
 }

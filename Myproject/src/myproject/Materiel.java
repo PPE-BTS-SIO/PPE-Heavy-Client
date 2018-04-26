@@ -24,14 +24,24 @@ import java.util.Date;
  * @author Joel
  */
 public class Materiel {
-    private int numSerie;
+    private int numContrat;
     private Date dateVente, dateInstallation;
     private double prixVente;
-    private String emplacement, ref, numContrat;
-    private String nom;
+    private String numSerie, emplacement, ref, nom;
     private TypeMateriel leType;
 
-    //Focntion pour avoir les jours avant fin contrat 
+    public Materiel(String numSerie, int numContrat, Date dateVente, Date dateInstallation, double prixVente, String emplacement, String ref, String nom) {
+        this.numSerie = numSerie;
+        this.numContrat = numContrat;
+        this.dateVente = dateVente;
+        this.dateInstallation = dateInstallation;
+        this.prixVente = prixVente;
+        this.emplacement = emplacement;
+        this.ref = ref;
+        this.nom = nom;
+    }
+
+    //Fonction pour avoir les jours avant fin contrat
     public int getNbrJourAvantEcheance() {
         //si object n'est pas sur contrat retourne 0
         if (dateVente != null) {
@@ -50,7 +60,7 @@ public class Materiel {
         return 0;
     }
 
-    public String getNumContrat() {
+    public int getNumContrat() {
         return numContrat;
     }
 
@@ -66,7 +76,7 @@ public class Materiel {
         return nom;
     }
 
-    public int getNumSerie() {
+    public String getNumSerie() {
         return numSerie;
     }
 
@@ -165,11 +175,7 @@ public class Materiel {
             StringBuffer sb = outWriter.getBuffer();
             String finalstring = sb.toString();
             return finalstring;
-        } catch (final ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
+        } catch (final ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
         }
 
