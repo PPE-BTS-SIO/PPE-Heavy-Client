@@ -7,8 +7,20 @@ package myproject;
 
 /**
  *
+
  * @author raphaeltribouilloy
  */
-public class GestionMateriels {
+
     
+
+public class GestionMateriels {
+    private Connecting donnees;
+
+    public GestionMateriels(Connecting donnees) {
+        this.donnees = donnees;
+    }
+   public Client getClient(int idClient){
+       //donnees.Select(Query)
+   }
+
 }

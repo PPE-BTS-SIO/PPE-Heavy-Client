@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @author Joel
  */
 public class ContratMaintenance {
+
     private int numContrat;
     private Date dateSignature, dateEcheance;
     private ArrayList<Materiel> lesMaterielsAssures;
@@ -80,4 +81,5 @@ public class ContratMaintenance {
         }
         System.out.println("Matériels récupérés : \u001B[36m" + this.lesMaterielsAssures.size() + "\u001B[0m.");
     }
+
 }

@@ -18,9 +18,16 @@ import java.util.Date;
 public class Client {
 
     private static ArrayList<Client> lesClients = new ArrayList<>();
+
     private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom;
     private int dureeDeplacement, distanceKm;
     private ArrayList<ContratMaintenance> lesContrats;
+
+
+    public Client(){
+    
+    }
+    
 
     public Client(
             String numClient,
