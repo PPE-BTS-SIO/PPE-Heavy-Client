@@ -123,6 +123,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         this.ouvrirConnexion();
         Object unObjet = null;
         ResultSet result = null;
+        Client unClient = new Client();
         if (nomClasse == "Client"){
             result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ ((Client) unObjet).getNumClient() + "'");
             while (result.next()){
@@ -132,14 +133,28 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                 String codeAP = result.getString(5);
                 String Addresse = result.getString(6);
                 String numTel = result.getString(7);
-                String url = result.getString(12);
+                String urlC = result.getString(12);
                 String logo = result.getString(13);
                 String numAgence = result.getString(11);
-                int dureeDeplancement = result.getInt(9);
+                String numSiren = result.getString(4);
+                int dureeDeplacement = result.getInt(9);
                 int distance = result.getInt(10);
+                unClient.setAdresse(Addresse);
+                unClient.setCodeApe(codeAP);
+                unClient.setDistanceKm(distance);
+                unClient.setDureeDeplacement(dureeDeplacement);
+                unClient.setNom(nom);
+                unClient.setNumAgence(numAgence);
+                unClient.setNumClient(numClient);
+                unClient.setRaisonSociale(raisonSociale);
+                unClient.setSiren(numSiren);
+                unClient.setTelClient(numTel);
+                unClient.setUrl(urlC);
+                
             }
             //Des que l'on a les donnees on les places dans une classe 
-            Client unclient = new Client();
+           
+            return unClient;
         }
         //On a peut etre pas besoin de tout ca 
         else if (nomClasse == "Contrat"){
