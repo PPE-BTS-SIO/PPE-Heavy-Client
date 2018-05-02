@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -42,7 +43,14 @@ class Connecting {
 
     //Constructor 
     public Connecting() throws SQLException {
-        ouvrirConnexion();
+        //si la connexion n'est pas encore ouvert, je veux l'ouvrir 
+        //sinon utilise la connexion deja ouverte
+        if (connexion == null) {
+          ouvrirConnexion();  
+        }else{
+            getConnexion();
+        }
+        
     }
 
     public static Connection getConnexion() {
@@ -130,19 +138,6 @@ class Connecting {
 
     }
 
-    public Object chargerDepuisBase(String id, String nomClasse) throws SQLException {
-        //Au lieu d'utiliser l'ID du client, nous allons utiliser le nom du client 
-        this.ouvrirConnexion();
-        Object unObjet = null;
-        ResultSet result = null;
-        if (nomClasse == "Client") {
-            result = this.Select("SELECT * FROM `client` WHERE Nom = '" + ((Client) unObjet).getNom() + "'");
-=======
-        
-        
-        
-        
-    }
 */
 
     private Date UnAnsDePlus(Date laDate){
@@ -157,12 +152,15 @@ class Connecting {
     
 public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
     //Recuperation de donnee de la base de donnee
-        this.ouvrirConnexion();
+        Connection connection = Connecting.getConnexion();
+        if (connection == null) return null;
         Object unObjet = null;
         ResultSet result = null;
         Client unClient = new Client();
         ContratMaintenance unContrat = new ContratMaintenance();
         Materiel unMateriel = new Materiel();
+        ArrayList<ContratMaintenance> lesContrats= new ArrayList<ContratMaintenance>();
+        ArrayList<Materiel> lesMaterielsAssures = new ArrayList<Materiel>();
         if (nomClasse == "Client"){
             result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ id + "'");
             while (result.next()){
@@ -197,16 +195,43 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         }
         //On a peut etre pas besoin de tout ca 
         else if (nomClasse == "Contrat"){
-            result = this.Select("SELECT * FROM contrat WHERE Num_Contrat=" + "'" + id + "'" );
-            while(result.Next){
-                Date dateSignature = result.getDate(2);
-                Date dateEcheance = result.getDate(3);
-                // un contrat peu avoir plus d'un materiel attache
+            result = this.Select("SELECT * FROM contrat WHERE NumeroClient=" + "'" + id + "'" );
+            while(result.next()){
+                int numContrat = result.getInt("Num_contrat");
+                Date dateSignature = result.getDate("Date_signature");
+                Date dateExpiration = result.getDate("Date_expiration");
+                String typeContrat = result.getString("RefTypeContrat");
+                ContratMaintenance contrat = new ContratMaintenance(numContrat, dateSignature, dateExpiration);
+                lesContrats.add(contrat);
+                
             }
+            return lesContrats; // retourne une ArrayList -> dois voir comment convertir en Object
         }
         else if (nomClasse == "Materiel"){
-            result = this.Select("SELECT * FROM materiel WHERE NumSerie=" + "'"+ ((Materiel) unObjet).getRef());
-
+            //recuperation des materiels a partir du numero de contrat 
+            result = this.Select("SELECT * FROM materiel WHERE Num_Contrat=" + "'"+ ((Materiel) unObjet).getRef());
+            
+            while (result.next()){
+                String numSerie = result.getString("NumSerie");
+                String nom = result.getString("Nom");
+                Date dateVente = result.getDate("DateVente");
+                Date dateInstallation = result.getDate("DateInstallation");
+                float prix = result.getFloat("Prix");
+                String emplacement = result.getString("Emplacement");
+                String ref = result.getString("ref");
+                Materiel materiel = new Materiel(
+                    numSerie,
+                    Integer.parseInt(id),
+                    dateVente,
+                    dateInstallation,
+                    (double)prix,
+                    emplacement,
+                    ref,
+                    nom
+            );
+            lesMaterielsAssures.add(materiel);
+             }
+            return lesMaterielsAssures; // retourne une ArrayList -> dois voir comment convertir en Object
         }
 
         return result;
