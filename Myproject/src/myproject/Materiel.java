@@ -40,6 +40,8 @@ public class Materiel {
         this.ref = ref;
         this.nom = nom;
     }
+    public Materiel(){}
+    
 
     //Fonction pour avoir les jours avant fin contrat
     public int getNbrJourAvantEcheance() {

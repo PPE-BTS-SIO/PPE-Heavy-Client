@@ -156,13 +156,15 @@ class Connecting {
     }
     
 public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
-    //Recuperation de classe de la base de donnee
+    //Recuperation de donnee de la base de donnee
         this.ouvrirConnexion();
         Object unObjet = null;
         ResultSet result = null;
         Client unClient = new Client();
+        ContratMaintenance unContrat = new ContratMaintenance();
+        Materiel unMateriel = new Materiel();
         if (nomClasse == "Client"){
-            result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ ((Client) unObjet).getNumClient() + "'");
+            result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ id + "'");
             while (result.next()){
                 String numClient = result.getString(1);
                 String nom = result.getString(2);
@@ -195,7 +197,12 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         }
         //On a peut etre pas besoin de tout ca 
         else if (nomClasse == "Contrat"){
-            result = this.Select("SELECT * FROM contrat WHERE Num_Contrat=" + "'" + ((ContratMaintenance) unObjet).getNumContrat() + "'" );
+            result = this.Select("SELECT * FROM contrat WHERE Num_Contrat=" + "'" + id + "'" );
+            while(result.Next){
+                Date dateSignature = result.getDate(2);
+                Date dateEcheance = result.getDate(3);
+                // un contrat peu avoir plus d'un materiel attache
+            }
         }
         else if (nomClasse == "Materiel"){
             result = this.Select("SELECT * FROM materiel WHERE NumSerie=" + "'"+ ((Materiel) unObjet).getRef());

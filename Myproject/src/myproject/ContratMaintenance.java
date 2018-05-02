@@ -16,12 +16,19 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Joel
  */
+
 public class ContratMaintenance {
 
     private int numContrat;
     private Date dateSignature, dateEcheance;
     private ArrayList<Materiel> lesMaterielsAssures;
+public ContratMaintenance(){
+    //Pour initialisation sans mettre les valeurs directement
+}
 
+    public int getNumContrat() {
+        return numContrat;
+    }
     public ContratMaintenance(int numContrat, Date dateSignature, Date dateEcheance) {
         this.numContrat = numContrat;
         this.dateSignature = dateSignature;
