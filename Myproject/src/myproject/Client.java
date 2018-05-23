@@ -167,10 +167,11 @@ public class Client {
     }
 
     public void loadContracts() throws SQLException {
-        Connection connection = Connecting.getConnexion();
+        Connecting connection = new Connecting();
         if (connection == null) return;
         this.lesContrats = new ArrayList<>();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM `contrat` WHERE `NumeroClient` = ?");
+        this.lesContrats = (ArrayList<ContratMaintenance>) connection.chargerDepuisBase(this.numClient, "Contrat");
+        /*PreparedStatement ps = connection.prepareStatement("SELECT * FROM `contrat` WHERE `NumeroClient` = ?");
         ps.setString(1, this.numClient);
         System.out.println("\nRécupération des contrats de l'entreprise \u001B[36m" + this.nom + "\u001B[0m...");
         ResultSet result = ps.executeQuery();
@@ -182,6 +183,7 @@ public class Client {
             ContratMaintenance contrat = new ContratMaintenance(numContrat, dateSignature, dateExpiration);
             this.lesContrats.add(contrat);
         }
+*/
         System.out.println("Contrats récupérés : \u001B[36m" + this.lesContrats.size() + "\u001B[0m.");
     }
 }

@@ -209,7 +209,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         }
         else if (nomClasse == "Materiel"){
             //recuperation des materiels a partir du numero de contrat 
-            result = this.Select("SELECT * FROM materiel WHERE Num_Contrat=" + "'"+ ((Materiel) unObjet).getRef());
+            result = this.Select("SELECT * FROM materiel WHERE Num_Contrat=" + "'"+ id + "'");
             
             while (result.next()){
                 String numSerie = result.getString("NumSerie");

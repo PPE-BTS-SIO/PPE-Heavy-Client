@@ -59,33 +59,12 @@ public ContratMaintenance(){
     }
 
     public void loadMaterials() throws SQLException {
-        Connection connection = Connecting.getConnexion();
+        Connecting connection = new Connecting();
+        
         if (connection == null) return;
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM `materiel` WHERE `Num_Contrat` = ?");
-        ps.setInt(1, this.numContrat);
-        ResultSet result = ps.executeQuery();
-        System.out.println("\nRécupération des matériels du contrat \u001B[36m" + this.numContrat + "\u001B[0m...");
-        this.lesMaterielsAssures = new ArrayList<>();
-        while (result.next()) {
-            String numSerie = result.getString("NumSerie");
-            String nom = result.getString("Nom");
-            Date dateVente = result.getDate("DateVente");
-            Date dateInstallation = result.getDate("DateInstallation");
-            float prix = result.getFloat("Prix");
-            String emplacement = result.getString("Emplacement");
-            String ref = result.getString("ref");
-            Materiel materiel = new Materiel(
-                    numSerie,
-                    this.numContrat,
-                    dateVente,
-                    dateInstallation,
-                    (double)prix,
-                    emplacement,
-                    ref,
-                    nom
-            );
-            this.lesMaterielsAssures.add(materiel);
-        }
+        
+        lesMaterielsAssures = (ArrayList<Materiel>) connection.chargerDepuisBase(String.valueOf(this.numContrat), "Materiel");
+        
         System.out.println("Matériels récupérés : \u001B[36m" + this.lesMaterielsAssures.size() + "\u001B[0m.");
     }
 
