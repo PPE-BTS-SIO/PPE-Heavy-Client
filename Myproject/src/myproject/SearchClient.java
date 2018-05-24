@@ -19,7 +19,7 @@ public class SearchClient extends javax.swing.JFrame {
 
     private static javax.swing.JComboBox<String> cboxClient;
     private Client selectedClient;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnContrat;
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnXml;
@@ -171,6 +171,11 @@ public class SearchClient extends javax.swing.JFrame {
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {
         new PDF(selectedClient);
     }
+    private void btnContrat(java.awt.event.ActionEvent evt) {
+        new EtatContrat(selectedClient).setVisible(true);
+        this.setVisible(false);
+        
+    }
 
     /**
      * @param args the command line arguments
@@ -215,5 +220,5 @@ public class SearchClient extends javax.swing.JFrame {
         System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
         TypeContrat.loadAllTypes();
     }
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
