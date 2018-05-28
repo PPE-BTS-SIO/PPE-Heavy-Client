@@ -19,7 +19,7 @@ public class SearchClient extends javax.swing.JFrame {
 
     private static javax.swing.JComboBox<String> cboxClient;
     private Client selectedClient;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnContrat;
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnXml;
@@ -165,7 +165,7 @@ public class SearchClient extends javax.swing.JFrame {
     }
 
     private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
-        // TODO add your handling code here:-
+        new GestionMateriels(selectedClient);
     }//GEN-LAST:event_btnXmlActionPerformed
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,5 +215,5 @@ public class SearchClient extends javax.swing.JFrame {
         System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
         TypeContrat.loadAllTypes();
     }
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
