@@ -24,13 +24,24 @@ import java.util.Date;
  * @author Joel
  */
 public class Materiel {
-    private int numContrat;
+    private int numContrat, quantite;
     private Date dateVente, dateInstallation;
     private double prixVente;
     private String numSerie, emplacement, ref, nom;
     private TypeMateriel leType;
 
-    public Materiel(String numSerie, int numContrat, Date dateVente, Date dateInstallation, double prixVente, String emplacement, String ref, String nom) {
+    public Materiel(
+            String numSerie,
+            int numContrat, 
+            Date dateVente,         
+            Date dateInstallation, 
+            double prixVente, 
+            String emplacement, 
+            String ref, 
+            String nom,
+            int quantite)
+  
+    {
         this.numSerie = numSerie;
         this.numContrat = numContrat;
         this.dateVente = dateVente;
@@ -39,6 +50,7 @@ public class Materiel {
         this.emplacement = emplacement;
         this.ref = ref;
         this.nom = nom;
+        this.quantite = quantite;
     }
     public Materiel(){}
     
@@ -99,6 +111,10 @@ public class Materiel {
 
     public TypeMateriel getLeType() {
         return leType;
+    }
+    
+    public int getQuantite(){
+        return quantite;
     }
 
     public String xmlMateriel() throws ParserConfigurationException {
@@ -181,7 +197,7 @@ public class Materiel {
             e.printStackTrace();
         }
 
-        return "C'est null!";
+        return " " ;
     }
 
 }

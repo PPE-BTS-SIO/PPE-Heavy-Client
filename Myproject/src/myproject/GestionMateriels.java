@@ -114,6 +114,7 @@ public class GestionMateriels {
  
             final Element type                  =   document.createElement("type");
             final Element famille               =   document.createElement("famille");
+            final Element quantite              =   document.createElement("quantite");
             final Element date_vente            =   document.createElement("date_vente");
             final Element date_installation     =   document.createElement("date_installation");
             final Element prix_vente            =   document.createElement("prix_vente");
@@ -137,6 +138,9 @@ public class GestionMateriels {
             //famille.setAttribute("codeFamille", unMaterielExpire.getLeType().getCode());
             //famille.setAttribute("libelle", String.valueOf(unMaterielExpire.getLeType().getLibelleTypeMateriel()));
             unMateriel.appendChild(famille);
+            
+            quantite.appendChild(document.createTextNode(String.valueOf(unMaterielExpire.getQuantite())));
+            unMateriel.appendChild(quantite);
  
             date_vente.appendChild(document.createTextNode(unMaterielExpire.getDateVente()));
             unMateriel.appendChild(date_vente);
@@ -159,6 +163,7 @@ public class GestionMateriels {
  
             final Element type                  =   document.createElement("type");
             final Element famille               =   document.createElement("famille");
+            final Element quantite              =   document.createElement("quantite");
             final Element date_vente            =   document.createElement("date_vente");
             final Element date_installation     =   document.createElement("date_installation");
             final Element prix_vente            =   document.createElement("prix_vente");
@@ -181,6 +186,9 @@ public class GestionMateriels {
             //famille.setAttribute("codeFamille", String.valueOf(materielExpirés.getLeType().getCode()));
             //famille.setAttribute("libelle", String.valueOf(materielExpirés.getLeType().getLibelleTypeMateriel()));
             //unMateriel.appendChild(famille);
+            
+            quantite.appendChild(document.createTextNode(String.valueOf(unMaterielSousContrat.getQuantite())));
+            unMateriel.appendChild(quantite);
  
             date_vente.appendChild(document.createTextNode(unMaterielSousContrat.getDateVente()));
             unMateriel.appendChild(date_vente);

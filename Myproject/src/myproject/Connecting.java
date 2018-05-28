@@ -176,6 +176,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                 String numSiren = result.getString(4);
                 int dureeDeplacement = result.getInt(9);
                 int distance = result.getInt(10);
+                
                 unClient.setAdresse(Addresse);
                 unClient.setCodeApe(codeAP);
                 unClient.setDistanceKm(distance);
@@ -219,6 +220,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                 float prix = result.getFloat("Prix");
                 String emplacement = result.getString("Emplacement");
                 String ref = result.getString("ref");
+                int quantite = result.getInt("Quantite");
                 Materiel materiel = new Materiel(
                     numSerie,
                     Integer.parseInt(id),
@@ -227,7 +229,8 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                     (double)prix,
                     emplacement,
                     ref,
-                    nom
+                    nom,
+                    quantite
             );
             lesMaterielsAssures.add(materiel);
              }
