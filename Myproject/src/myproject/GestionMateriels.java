@@ -215,7 +215,7 @@ public class GestionMateriels {
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
  
             // Sortie sur un ficher xml
-            StreamResult result = new StreamResult(new File("C:\\Users\\Raphael\\Desktop\\PPE-Heavy-Client-master\\PPE-Heavy-Client-master\\Myproject\\generated\\xml\\Materielclientcli"+ client.getNumClient() +".xml"));
+            StreamResult result = new StreamResult(new File("/Users/raphaeltribouilloy/Desktop/PPE-Heavy-Client/Myproject/generated/xml/Materielclientcli"+ client.getNumClient() +".xml"));
           
             //Sortie sur la console
             //StreamResult result = new StreamResult(System.out);
