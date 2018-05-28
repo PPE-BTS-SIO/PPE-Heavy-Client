@@ -214,6 +214,23 @@ public class SearchClient extends javax.swing.JFrame {
         }
         System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
         TypeContrat.loadAllTypes();
+    
+    
+        System.out.println("\nRécupération des Types de Famille...");
+        ResultSet resultTypeFamille = connection.createStatement().executeQuery("SELECT * FROM famille_produit");
+        while (result.next()) {
+            String codeFamille       =  result.getString(1);
+            String libelleFamille    =  result.getString(2);
+            
+            new Famille(
+                    codeFamille,
+                    libelleFamille
+            );
+        
+        }
+    
     }
+    
+    
     // End of variables declaration                   
 }
