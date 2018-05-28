@@ -12,6 +12,17 @@ public class TypeMateriel {
     private String referenceInterne, libelleTypeMateriel, code;
     private Famille laFamille;
 
+    public TypeMateriel(String uneReferenceInterne,String unlibelleTypeMateriel, String unCode){
+        
+        this.referenceInterne = uneReferenceInterne ;
+        this.libelleTypeMateriel = unlibelleTypeMateriel;
+        this.code = unCode;
+        
+    }
+    
+    
+    
+    
     public String getReferenceInterne() {
         return referenceInterne;
     }
