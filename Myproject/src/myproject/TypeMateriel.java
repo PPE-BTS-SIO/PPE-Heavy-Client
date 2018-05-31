@@ -9,9 +9,16 @@ package myproject;
  * @author Joel
  */
 public class TypeMateriel {
-    private String referenceInterne, libelleTypeMateriel, code;
+    private String referenceInterne, libelleTypeMateriel, codeFamille;
     private Famille laFamille;
 
+    public TypeMateriel(String referenceInterne,String libelleTypeMateriel,String codeFamille){
+        this.referenceInterne = referenceInterne;
+        this.libelleTypeMateriel = libelleTypeMateriel;
+        this.codeFamille = codeFamille;
+    }
+
+    
     public String getReferenceInterne() {
         return referenceInterne;
     }
@@ -21,8 +28,21 @@ public class TypeMateriel {
     }
 
     public String getCode() {
-        return code;
+        return codeFamille;
     }
+
+    public TypeMateriel(String referenceInterne, String libelleTypeMateriel, String codeFamille, Famille laFamille) {
+        this.referenceInterne = referenceInterne;
+        this.libelleTypeMateriel = libelleTypeMateriel;
+        this.codeFamille = codeFamille;
+        this.laFamille = laFamille;
+    }
+
+    public void setLaFamille(Famille laFamille) {
+        this.laFamille = laFamille;
+    }
+
+    
 
 
 }

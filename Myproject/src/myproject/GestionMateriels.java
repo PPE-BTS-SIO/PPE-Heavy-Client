@@ -19,8 +19,6 @@ public class GestionMateriels {
     public GestionMateriels(Connecting donnees) {
         this.donnees = donnees;
     }
-   public Client getClient(int idClient){
-       //donnees.Select(Query)
-   }
+   
 
 }
