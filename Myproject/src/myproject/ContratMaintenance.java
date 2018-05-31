@@ -5,9 +5,7 @@
  */
 package myproject;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +23,13 @@ public class ContratMaintenance {
 public ContratMaintenance(){
     //Pour initialisation sans mettre les valeurs directement
 }
+
+    public ContratMaintenance(int numContrat, Date dateSignature, Date dateEcheance, ArrayList<Materiel> lesMaterielsAssures) {
+        this.numContrat = numContrat;
+        this.dateSignature = dateSignature;
+        this.dateEcheance = dateEcheance;
+        this.lesMaterielsAssures = lesMaterielsAssures;
+    }
 
     public int getNumContrat() {
         return numContrat;

@@ -40,6 +40,9 @@ class Connecting {
     private String password;
     private String resultat;
 
+    private ArrayList<Client> lesClients= new ArrayList<>();
+    private ArrayList<ContratMaintenance> lesContrats= new ArrayList<>();
+    private ArrayList<Materiel> lesMaterielsAssures = new ArrayList<>();
 
     //Constructor 
     public Connecting() throws SQLException {
@@ -149,6 +152,86 @@ class Connecting {
         Date dateUnAnsDePlus = c.getTime();
         return dateUnAnsDePlus;
     }
+    public Object chargerFamille(String id) throws SQLException{
+        //Recuperation de donnee de la base de donnee
+        ResultSet result = null;
+        result = this.Select("SELECT * FROM famille_produit WHERE Code = '"+ id +"'" );
+        String code = null;
+        String libelle = null;
+        while (result.next()){
+            code = result.getString(1);
+            libelle = result.getString(2);
+        }
+         //creation de l'objet avec les valeurs de la BDD
+        Famille uneFamille = new Famille(code,libelle);
+        return uneFamille;
+    }
+    
+   public Object chargerTypeMateriel(String id) throws SQLException{
+       //Recuperation de donnee de la base de donnee
+       ResultSet result = null;
+       result = this.Select("SELECT * FROM type_materiel WHERE Ref = '"+ id +"'" );
+       String ref = null;
+       String libelle = null; 
+       String code = null;
+       while (result.next()){
+            ref = result.getString(1);
+            libelle = result.getString(2);
+            code = result.getString(3);
+        }
+       //creation de l'objet avec les valeurs de la BDD
+       TypeMateriel unType = new TypeMateriel(ref,libelle,code, (Famille) this.chargerFamille(code));
+       return unType;
+   }
+   public Object chargerMateriel(String id) throws SQLException{
+       //Recuperation de donnee de la base de donnee
+       ResultSet result = null;
+       result = this.Select("SELECT * FROM materiel WHERE NumSerie = '"+ id +"'" );
+       String numSerie = null;
+       String nom = null; 
+       Date dateVente = null;
+       Date dateInstallation = null; 
+       double prix = 0;
+       String emplacement = null;
+       String ref = null; 
+       int numContrat = 0;
+       int quantite = 0; 
+       
+       while (result.next()){
+           numSerie = result.getString(1);
+           nom = result.getString(2);
+           dateVente = result.getDate(3);
+           dateInstallation = result.getDate(4);
+           prix = result.getDouble(5);
+           emplacement  = result.getString(6);
+           ref = result.getString(7);
+           numContrat = result.getInt(8);
+           quantite = result.getInt(9);        
+       }
+       //creation de l'objet avec les valeurs de la BDD
+       Materiel leMateriel = new Materiel(numContrat, quantite, dateVente, dateInstallation, prix, numSerie, emplacement, ref, nom, (TypeMateriel) this.chargerTypeMateriel(ref));
+       return leMateriel;
+   }
+   
+   public Object chargerContrat(String id) throws SQLException{
+    //Recuperation de donnee de la base de donnee
+    ResultSet result = null;
+    result = this.Select("SELECT * FROM contrat WHERE NumeroClient = '"+ id +"'" );
+    //initation de variable 
+    int numContrat = 0; 
+    Date dateSignature = null;
+    Date dateEcheance = null;
+    while(result.next()){
+       numContrat = result.getInt(1);
+       dateSignature = result.getDate(2);
+       dateEcheance = result.getDate("Date_Echeance");
+       
+   }
+    ContratMaintenance leContrat = new ContratMaintenance(numContrat, dateSignature, dateEcheance);
+    leContrat.loadMaterials();
+    return leContrat;
+    
+   }
     
 public Object chargerDepuisBase(String id, String nomClasse) throws SQLException{
     //Recuperation de donnee de la base de donnee
@@ -159,82 +242,66 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         Client unClient = new Client();
         ContratMaintenance unContrat = new ContratMaintenance();
         Materiel unMateriel = new Materiel();
-        ArrayList<ContratMaintenance> lesContrats= new ArrayList<ContratMaintenance>();
-        ArrayList<Materiel> lesMaterielsAssures = new ArrayList<Materiel>();
-        if (nomClasse == "Client"){
-            result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ id + "'");
-            while (result.next()){
-                String numClient = result.getString(1);
-                String nom = result.getString(2);
-                String raisonSociale = result.getString(3);
-                String codeAP = result.getString(5);
-                String Addresse = result.getString(6);
-                String numTel = result.getString(7);
-                String urlC = result.getString(12);
-                String logo = result.getString(13);
-                String numAgence = result.getString(11);
-                String numSiren = result.getString(4);
-                int dureeDeplacement = result.getInt(9);
-                int distance = result.getInt(10);
-                unClient.setAdresse(Addresse);
-                unClient.setCodeApe(codeAP);
-                unClient.setDistanceKm(distance);
-                unClient.setDureeDeplacement(dureeDeplacement);
-                unClient.setNom(nom);
-                unClient.setNumAgence(numAgence);
-                unClient.setNumClient(numClient);
-                unClient.setRaisonSociale(raisonSociale);
-                unClient.setSiren(numSiren);
-                unClient.setTelClient(numTel);
-                unClient.setUrl(urlC);
+        
+        if (null != nomClasse)switch (nomClasse) {
+            case "Client":
+                result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ id + "'");
+                while (result.next()){
+                    String numClient = result.getString(1);
+                    String nom = result.getString(2);
+                    String raisonSociale = result.getString(3);
+                    String codeAP = result.getString(5);
+                    String Addresse = result.getString(6);
+                    String numTel = result.getString(7);
+                    String urlC = result.getString(12);
+                    String logo = result.getString(13);
+                    String numAgence = result.getString(11);
+                    String numSiren = result.getString(4);
+                    int dureeDeplacement = result.getInt(9);
+                    int distance = result.getInt(10);
+                    unClient.setAdresse(Addresse);
+                    unClient.setCodeApe(codeAP);
+                    unClient.setDistanceKm(distance);
+                    unClient.setDureeDeplacement(dureeDeplacement);
+                    unClient.setNom(nom);
+                    unClient.setNumAgence(numAgence);
+                    unClient.setNumClient(numClient);
+                    unClient.setRaisonSociale(raisonSociale);
+                    unClient.setSiren(numSiren);
+                    unClient.setTelClient(numTel);
+                    unClient.setUrl(urlC);
+                    lesClients.add(unClient);
+                    ResultSet resultContrat = null;
+                    resultContrat = this.Select("SELECT * FROM contrat WHERE NumeroClient=" + "'" + numClient + "'" );
+                    while(result.next()){
+                        unContrat = (ContratMaintenance) this.chargerContrat(numClient);
+                        lesContrats.add(unContrat);
+                        unMateriel = (Materiel) this.chargerMateriel(Integer.toString(unContrat.getNumContrat()));
+                        lesMaterielsAssures.add(unMateriel);
+                    }
+                }
+                //Des que l'on a les donnees on les places dans une classe
                 
-            }
-            //Des que l'on a les donnees on les places dans une classe 
-           
-            return unClient;
-        }
-        //On a peut etre pas besoin de tout ca 
-        else if (nomClasse == "Contrat"){
-            result = this.Select("SELECT * FROM contrat WHERE NumeroClient=" + "'" + id + "'" );
-            while(result.next()){
-                int numContrat = result.getInt("Num_contrat");
-                Date dateSignature = result.getDate("Date_signature");
-                Date dateExpiration = result.getDate("Date_expiration");
-                String typeContrat = result.getString("RefTypeContrat");
-                ContratMaintenance contrat = new ContratMaintenance(numContrat, dateSignature, dateExpiration);
-                lesContrats.add(contrat);
+                return lesClients;
+            case "Contrat":
+                ContratMaintenance contrat = new ContratMaintenance();
+                contrat = (ContratMaintenance) this.chargerContrat(id);
+                lesContrats.add(contrat);                   
+                              
+                return lesContrats; // retourne une ArrayList -> dois voir comment convertir en Object
+            case "Materiel":
+                //recuperation des materiels a partir du numero de contrat
+                Materiel materiel = new Materiel();
+                materiel = (Materiel) this.chargerMateriel(id);
+                    
+                lesMaterielsAssures.add(materiel);
                 
-            }
-            return lesContrats; // retourne une ArrayList -> dois voir comment convertir en Object
-        }
-        else if (nomClasse == "Materiel"){
-            //recuperation des materiels a partir du numero de contrat 
-            result = this.Select("SELECT * FROM materiel WHERE Num_Contrat=" + "'"+ id + "'");
-            
-            while (result.next()){
-                String numSerie = result.getString("NumSerie");
-                String nom = result.getString("Nom");
-                Date dateVente = result.getDate("DateVente");
-                Date dateInstallation = result.getDate("DateInstallation");
-                float prix = result.getFloat("Prix");
-                String emplacement = result.getString("Emplacement");
-                String ref = result.getString("ref");
-                Materiel materiel = new Materiel(
-                    numSerie,
-                    Integer.parseInt(id),
-                    dateVente,
-                    dateInstallation,
-                    (double)prix,
-                    emplacement,
-                    ref,
-                    nom
-            );
-            lesMaterielsAssures.add(materiel);
-             }
-            return lesMaterielsAssures; // retourne une ArrayList -> dois voir comment convertir en Object
+                return lesMaterielsAssures; // retourne une ArrayList -> dois voir comment convertir en Object
+            default:
+                break;
         }
 
-        return result;
+       return null; 
     }
 }
 
