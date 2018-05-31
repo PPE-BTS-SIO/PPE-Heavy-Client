@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<listeMateriel>
+  <materiels idClient="C1">
+    <horsContrat>
+      <materiel numSerie="S001">
+        <type libelle="Ecran Led 15p" refInterne="M1"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/18/2018</date_vente>
+        <date_installation>2018-03-31</date_installation>
+        <prix_vente>199.0</prix_vente>
+        <emplacement>Main </emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S002">
+        <type libelle="Ecran Led 13p" refInterne="M1"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/18/2018</date_vente>
+        <date_installation>2018-03-31</date_installation>
+        <prix_vente>130.0</prix_vente>
+        <emplacement>Main </emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S003">
+        <type libelle="Ecran Led 17p" refInterne="M1"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/12/2018</date_vente>
+        <date_installation>2018-03-31</date_installation>
+        <prix_vente>230.0</prix_vente>
+        <emplacement>Main </emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S100">
+        <type libelle="Imprimante 3D" refInterne="M2"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/18/2018</date_vente>
+        <date_installation>2018-04-11</date_installation>
+        <prix_vente>399.0</prix_vente>
+        <emplacement>Main</emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S101">
+        <type libelle="Imprimante Standard" refInterne="M2"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/18/2018</date_vente>
+        <date_installation>2018-04-11</date_installation>
+        <prix_vente>399.0</prix_vente>
+        <emplacement>Main</emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S102">
+        <type libelle="Imprimante Ricoh" refInterne="M2"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/02/2018</date_vente>
+        <date_installation>2018-03-24</date_installation>
+        <prix_vente>99.0</prix_vente>
+        <emplacement>Main</emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S200">
+        <type libelle="Carte Resau" refInterne="M3"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/08/2017</date_vente>
+        <date_installation>2017-03-22</date_installation>
+        <prix_vente>199.0</prix_vente>
+        <emplacement>Main</emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S201">
+        <type libelle="Modem" refInterne="M3"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/08/2017</date_vente>
+        <date_installation>2017-03-22</date_installation>
+        <prix_vente>199.0</prix_vente>
+        <emplacement>Main</emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+    <horsContrat>
+      <materiel numSerie="S203">
+        <type libelle="Routeur" refInterne="M3"/>
+        <famille/>
+        <quantite>0</quantite>
+        <date_vente>03/01/2018</date_vente>
+        <date_installation>2018-03-23</date_installation>
+        <prix_vente>99.0</prix_vente>
+        <emplacement>Main</emplacement>
+        <nbJourAvantEcheance>0</nbJourAvantEcheance>
+      </materiel>
+    </horsContrat>
+  </materiels>
+</listeMateriel>

@@ -5,10 +5,12 @@
  */
 package myproject;
 
+
 import java.util.ArrayList;
 
+
 /**
- * @author Joel
+ * @author Joel / Raphael / Thomas
  */
 public class Famille {
     private String codeFamille, libelleFamille;

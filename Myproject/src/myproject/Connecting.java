@@ -242,6 +242,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         Client unClient = new Client();
         ContratMaintenance unContrat = new ContratMaintenance();
         Materiel unMateriel = new Materiel();
+
         
         if (null != nomClasse)switch (nomClasse) {
             case "Client":
@@ -296,9 +297,11 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                     
                 lesMaterielsAssures.add(materiel);
                 
+
                 return lesMaterielsAssures; // retourne une ArrayList -> dois voir comment convertir en Object
             default:
                 break;
+
         }
 
        return null; 
