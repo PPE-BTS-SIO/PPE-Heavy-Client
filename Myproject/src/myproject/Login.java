@@ -110,9 +110,10 @@ public class Login extends javax.swing.JFrame {
             try {
                 //Verifie si the nom d'utilisateur et le mot de passe correspond a ce que l'on a dans la base de donne
                 if (Connecting.getConnexion() != null) {
-                    result = connecting.Select("SELECT Password FROM employe WHERE Matricule=\"" + username + "\"");
+                    result = connecting.Select("SELECT Password FROM Employe WHERE Matricule=\"" + username + "\"");
                     if (result.next()) {
                         passBD = result.getString(1);
+                        System.out.println("Database's password \u001B[36m" + passBD + "\u001B[0m");
                     }
                 }
             } catch (SQLException ex) {

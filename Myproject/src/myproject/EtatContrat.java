@@ -5,12 +5,19 @@
  */
 package myproject;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Joel
  */
 public class EtatContrat extends javax.swing.JFrame {
-    private Client client; 
+    private Client client;
+    private ArrayList<Materiel> lesMateriaux = new ArrayList<>();
+    private ArrayList<ContratMaintenance> lesContrats = new ArrayList<>();
     
     public EtatContrat(Client client){
         this.client = client;
@@ -19,8 +26,9 @@ public class EtatContrat extends javax.swing.JFrame {
     /**
      * Creates new form EtatContrat
      */
-    public EtatContrat() {
+    public EtatContrat() throws SQLException {
         initComponents();
+        getContrat();
     }
 
     /**
@@ -48,15 +56,19 @@ public class EtatContrat extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblNomClient.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblNomClient.setText("Nom de client");
+        lblNomClient.setText("Nom du client");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Materiel(s) vendu non couvert ");
+        jLabel2.setText("Contrat qui ont expire");
 
-        cbMaterielVendu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMaterielVendu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMaterielVenduActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Voulez vous vraiment couvrir ce materiel?");
+        jLabel3.setText("Voulez vous vraiment renouveler ce contrat");
 
         jRadioButton1.setText("Oui");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +151,10 @@ public class EtatContrat extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
+    private void cbMaterielVenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaterielVenduActionPerformed
+        
+    }//GEN-LAST:event_cbMaterielVenduActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -169,16 +185,31 @@ public class EtatContrat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EtatContrat().setVisible(true);
+                try {
+                    new EtatContrat().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(EtatContrat.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
-        EtatContrat ec = new EtatContrat();
-        ec.start();
+        
+        
+        
+        
         
     }
-    public void start(){
-        lblNomClient.setText(client.getNom());
+    private void getContrat() throws SQLException{
+        Connecting connection = new Connecting();
+        lesContrats = (ArrayList<ContratMaintenance>) connection.chargerDepuisBase(client.getNumClient(), "Contrat");
+        ArrayList<ContratMaintenance> expire = new ArrayList();
+        for (ContratMaintenance unContrat : lesContrats)
+        if (unContrat.getNbrJourAvantEcheance() <= 0) {
+            cbMaterielVendu.addItem(Integer.toString(unContrat.getNumContrat()));
+            
+                }
+        
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

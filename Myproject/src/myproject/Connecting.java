@@ -44,6 +44,18 @@ class Connecting {
     private ArrayList<ContratMaintenance> lesContrats= new ArrayList<>();
     private ArrayList<Materiel> lesMaterielsAssures = new ArrayList<>();
 
+    public ArrayList<Client> getLesClients() {
+        return lesClients;
+    }
+
+    public ArrayList<ContratMaintenance> getLesContrats() {
+        return lesContrats;
+    }
+
+    public ArrayList<Materiel> getLesMaterielsAssures() {
+        return lesMaterielsAssures;
+    }
+
     //Constructor 
     public Connecting() throws SQLException {
         //si la connexion n'est pas encore ouvert, je veux l'ouvrir 
@@ -63,7 +75,7 @@ class Connecting {
     //Initialise les valeurs
     private boolean ouvrirConnexion() throws SQLException {
 
-        url = "jdbc:mysql://78.237.195.145:3306/PPE";
+        url = "jdbc:mysql://78.237.195.145:3306/FINAL_PPE";
         username = "ppe";
         password = "ppe123JRT";
         resultat = "";
@@ -194,8 +206,9 @@ class Connecting {
        double prix = 0;
        String emplacement = null;
        String ref = null; 
-       int numContrat = 0;
-       int quantite = 0; 
+       String numContrat = null;
+       int quantite = 0;
+       
        
        while (result.next()){
            numSerie = result.getString(1);
@@ -204,9 +217,9 @@ class Connecting {
            dateInstallation = result.getDate(4);
            prix = result.getDouble(5);
            emplacement  = result.getString(6);
-           ref = result.getString(7);
-           numContrat = result.getInt(8);
-           quantite = result.getInt(9);        
+           quantite = result.getInt(7);
+           ref = result.getString(8);
+           numContrat = result.getString(9);        
        }
        //creation de l'objet avec les valeurs de la BDD
        Materiel leMateriel = new Materiel(numContrat, quantite, dateVente, dateInstallation, prix, numSerie, emplacement, ref, nom, (TypeMateriel) this.chargerTypeMateriel(ref));

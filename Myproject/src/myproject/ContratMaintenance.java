@@ -7,7 +7,9 @@ package myproject;
 
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -71,6 +73,24 @@ public ContratMaintenance(){
         lesMaterielsAssures = (ArrayList<Materiel>) connection.chargerDepuisBase(String.valueOf(this.numContrat), "Materiel");
         
         System.out.println("Matériels récupérés : \u001B[36m" + this.lesMaterielsAssures.size() + "\u001B[0m.");
+    }
+    //Fonction pour avoir les jours avant fin contrat
+    public int getNbrJourAvantEcheance() {
+        //si object n'est pas sur contrat retourne 0
+        if (dateSignature != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar c = Calendar.getInstance();
+            c.setTime(dateSignature); //Utilise la date de vente 
+            c.add(Calendar.DATE, 365); // la date de vente + 1 ans
+            Date DateEcheance = c.getTime();
+            if (dateSignature.after(DateEcheance)) {
+                int diffJour = (int) (DateEcheance.getTime() - dateSignature.getTime()) / (1000 * 60 * 60 * 24);
+                return diffJour; //retourne la difference 
+            } else {
+                return 0;
+            }
+        }
+        return 0;
     }
 
 }

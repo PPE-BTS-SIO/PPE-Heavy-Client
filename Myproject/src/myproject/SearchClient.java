@@ -22,8 +22,9 @@ public class SearchClient extends javax.swing.JFrame {
     /**
      * Creates new form SearchClient
      */
-    public SearchClient() {
+    public SearchClient() throws SQLException{
         initComponents();
+         connectionBDD();
     }
 
     /**
@@ -148,17 +149,13 @@ public class SearchClient extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_cboxClientActionPerformed
-
-
-    
-
-    
+  
     private void connectionBDD() throws SQLException {
 
         Connection connection = Connecting.getConnexion();
-
+        
         System.out.println("\nRécupération des clients...");
-        ResultSet result = connection.createStatement().executeQuery("SELECT * FROM client");
+        ResultSet result = connection.createStatement().executeQuery("SELECT * FROM Client");
         while (result.next()) {
             String numClient = result.getString(1);
             String nom = result.getString(2);
@@ -223,10 +220,13 @@ public class SearchClient extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
                 new SearchClient().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         });
     }
 

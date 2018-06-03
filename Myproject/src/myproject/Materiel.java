@@ -24,15 +24,16 @@ import java.util.Date;
  * @author Joel
  */
 public class Materiel {
-    private int numContrat, quantite;
+    private int quantite;
     private Date dateVente, dateInstallation;
     private double prixVente;
-    private String numSerie, emplacement, ref, nom;
+    private String numSerie, emplacement, ref, nom, numContrat;
     private TypeMateriel leType;
+    
     public Materiel(){
         
     }
-    public Materiel(int numContrat, int quantite, Date dateVente, Date dateInstallation, double prixVente, String numSerie, String emplacement, String ref, String nom, TypeMateriel leType) {
+    public Materiel(String numContrat, int quantite, Date dateVente, Date dateInstallation, double prixVente, String numSerie, String emplacement, String ref, String nom, TypeMateriel leType) {
         this.numContrat = numContrat;
         this.quantite = quantite;
         this.dateVente = dateVente;
@@ -47,7 +48,7 @@ public class Materiel {
 
     public Materiel(
             String numSerie,
-            int numContrat, 
+            String numContrat, 
             Date dateVente,         
             Date dateInstallation, 
             double prixVente, 
@@ -89,7 +90,7 @@ public class Materiel {
         return 0;
     }
 
-    public int getNumContrat() {
+    public String getNumContrat() {
         return numContrat;
     }
 
@@ -135,7 +136,7 @@ public class Materiel {
     public String xmlMateriel() throws ParserConfigurationException {
         //Récuperation d'une instance de la classe "DocumentBuilderFactory
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
+        try { 
             //Creation d'un parseur 
             final DocumentBuilder builder = factory.newDocumentBuilder();
 
