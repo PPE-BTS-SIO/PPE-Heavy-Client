@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Joel
+ * @author Joel  / Thomas / Raphael
  */
 public class EtatContrat extends javax.swing.JFrame {
     private Client client;

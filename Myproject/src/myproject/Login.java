@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  *
- * @author joel.bushiri
+ * @author Joel  / Thomas / Raphael
  */
 public class Login extends javax.swing.JFrame {
 

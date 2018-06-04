@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 
 /**
- * @author Joel
+ * @author Joel  / Thomas / Raphael
  */
 public class Encryption {
     public static String sha3(String message) {

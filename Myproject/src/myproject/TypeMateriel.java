@@ -6,7 +6,7 @@
 package myproject;
 
 /**
- * @author Joel
+ * @author Joel  / Thomas / Raphael
  */
 public class TypeMateriel {
     private String referenceInterne, libelleTypeMateriel, codeFamille;

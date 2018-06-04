@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Joel
+ * @author Joel / Thomas / Raphael
  */
 
 public class ContratMaintenance {

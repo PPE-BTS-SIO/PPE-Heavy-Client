@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
 
 
 /**
- * @author Joel
+ * @author Joel Joel  / Thomas / Raphael
  */
 
 class Connecting {

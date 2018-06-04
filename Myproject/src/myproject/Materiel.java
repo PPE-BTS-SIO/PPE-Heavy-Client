@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author Joel
+ * @author Joel  / Thomas / Raphael
  */
 public class Materiel {
     private int quantite;
