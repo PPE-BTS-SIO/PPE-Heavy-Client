@@ -5,16 +5,6 @@
  */
 package myproject;
 
-
-import javax.swing.*;
-import java.sql.*;
-
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -26,8 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 
 

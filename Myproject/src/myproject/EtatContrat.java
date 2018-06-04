@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 
 /**
  *
@@ -29,6 +30,11 @@ public class EtatContrat extends javax.swing.JFrame {
     public EtatContrat() throws SQLException {
         initComponents();
         getContrat();
+        //Crée un groupe pour bouton qui permet de garder qu'un seul selectionné a la fois
+        ButtonGroup group = new ButtonGroup();
+        //Groupe les boutons 
+        group.add(rbYes);
+        group.add(rbNo);
     }
 
     /**
@@ -47,11 +53,9 @@ public class EtatContrat extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cbMaterielVendu = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbYes = new javax.swing.JRadioButton();
+        rbNo = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,29 +74,16 @@ public class EtatContrat extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Voulez vous vraiment renouveler ce contrat");
 
-        jRadioButton1.setText("Oui");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        rbYes.setText("Oui");
+        rbYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbYesActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("Non");
+        rbNo.setText("Non");
 
         jButton1.setText("Soumettre");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,20 +96,18 @@ public class EtatContrat extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(35, 35, 35)
-                                .addComponent(jRadioButton1)
+                                .addComponent(rbYes)
                                 .addGap(68, 68, 68)
-                                .addComponent(jRadioButton2))
+                                .addComponent(rbNo))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblNomClient)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cbMaterielVendu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel3)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
+                        .addGap(52, 52, 52)
                         .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,23 +122,19 @@ public class EtatContrat extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addGap(29, 29, 29)
+                    .addComponent(rbYes)
+                    .addComponent(rbNo))
+                .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rbYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbYesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rbYesActionPerformed
 
     private void cbMaterielVenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaterielVenduActionPerformed
         
@@ -219,10 +204,8 @@ public class EtatContrat extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblNomClient;
+    private javax.swing.JRadioButton rbNo;
+    private javax.swing.JRadioButton rbYes;
     // End of variables declaration//GEN-END:variables
 }
