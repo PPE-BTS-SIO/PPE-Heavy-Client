@@ -5,11 +5,14 @@
  */
 package myproject;
 
+import java.awt.event.ActionEvent;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -17,6 +20,7 @@ import javax.swing.ButtonGroup;
  */
 public class EtatContrat extends javax.swing.JFrame {
     private Client client;
+    String contrat = null;
     private ArrayList<Materiel> lesMateriaux = new ArrayList<>();
     private ArrayList<ContratMaintenance> lesContrats = new ArrayList<>();
     
@@ -55,7 +59,7 @@ public class EtatContrat extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         rbYes = new javax.swing.JRadioButton();
         rbNo = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        btnSoumettre = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +87,12 @@ public class EtatContrat extends javax.swing.JFrame {
 
         rbNo.setText("Non");
 
-        jButton1.setText("Soumettre");
+        btnSoumettre.setText("Soumettre");
+        btnSoumettre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoumettreActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,7 +115,7 @@ public class EtatContrat extends javax.swing.JFrame {
                             .addComponent(jLabel3)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jButton1)))
+                        .addComponent(btnSoumettre)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -125,7 +134,7 @@ public class EtatContrat extends javax.swing.JFrame {
                     .addComponent(rbYes)
                     .addComponent(rbNo))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1)
+                .addComponent(btnSoumettre)
                 .addContainerGap(184, Short.MAX_VALUE))
         );
 
@@ -137,9 +146,31 @@ public class EtatContrat extends javax.swing.JFrame {
     }//GEN-LAST:event_rbYesActionPerformed
 
     private void cbMaterielVenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaterielVenduActionPerformed
-        
+        getContrat(evt);
     }//GEN-LAST:event_cbMaterielVenduActionPerformed
 
+    private void btnSoumettreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoumettreActionPerformed
+        try {
+            Connecting connection = new Connecting();
+            String contratSelectionne = contrat;
+        for(ContratMaintenance contrat: lesContrats){
+            if(String.valueOf(contrat.getNumContrat()) == contratSelectionne){
+                connection.rangerDansBase(contrat);
+            }
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(EtatContrat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnSoumettreActionPerformed
+private String getContrat(ActionEvent evt){
+    
+    if (cbMaterielVendu.getSelectedItem() != null){
+        contrat = cbMaterielVendu.toString();
+    }
+    return contrat;
+}
     /**
      * @param args the command line arguments
      */
@@ -197,11 +228,11 @@ public class EtatContrat extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSoumettre;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cbMaterielVendu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblNomClient;
