@@ -19,7 +19,11 @@ public class Client {
 
     private static ArrayList<Client> lesClients = new ArrayList<>();
 
-    private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom;
+    private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom,fax;
+
+    public String getFax() {
+        return fax;
+    }
     private int dureeDeplacement, distanceKm;
     private ArrayList<ContratMaintenance> lesContrats;
 

@@ -21,6 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,7 +34,7 @@ import javax.swing.JOptionPane;
 /**
  * @author Joel
  */
-//note to self : modify this class so that there's a method for connecting to the database and method for select, insert etc...
+
 class Connecting {
     private static Connection connexion = null;
     private String url;
@@ -40,26 +42,31 @@ class Connecting {
     private String password;
     private String resultat;
 
+    //Initialisation d'ArrayList pour stockage d'information 
+    //sur client, contrat et materiel
     private ArrayList<Client> lesClients= new ArrayList<>();
     private ArrayList<ContratMaintenance> lesContrats= new ArrayList<>();
     private ArrayList<Materiel> lesMaterielsAssures = new ArrayList<>();
 
+    //Renvoie la liste des clients 
     public ArrayList<Client> getLesClients() {
         return lesClients;
     }
-
+    
+    //Renvoie la liste des contrats de mainteance
     public ArrayList<ContratMaintenance> getLesContrats() {
         return lesContrats;
     }
-
+    
+    //Renvoie la liste des materiels 
     public ArrayList<Materiel> getLesMaterielsAssures() {
         return lesMaterielsAssures;
     }
 
     //Constructor 
     public Connecting() throws SQLException {
-        //si la connexion n'est pas encore ouvert, je veux l'ouvrir 
-        //sinon utilise la connexion deja ouverte
+        //si la connexion n'est pas encore ouvert, on l'ouvre
+        //sinon on utilise la connexion deja ouverte
         if (connexion == null) {
           ouvrirConnexion();  
         }else{
@@ -67,7 +74,7 @@ class Connecting {
         }
         
     }
-
+    //Renvoie la connexion
     public static Connection getConnexion() {
         return connexion;
     }
@@ -124,36 +131,33 @@ class Connecting {
 
       }
   
-    /*public void rangerDansBase(Object unObjet) throws SQLException{
-        this.ouvrirConnexion();
-        //Classe que je dot faire. demander au prof plus de clarite 
-        
-        if (unObjet instanceof Client){
-            this.UpdateInsert("INSERT INTO client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Duree_Deplacement, DistanceKm, Num_Agence) VALUES ('" + ((Client) unObjet).getNumClient() + "','" + ((Client) unObjet).getNom()+ "','" + ((Client) unObjet).getRaisonSociale() + "','" + ((Client) unObjet).getSiren() + "','" + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm()+ "," + ((Client) unObjet).getNumAgence() + ")" );
-           
-        } 
-        if (unObjet instanceof Materiel){
-          this.UpdateInsert("INSERT INTO materiel(NumSerie, Nom, DateVente, DateInstallation, Prix, Emplacement, Ref, Num_contrat) VALUES ('"+ ((Materiel) unObjet).getNumSerie() + "','" + ((Materiel) unObjet).getNom() + "','" + ((Materiel) unObjet).getDateVente() + "','" + ((Materiel) unObjet).getDateInstallation() + "','" + ((Materiel) unObjet).getPrixVente() + "','" + ((Materiel) unObjet).getEmplacement() + "','" + ((Materiel) unObjet).getRef() + "','"+ ((Materiel) unObjet).getNumContrat()+"'");
->>>>>>> branche
-    }
-
+    //Stocke les données de l'objet dans la base de donnée
     public void rangerDansBase(Object unObjet) throws SQLException {
         this.ouvrirConnexion();
+        //Si nous devions créer un client a partir d'un objet 
         if (unObjet instanceof Client) {
-            this.UpdateInsert("INSERT INTO client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Duree_Deplacement, DistanceKm, Num_Agence) VALUES ('" + ((Client) unObjet).getNumClient() + "','" + ((Client) unObjet).getNom() + "','" + ((Client) unObjet).getRaisonSociale() + "','" + ((Client) unObjet).getSiren() + "','" + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm() + "," + ((Client) unObjet).getNumAgence() + ")");
+            this.UpdateInsert("INSERT INTO Client(NumeroClient, Nom, Raison_Sociale, Numero_Siren, Code_APE, Addresse, Num_Telephone, Fax, Duree_Deplacement, DistanceKm, Num_Agence) VALUES ('" + ((Client) unObjet).getNumClient() + "','" + ((Client) unObjet).getNom() + "','" + ((Client) unObjet).getRaisonSociale() + "','" + ((Client) unObjet).getSiren() + "','" + ((Client) unObjet).getCodeApe() + "," + ((Client) unObjet).getAdresse() + "," + ((Client) unObjet).getTelClient() + ","+ ((Client) unObjet).getFax() + "," + ((Client) unObjet).getDureeDeplacement() + "," + ((Client) unObjet).getDistanceKm() + "," + ((Client) unObjet).getNumAgence() + ")");
 
         }
-<<<<<<< HEAD
+        //permet d'entrer de nouveau materiel dans la base de donnée
+        
         if (unObjet instanceof Materiel) {
             this.UpdateInsert("INSERT INTO materiel(NumSerie, Nom, DateVente, DateInstallation, Prix, Emplacement, Ref, Num_contrat) VALUES ('" + ((Materiel) unObjet).getNumSerie() + "','" + ((Materiel) unObjet).getNom() + "','" + ((Materiel) unObjet).getDateVente() + "','" + ((Materiel) unObjet).getDateInstallation() + "','" + ((Materiel) unObjet).getPrixVente() + "','" + ((Materiel) unObjet).getEmplacement() + "','" + ((Materiel) unObjet).getRef() + "','" + ((Materiel) unObjet).getNumContrat() + "'");
         }
-        if (unObjet instanceof TypeMateriel) {
-            this.UpdateInsert("INSERT INTO type_materiel(Ref, Libelle, Code) VALUES ('" + ((TypeMateriel) unObjet).getReferenceInterne() + "','" + ((TypeMateriel) unObjet).getLibelleTypeMateriel() + "','" + ((TypeMateriel) unObjet).getCode() + "')");
+        //Nous permet de modifier un contrat dans la base de donnée 
+        if(unObjet instanceof ContratMaintenance){
+           //Prend la date d'aujourdhui 
+           LocalDateTime now = LocalDateTime.now();
+           //Declare une class qui me permet de formatter le format de la date 
+           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           //format la date d'aujoudhui 
+           String formatDateTime = now.format(formatter);
+           
+            this.UpdateInsert("UPDATE Contrat SET Date_Renouvellement=" + now + "WHERE Num_contrat='"+ ((ContratMaintenance) unObjet).getNumContrat() + "'");
         }
+        
 
     }
-
-*/
 
     private Date UnAnsDePlus(Date laDate){
         //Classe pour ajouter un ans de plus a une date
@@ -167,7 +171,7 @@ class Connecting {
     public Object chargerFamille(String id) throws SQLException{
         //Recuperation de donnee de la base de donnee
         ResultSet result = null;
-        result = this.Select("SELECT * FROM famille_produit WHERE Code = '"+ id +"'" );
+        result = this.Select("SELECT * FROM Famille_Produit WHERE Code = '"+ id +"'" );
         String code = null;
         String libelle = null;
         while (result.next()){
@@ -182,7 +186,7 @@ class Connecting {
    public Object chargerTypeMateriel(String id) throws SQLException{
        //Recuperation de donnee de la base de donnee
        ResultSet result = null;
-       result = this.Select("SELECT * FROM type_materiel WHERE Ref = '"+ id +"'" );
+       result = this.Select("SELECT * FROM Type_Materiel WHERE Ref = '"+ id +"'" );
        String ref = null;
        String libelle = null; 
        String code = null;
@@ -198,7 +202,7 @@ class Connecting {
    public Object chargerMateriel(String id) throws SQLException{
        //Recuperation de donnee de la base de donnee
        ResultSet result = null;
-       result = this.Select("SELECT * FROM materiel WHERE NumSerie = '"+ id +"'" );
+       result = this.Select("SELECT * FROM Materiel WHERE NumSerie = '"+ id +"'" );
        String numSerie = null;
        String nom = null; 
        Date dateVente = null;
@@ -229,7 +233,7 @@ class Connecting {
    public Object chargerContrat(String id) throws SQLException{
     //Recuperation de donnee de la base de donnee
     ResultSet result = null;
-    result = this.Select("SELECT * FROM contrat WHERE NumeroClient = '"+ id +"'" );
+    result = this.Select("SELECT * FROM Contrat WHERE NumeroClient = '"+ id +"'" );
     //initation de variable 
     int numContrat = 0; 
     Date dateSignature = null;
@@ -259,7 +263,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
         
         if (null != nomClasse)switch (nomClasse) {
             case "Client":
-                result = this.Select("SELECT * FROM client WHERE NumeroClient = '"+ id + "'");
+                result = this.Select("SELECT * FROM Client WHERE NumeroClient = '"+ id + "'");
                 while (result.next()){
                     String numClient = result.getString(1);
                     String nom = result.getString(2);
