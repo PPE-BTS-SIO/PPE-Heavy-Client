@@ -12,7 +12,7 @@ public class TypeMateriel {
     private String referenceInterne, libelleTypeMateriel, codeFamille;
     private Famille laFamille;
 
-
+    public TypeMateriel(){}
     public TypeMateriel(String referenceInterne,String libelleTypeMateriel,String codeFamille){
         this.referenceInterne = referenceInterne;
         this.libelleTypeMateriel = libelleTypeMateriel;
@@ -43,8 +43,4 @@ public class TypeMateriel {
     public void setLaFamille(Famille laFamille) {
         this.laFamille = laFamille;
     }
-
-    
-
-
 }

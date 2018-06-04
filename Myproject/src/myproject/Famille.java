@@ -17,6 +17,7 @@ public class Famille {
     private static ArrayList<Famille> lesFamilles = new ArrayList<>();
     
     // Constructeur
+    public Famille(){}
     
     public Famille (String unCodeFamille , String unLibelleFamille){
         this.codeFamille = unCodeFamille; 

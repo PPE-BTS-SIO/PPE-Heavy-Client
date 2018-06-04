@@ -25,9 +25,10 @@ public class EtatContrat extends javax.swing.JFrame {
     private ArrayList<Materiel> lesMateriaux = new ArrayList<>();
     private ArrayList<ContratMaintenance> lesContrats = new ArrayList<>();
     
-    public EtatContrat(Client client){
+    public EtatContrat(Client client) throws SQLException{
         this.client = client;
         initComponents();
+        getContrat();
     }
     /**
      * Creates new form EtatContrat
@@ -230,13 +231,15 @@ private String getContrat(ActionEvent evt){
     private void getContrat() throws SQLException{
         Connecting connection = new Connecting();
         lesContrats = (ArrayList<ContratMaintenance>) connection.chargerDepuisBase(client.getNumClient(), "Contrat");
+        System.out.println("got in");
         ArrayList<ContratMaintenance> expire = new ArrayList();
-        for (ContratMaintenance unContrat : lesContrats)
-        if (unContrat.getNbrJourAvantEcheance() <= 0) {
-            cbMaterielVendu.addItem(Integer.toString(unContrat.getNumContrat()));
+        for (ContratMaintenance unContrat : lesContrats){
+            System.out.println("le numero du contrat :" + unContrat.getNumContrat());  
+            if (unContrat.getNbrJourAvantEcheance() <= 0) {
+                cbMaterielVendu.addItem(Integer.toString(unContrat.getNumContrat()));
             
                 }
-        
+        }
     }
     
 

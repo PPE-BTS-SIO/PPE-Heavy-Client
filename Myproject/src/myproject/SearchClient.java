@@ -149,10 +149,10 @@ public class SearchClient extends javax.swing.JFrame {
   
     private void connectionBDD() throws SQLException {
 
-        Connection connection = Connecting.getConnexion();
+        Connecting connection = new Connecting();
         
         System.out.println("\nRécupération des clients...");
-        ResultSet result = connection.createStatement().executeQuery("SELECT * FROM Client");
+        ResultSet result = connection.Select("SELECT * FROM Client");
         while (result.next()) {
             String numClient = result.getString(1);
             String nom = result.getString(2);

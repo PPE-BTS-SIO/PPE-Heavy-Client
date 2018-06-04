@@ -92,9 +92,7 @@ class Connecting {
         }
         return false; 
         }
-        
-
-
+  
     //Select Statement
     public ResultSet Select(String Query) throws SQLException {
         ResultSet resultFinal = null;
@@ -160,7 +158,7 @@ class Connecting {
     public Object chargerFamille(String id) throws SQLException{
         //Recuperation de donnee de la base de donnee
         ResultSet result = null;
-        result = this.Select("SELECT * FROM Famille_Produit WHERE Code = '"+ id +"'" );
+        result = this.Select("SELECT * FROM Famille_Produit WHERE CodeFamille ='"+ id +"'" );
         String code = null;
         String libelle = null;
         while (result.next()){
@@ -175,7 +173,7 @@ class Connecting {
    public Object chargerTypeMateriel(String id) throws SQLException{
        //Recuperation de donnee de la base de donnee
        ResultSet result = null;
-       result = this.Select("SELECT * FROM Type_Materiel WHERE Ref = '"+ id +"'" );
+       result = this.Select("SELECT * FROM Type_Materiel WHERE CodeFamille = '"+ id +"'" );
        String ref = null;
        String libelle = null; 
        String code = null;
@@ -185,13 +183,13 @@ class Connecting {
             code = result.getString(3);
         }
        //creation de l'objet avec les valeurs de la BDD
-       TypeMateriel unType = new TypeMateriel(ref,libelle,code, (Famille) this.chargerFamille(code));
+       TypeMateriel unType = new TypeMateriel(ref,libelle,code);
        return unType;
    }
    public Object chargerMateriel(String id) throws SQLException{
        //Recuperation de donnee de la base de donnee
        ResultSet result = null;
-       result = this.Select("SELECT * FROM Materiel WHERE NumSerie = '"+ id +"'" );
+       result = this.Select("SELECT * FROM Materiel WHERE RefTypeMateriel = '"+ id +"'" );
        String numSerie = null;
        String nom = null; 
        Date dateVente = null;
@@ -212,17 +210,20 @@ class Connecting {
            emplacement  = result.getString(6);
            quantite = result.getInt(7);
            ref = result.getString(8);
-           numContrat = result.getString(9);        
+           numContrat = result.getString(9);  
+           //creation de l'objet avec les valeurs de la BDD
+           Materiel leMateriel = new Materiel(numContrat, quantite, dateVente, dateInstallation, prix, numSerie, emplacement, ref, nom, (TypeMateriel) this.chargerTypeMateriel(ref));
+           //Met le specifique type de materiel dans l'ArrayList de Materiel
+           lesMaterielsAssures.add(leMateriel);
        }
-       //creation de l'objet avec les valeurs de la BDD
-       Materiel leMateriel = new Materiel(numContrat, quantite, dateVente, dateInstallation, prix, numSerie, emplacement, ref, nom, (TypeMateriel) this.chargerTypeMateriel(ref));
-       return leMateriel;
+       
+       return lesMaterielsAssures;
    }
    
    public Object chargerContrat(String id) throws SQLException{
     //Recuperation de donnee de la base de donnee
     ResultSet result = null;
-    result = this.Select("SELECT * FROM Contrat WHERE NumeroClient = '"+ id +"'" );
+    result = this.Select("SELECT * FROM Contrat WHERE Num_contrat = '"+ id +"'" );
     //initation de variable 
     int numContrat = 0; 
     Date dateSignature = null;
@@ -279,12 +280,16 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                     unClient.setUrl(urlC);
                     lesClients.add(unClient);
                     ResultSet resultContrat = null;
-                    resultContrat = this.Select("SELECT * FROM contrat WHERE NumeroClient=" + "'" + numClient + "'" );
-                    while(result.next()){
+                    resultContrat = this.Select("SELECT * FROM Contrat WHERE NumeroClient=" + "'" + numClient + "'" );
+                    while(resultContrat.next()){
                         unContrat = (ContratMaintenance) this.chargerContrat(numClient);
                         lesContrats.add(unContrat);
-                        unMateriel = (Materiel) this.chargerMateriel(Integer.toString(unContrat.getNumContrat()));
-                        lesMaterielsAssures.add(unMateriel);
+                        ArrayList<Materiel> temporaire = new ArrayList();
+                        temporaire =  (ArrayList<Materiel>) this.chargerMateriel(Integer.toString(unContrat.getNumContrat()));
+                        for (Materiel leMateriel : temporaire){
+                            lesMaterielsAssures.add(leMateriel);
+                        }
+                        
                     }
                 }
                 //Des que l'on a les donnees on les places dans une classe
@@ -299,9 +304,10 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
             case "Materiel":
                 //recuperation des materiels a partir du numero de contrat
                 Materiel materiel = new Materiel();
-                materiel = (Materiel) this.chargerMateriel(id);
+                
+                lesMaterielsAssures = (ArrayList<Materiel>) this.chargerMateriel(id);
                     
-                lesMaterielsAssures.add(materiel);
+                
                 
 
                 return lesMaterielsAssures; // retourne une ArrayList -> dois voir comment convertir en Object
