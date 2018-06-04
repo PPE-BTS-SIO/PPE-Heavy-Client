@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -31,14 +32,17 @@ public class EtatContrat extends javax.swing.JFrame {
     /**
      * Creates new form EtatContrat
      */
+    
     public EtatContrat() throws SQLException {
         initComponents();
         getContrat();
-        //Crée un groupe pour bouton qui permet de garder qu'un seul selectionné a la fois
-        ButtonGroup group = new ButtonGroup();
+        
         //Groupe les boutons 
-        group.add(rbYes);
-        group.add(rbNo);
+       
+        groupRadioButton.add(rbYes);
+        
+        groupRadioButton.add(rbNo);
+        
     }
 
     /**
@@ -50,11 +54,9 @@ public class EtatContrat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
+        groupRadioButton = new javax.swing.ButtonGroup();
         lblNomClient = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        ContratExpire = new javax.swing.JLabel();
         cbMaterielVendu = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         rbYes = new javax.swing.JRadioButton();
@@ -66,8 +68,8 @@ public class EtatContrat extends javax.swing.JFrame {
         lblNomClient.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblNomClient.setText("Nom du client");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Contrat qui ont expire");
+        ContratExpire.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ContratExpire.setText("Contrat qui ont expire");
 
         cbMaterielVendu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +88,11 @@ public class EtatContrat extends javax.swing.JFrame {
         });
 
         rbNo.setText("Non");
+        rbNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbNoActionPerformed(evt);
+            }
+        });
 
         btnSoumettre.setText("Soumettre");
         btnSoumettre.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +117,7 @@ public class EtatContrat extends javax.swing.JFrame {
                                 .addComponent(rbNo))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblNomClient)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ContratExpire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cbMaterielVendu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel3)))
                     .addGroup(layout.createSequentialGroup()
@@ -124,7 +131,7 @@ public class EtatContrat extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(lblNomClient)
                 .addGap(27, 27, 27)
-                .addComponent(jLabel2)
+                .addComponent(ContratExpire)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbMaterielVendu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -164,6 +171,10 @@ public class EtatContrat extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnSoumettreActionPerformed
+
+    private void rbNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbNoActionPerformed
 private String getContrat(ActionEvent evt){
     
     if (cbMaterielVendu.getSelectedItem() != null){
@@ -228,12 +239,10 @@ private String getContrat(ActionEvent evt){
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ContratExpire;
     private javax.swing.JButton btnSoumettre;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cbMaterielVendu;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.ButtonGroup groupRadioButton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblNomClient;
     private javax.swing.JRadioButton rbNo;
