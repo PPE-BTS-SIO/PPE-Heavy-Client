@@ -38,9 +38,9 @@
                               <Component id="cboxClient" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnXml" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnPDF" min="-2" pref="159" max="-2" attributes="0"/>
+                              <Component id="btnXml" min="-2" pref="145" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnPDF" min="-2" pref="145" max="-2" attributes="0"/>
                           </Group>
                           <Component id="btnContrat" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
