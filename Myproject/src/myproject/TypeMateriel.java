@@ -5,20 +5,31 @@
  */
 package myproject;
 
+import java.util.ArrayList;
+
 /**
  * @author Joel  / Thomas / Raphael
  */
 public class TypeMateriel {
     private String referenceInterne, libelleTypeMateriel, codeFamille;
     private Famille laFamille;
+    private static ArrayList<TypeMateriel> lesTypesMateriels = new ArrayList<>();
 
     public TypeMateriel(){}
     public TypeMateriel(String referenceInterne,String libelleTypeMateriel,String codeFamille){
         this.referenceInterne = referenceInterne;
         this.libelleTypeMateriel = libelleTypeMateriel;
         this.codeFamille = codeFamille;
+        addTypeMateriel(this);
     }
 
+    public static void addTypeMateriel(TypeMateriel typeMateriel){
+        lesTypesMateriels.add(typeMateriel);
+    }
+    
+    public static ArrayList<TypeMateriel> getLesTypesMateriel(){
+        return lesTypesMateriels;
+    }
 
     
     public String getReferenceInterne() {

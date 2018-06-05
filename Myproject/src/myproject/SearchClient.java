@@ -194,7 +194,8 @@ public class SearchClient extends javax.swing.JFrame {
         }
         System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
         
-        //*************//
+        //****** Récupération des Familles Produits dans la BDD *******//
+        
         System.out.println("\nRécupération des Familles produits");
         ResultSet result_Famille_Produit = connection.Select("SELECT * FROM Famille_Produit");
         while (result_Famille_Produit.next()){
@@ -206,8 +207,26 @@ public class SearchClient extends javax.swing.JFrame {
                     unLibelleFamille
             );
         }
-        System.out.println("\n Famille Produit récupérés : " + Famille.getLesFamilles().size() + " .");
+        System.out.println("\nFamille Produit récupérés : \u001B[36m " + Famille.getLesFamilles().size() + "\u001B[0m .");
 
+        //****** Récupération des Type de Matériels dans la BDD *******//
+        
+        System.out.println("\nRécupération des Types de Matériels");
+        ResultSet result_Type_Materiel = connection.Select("SELECT * FROM Type_Materiel");
+        while (result_Type_Materiel.next()){
+            String referenceInterne = result_Type_Materiel.getString(1);
+            String libelleTypeMateriel = result_Type_Materiel.getString(2);
+            String codeFamille = result_Type_Materiel.getString(3);
+            
+            
+            new TypeMateriel(
+                    referenceInterne,
+                    libelleTypeMateriel,
+                    codeFamille
+            );
+        }
+        System.out.println("\nTypes de Matériels récupérés : \u001B[36m" + TypeMateriel.getLesTypesMateriel().size() + "\u001B[0m .");
+        
         
     }
     /**
