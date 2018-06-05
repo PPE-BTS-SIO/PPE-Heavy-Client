@@ -135,7 +135,7 @@ public class GestionMateriels {
             type.setAttribute("libelle", unMaterielExpire.getNom());
  
             unMateriel.appendChild(type);
-            //System.out.println(unMaterielExpire.getLeType().getLaFamille().getCodeFamille());
+            //System.out.println(unMaterielExpire.getLeType().get);
             //famille.setAttribute("codeFamille", unMaterielExpire.getLeType().getCode());
             //famille.setAttribute("libelle", String.valueOf(unMaterielExpire.getLeType().getLibelleTypeMateriel()));
             unMateriel.appendChild(famille);

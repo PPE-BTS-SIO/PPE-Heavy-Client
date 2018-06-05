@@ -60,6 +60,11 @@ public class SearchClient extends javax.swing.JFrame {
 
         btnXml.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         btnXml.setText("XML");
+        btnXml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXmlActionPerformed(evt);
+            }
+        });
 
         btnContrat.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         btnContrat.setText("Contrat de Maintenance");
@@ -120,17 +125,14 @@ public class SearchClient extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:-
-    }                                      
+                                   
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
         new PDF(selectedClient);
     }//GEN-LAST:event_btnPDFActionPerformed
 
     private void btnContratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratActionPerformed
-        new EtatContrat(selectedClient).setVisible(true);
+        //new EtatContrat(selectedClient);
         this.setVisible(false);
         
     }//GEN-LAST:event_btnContratActionPerformed
@@ -146,6 +148,11 @@ public class SearchClient extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_cboxClientActionPerformed
+
+    private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
+        // TODO add your handling code here:
+        new GestionMateriels(selectedClient);
+    }//GEN-LAST:event_btnXmlActionPerformed
   
     private void connectionBDD() throws SQLException {
 
@@ -186,6 +193,20 @@ public class SearchClient extends javax.swing.JFrame {
             cboxClient.addItem(nom);
         }
         System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
+        
+        //*************//
+        System.out.println("\nRécupération des Familles produits");
+        ResultSet result_Famille_Produit = connection.Select("SELECT * FROM Famille_Produit");
+        while (result_Famille_Produit.next()){
+            String unCodeFamille = result_Famille_Produit.getString(1);
+            String unLibelleFamille = result_Famille_Produit.getString(2);
+            
+            new Famille(
+                    unCodeFamille,
+                    unLibelleFamille
+            );
+        }
+        System.out.println("\n Famille Produit récupérés : " + Famille.getLesFamilles().size() + " .");
 
         
     }

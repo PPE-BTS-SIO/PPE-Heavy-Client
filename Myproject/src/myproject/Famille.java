@@ -31,6 +31,10 @@ public class Famille {
         lesFamilles.add(famille);
     }
     
+    public static ArrayList<Famille> getLesFamilles(){
+        return lesFamilles;
+    }
+    
     public String getCodeFamille(){
         return codeFamille;
     }
