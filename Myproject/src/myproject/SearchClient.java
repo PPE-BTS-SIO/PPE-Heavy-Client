@@ -17,12 +17,10 @@ import java.util.logging.Logger;
 public class SearchClient extends javax.swing.JFrame {
     
     private Client selectedClient;
+
     private Connecting connection = new Connecting();
 
 
-    /**
-     * Creates new form SearchClient
-     */
     public SearchClient() throws SQLException{
         initComponents();
          connectionBDD();
@@ -46,6 +44,11 @@ public class SearchClient extends javax.swing.JFrame {
         btnRetour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
         jLabel2.setText("       CASHCASH");
@@ -172,93 +175,99 @@ public class SearchClient extends javax.swing.JFrame {
 
     private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
         try {
-            // TODO add your handling code here:
-            selectedClient = (Client) connection.chargerDepuisBase(selectedClient.getNumClient(), "Client");
+             selectedClient = (Client) connection.chargerDepuisBase(selectedClient.getNumClient(), "Client");
         } catch (SQLException ex) {
             Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new GestionMateriels(selectedClient);
+        try {
+            new GestionMateriels(selectedClient);
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXmlActionPerformed
 
     private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
         this.setVisible(false);
         new Login().setVisible(true);
     }//GEN-LAST:event_btnRetourActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
   
     private void connectionBDD() throws SQLException {
-
-        Connecting connection = new Connecting();
         
-        System.out.println("\nRécupération des clients...");
-        ResultSet result = connection.Select("SELECT * FROM Client");
-        while (result.next()) {
-            String numClient = result.getString(1);
-            String nom = result.getString(2);
-            String raisonSociale = result.getString(3);
-            String siren = result.getString(4);
-            String codeApe = result.getString(5);
-            String adresse = result.getString(6);
-            String numTelephone = result.getString(7);
-            String fax = result.getString(8);
-            int dureeDeplacement = result.getInt(9);
-            int distanceKm = result.getInt(10);
-            String numAgence = result.getString(11);
-            String url = result.getString(12);
-            String logo = result.getString(13);
+            Connecting connection = new Connecting();
 
-            new Client(
-                numClient,
-                raisonSociale,
-                siren,
-                codeApe,
-                adresse,
-                numTelephone,
-                url,
-                logo,
-                numAgence,
-                nom,
-                dureeDeplacement,
-                distanceKm
-            );
+            System.out.println("\nRécupération des clients...");
+            ResultSet result = connection.Select("SELECT * FROM Client");
+            while (result.next()) {
+                String numClient = result.getString(1);
+                String nom = result.getString(2);
+                String raisonSociale = result.getString(3);
+                String siren = result.getString(4);
+                String codeApe = result.getString(5);
+                String adresse = result.getString(6);
+                String numTelephone = result.getString(7);
+                String fax = result.getString(8);
+                int dureeDeplacement = result.getInt(9);
+                int distanceKm = result.getInt(10);
+                String numAgence = result.getString(11);
+                String url = result.getString(12);
+                String logo = result.getString(13);
 
-            cboxClient.addItem(nom);
-        }
-        System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
-        
-        //****** Récupération des Familles Produits dans la BDD *******//
-        
-        System.out.println("\nRécupération des Familles produits");
-        ResultSet result_Famille_Produit = connection.Select("SELECT * FROM Famille_Produit");
-        while (result_Famille_Produit.next()){
-            String unCodeFamille = result_Famille_Produit.getString(1);
-            String unLibelleFamille = result_Famille_Produit.getString(2);
+                new Client(
+                    numClient,
+                    raisonSociale,
+                    siren,
+                    codeApe,
+                    adresse,
+                    numTelephone,
+                    url,
+                    logo,
+                    numAgence,
+                    nom,
+                    dureeDeplacement,
+                    distanceKm
+                );
+
+                cboxClient.addItem(nom);
+            }
+            System.out.println("Clients récupérés : \u001B[36m" + Client.getLesClients().size() + "\u001B[0m.");
+
+            //****** Récupération des Familles Produits dans la BDD *******//
+
+            System.out.println("\nRécupération des Familles produits");
+            ResultSet result_Famille_Produit = connection.Select("SELECT * FROM Famille_Produit");
+            while (result_Famille_Produit.next()){
+                String unCodeFamille = result_Famille_Produit.getString(1);
+                String unLibelleFamille = result_Famille_Produit.getString(2);
+
+                new Famille(
+                        unCodeFamille,
+                        unLibelleFamille
+                );
+            }
+            System.out.println("\nFamille Produit récupérés : \u001B[36m " + Famille.getLesFamilles().size() + "\u001B[0m .");
+
+            //****** Récupération des Type de Matériels dans la BDD *******//
+
+            System.out.println("\nRécupération des Types de Matériels");
+            ResultSet result_Type_Materiel = connection.Select("SELECT * FROM Type_Materiel");
+            while (result_Type_Materiel.next()){
+                String referenceInterne = result_Type_Materiel.getString(1);
+                String libelleTypeMateriel = result_Type_Materiel.getString(2);
+                String codeFamille = result_Type_Materiel.getString(3);
+
+
+                new TypeMateriel(
+                        referenceInterne,
+                        libelleTypeMateriel,
+                        codeFamille
+                );
+            }
+            System.out.println("\nTypes de Matériels récupérés : \u001B[36m" + TypeMateriel.getLesTypesMateriel().size() + "\u001B[0m .");
             
-            new Famille(
-                    unCodeFamille,
-                    unLibelleFamille
-            );
-        }
-        System.out.println("\nFamille Produit récupérés : \u001B[36m " + Famille.getLesFamilles().size() + "\u001B[0m .");
-
-        //****** Récupération des Type de Matériels dans la BDD *******//
-        
-        System.out.println("\nRécupération des Types de Matériels");
-        ResultSet result_Type_Materiel = connection.Select("SELECT * FROM Type_Materiel");
-        while (result_Type_Materiel.next()){
-            String referenceInterne = result_Type_Materiel.getString(1);
-            String libelleTypeMateriel = result_Type_Materiel.getString(2);
-            String codeFamille = result_Type_Materiel.getString(3);
-            
-            
-            new TypeMateriel(
-                    referenceInterne,
-                    libelleTypeMateriel,
-                    codeFamille
-            );
-        }
-        System.out.println("\nTypes de Matériels récupérés : \u001B[36m" + TypeMateriel.getLesTypesMateriel().size() + "\u001B[0m .");
-        
-        
     }
     /**
      * @param args the command line arguments

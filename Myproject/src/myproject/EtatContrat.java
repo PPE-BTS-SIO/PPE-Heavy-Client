@@ -78,7 +78,7 @@ public class EtatContrat extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Voulez vous vraiment renouveler ce contrat");
+        jLabel3.setText("Voulez vous vraiment renouveler ce matériel");
 
         btnSoumettre.setText("Soumettre");
         btnSoumettre.addActionListener(new java.awt.event.ActionListener() {
