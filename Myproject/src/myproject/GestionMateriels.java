@@ -73,10 +73,10 @@ public class GestionMateriels {
             leContrat = leClient.getLesContrats();
             leMateriel = leClient.getLesMateriels();
             for(ContratMaintenance contrat : leContrat){
-                System.out.println("le nom du contrat est : " + contrat.getNumContrat());
+                //System.out.println("le nom du contrat est : " + contrat.getNumContrat());
             }
             for (Materiel unMateriel : leMateriel){
-                System.out.println("le nom du materiel est : " + unMateriel.getNom());
+                //System.out.println("le nom du materiel est : " + unMateriel.getNom());
             
                 if (unMateriel.getNbrJourAvantEcheance() <= 0) {
                     lesMaterielsExpires.add(unMateriel);
@@ -135,10 +135,10 @@ public class GestionMateriels {
             type.setAttribute("libelle", unMaterielExpire.getNom());
  
             unMateriel.appendChild(type);
-            System.out.println(unMaterielExpire.getLeType().getLaFamille());
-            //famille.setAttribute("codeFamille", String.valueOf(unMaterielExpire.getLeType().getLaFamille().getCodeFamille()));
-            //famille.setAttribute("libelle", String.valueOf(unMaterielExpire.getLeType().getLaFamille().getLibelleFamille()));
-            //unMateriel.appendChild(famille);
+            //System.out.println(unMaterielExpire.getLeType().getLaFamille().getCodeFamille());
+            famille.setAttribute("codeFamille", String.valueOf(unMaterielExpire.getLeType().getLaFamille().getCodeFamille()));
+            famille.setAttribute("libelle", String.valueOf(unMaterielExpire.getLeType().getLaFamille().getLibelleFamille()));
+            unMateriel.appendChild(famille);
             
             quantite.appendChild(document.createTextNode(String.valueOf(unMaterielExpire.getQuantite())));
             unMateriel.appendChild(quantite);
@@ -184,9 +184,9 @@ public class GestionMateriels {
  
             unMateriel.appendChild(type);
  
-            //famille.setAttribute("codeFamille", String.valueOf(materielExpirés.getLeType().getCode()));
-            //famille.setAttribute("libelle", String.valueOf(materielExpirés.getLeType().getLibelleTypeMateriel()));
-            //unMateriel.appendChild(famille);
+            famille.setAttribute("codeFamille", String.valueOf(unMaterielSousContrat.getLeType().getLaFamille().getCodeFamille()));
+            famille.setAttribute("libelle", String.valueOf(unMaterielSousContrat.getLeType().getLaFamille().getLibelleFamille()));
+            unMateriel.appendChild(famille);
             
             quantite.appendChild(document.createTextNode(String.valueOf(unMaterielSousContrat.getQuantite())));
             unMateriel.appendChild(quantite);

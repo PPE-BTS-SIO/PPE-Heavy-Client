@@ -173,7 +173,7 @@ class Connecting {
    public Object chargerTypeMateriel(String id) throws SQLException{
        //Recuperation de donnee de la base de donnee
        ResultSet result = null;
-       result = this.Select("SELECT * FROM Type_Materiel WHERE CodeFamille = '"+ id +"'" );
+       result = this.Select("SELECT * FROM Type_Materiel WHERE RefTypeMateriel = '"+ id +"'" );
        String ref = null;
        String libelle = null; 
        String code = null;
