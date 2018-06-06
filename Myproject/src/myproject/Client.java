@@ -18,14 +18,31 @@ import java.util.Date;
 public class Client {
 
     private static ArrayList<Client> lesClients = new ArrayList<>();
+    private ArrayList<Materiel> lesMateriels = new ArrayList();
+    private ArrayList<ContratMaintenance> lesContrats = new ArrayList();
 
+    public ArrayList<Materiel> getLesMateriels() {
+        return lesMateriels;
+    }
+
+    public void setLesMateriels(ArrayList<Materiel> lesMateriels) {
+        this.lesMateriels = lesMateriels;
+    }
+
+    public ArrayList<ContratMaintenance> getLesContrats() {
+        return lesContrats;
+    }
+
+    public void setLesContrat(ArrayList<ContratMaintenance> lesContrat) {
+        this.lesContrats = lesContrat;
+    }
     private String numClient, raisonSociale, siren, codeApe, adresse, telClient, url, logo, numAgence, nom,fax;
 
     public String getFax() {
         return fax;
     }
     private int dureeDeplacement, distanceKm;
-    private ArrayList<ContratMaintenance> lesContrats;
+   
 
 
     public Client(){
@@ -166,9 +183,7 @@ public class Client {
         this.distanceKm = distanceKm;
     }
 
-    public ArrayList<ContratMaintenance> getLesContrats() {
-        return lesContrats;
-    }
+    
 
     public void loadContracts() throws SQLException {
         Connecting connection = new Connecting();

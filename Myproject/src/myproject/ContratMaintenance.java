@@ -19,24 +19,24 @@ import java.util.concurrent.TimeUnit;
 
 public class ContratMaintenance {
 
-    private int numContrat;
+    private String numContrat;
     private Date dateSignature, dateEcheance;
     private ArrayList<Materiel> lesMaterielsAssures;
 public ContratMaintenance(){
     //Pour initialisation sans mettre les valeurs directement
 }
 
-    public ContratMaintenance(int numContrat, Date dateSignature, Date dateEcheance, ArrayList<Materiel> lesMaterielsAssures) {
+    public ContratMaintenance(String numContrat, Date dateSignature, Date dateEcheance, ArrayList<Materiel> lesMaterielsAssures) {
         this.numContrat = numContrat;
         this.dateSignature = dateSignature;
         this.dateEcheance = dateEcheance;
         this.lesMaterielsAssures = lesMaterielsAssures;
     }
 
-    public int getNumContrat() {
+    public String getNumContrat() {
         return numContrat;
     }
-    public ContratMaintenance(int numContrat, Date dateSignature, Date dateEcheance) {
+    public ContratMaintenance(String numContrat, Date dateSignature, Date dateEcheance) {
         this.numContrat = numContrat;
         this.dateSignature = dateSignature;
         this.dateEcheance = dateEcheance;

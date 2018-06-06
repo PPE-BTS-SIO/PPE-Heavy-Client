@@ -101,7 +101,7 @@ class Connecting {
             //creation de l'object gerant les requetes
             Statement statement = connexion.createStatement();
             resultFinal = statement.executeQuery(Query);
-            System.out.println("Successfully connected to database.");
+            
         }
 
         return resultFinal;
@@ -225,18 +225,21 @@ class Connecting {
     ResultSet result = null;
     result = this.Select("SELECT * FROM Contrat WHERE Num_contrat = '"+ id +"'" );
     //initation de variable 
-    int numContrat = 0; 
+    String numContrat = null; 
     Date dateSignature = null;
     Date dateEcheance = null;
     while(result.next()){
-       numContrat = result.getInt(1);
+       numContrat = result.getString("Num_Contrat");
+       System.out.println(numContrat);
        dateSignature = result.getDate(2);
        dateEcheance = result.getDate("Date_Echeance");
        
    }
+    ArrayList<ContratMaintenance> lstContrat = new ArrayList();
+    System.out.println(numContrat);
     ContratMaintenance leContrat = new ContratMaintenance(numContrat, dateSignature, dateEcheance);
-    leContrat.loadMaterials();
-    return leContrat;
+    lstContrat.add(leContrat);
+    return lstContrat;
     
    }
     
@@ -278,12 +281,17 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                     unClient.setSiren(numSiren);
                     unClient.setTelClient(numTel);
                     unClient.setUrl(urlC);
-                    lesClients.add(unClient);
+                    
                     ResultSet resultContrat = null;
                     resultContrat = this.Select("SELECT * FROM Contrat WHERE NumeroClient=" + "'" + numClient + "'" );
+                    
                     while(resultContrat.next()){
-                        unContrat = (ContratMaintenance) this.chargerContrat(numClient);
-                        lesContrats.add(unContrat);
+                        //Set le ArrayList de Contrat
+                        String numContrat = null;
+                        unClient.setLesContrat((ArrayList<ContratMaintenance>) this.chargerContrat(numClient)); 
+                        unClient.setLesMateriels((ArrayList<Materiel>) this.chargerMateriel(numContrat));
+                    }
+                    /*
                         ArrayList<Materiel> temporaire = new ArrayList();
                         temporaire =  (ArrayList<Materiel>) this.chargerMateriel(Integer.toString(unContrat.getNumContrat()));
                         for (Materiel leMateriel : temporaire){
@@ -291,10 +299,10 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                         }
                         
                     }
-                }
+                */}
                 //Des que l'on a les donnees on les places dans une classe
                 
-                return lesClients;
+                return unClient;
             case "Contrat":
                 ContratMaintenance contrat = new ContratMaintenance();
                 contrat = (ContratMaintenance) this.chargerContrat(id);

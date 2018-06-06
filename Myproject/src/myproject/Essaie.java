@@ -41,7 +41,7 @@ public class Essaie {
         System.out.println(unContrat.);
     }
     */
-    ArrayList<Client> leClient = new ArrayList();
+    /*ArrayList<Client> leClient = new ArrayList();
     ArrayList<ContratMaintenance> leContrat = new ArrayList();
     ArrayList<Materiel> leMateriel = new ArrayList();
     connection.chargerDepuisBase("C1", "Client");
@@ -56,8 +56,23 @@ public class Essaie {
                 System.out.println(unMateriel.getNom());
             }
         }
+    }*/
+    System.out.println("On commence bien");
+    /*Client leClient = new Client();
+    leClient = (Client) connection.chargerDepuisBase("C1", "Client");
+    System.out.println("Le nom du client est : " + leClient.getNom());
+    ArrayList<ContratMaintenance> leContrat = new ArrayList();
+    leContrat = leClient.getLesContrats();
+    for(ContratMaintenance contrat : leContrat){
+        System.out.println("le nom du contrat est : " + contrat.getNumContrat());
+    }*/
+    ArrayList<ContratMaintenance> leContrat = new ArrayList();
+    
+    leContrat = (ArrayList<ContratMaintenance>) connection.chargerContrat("C1");
+     for(ContratMaintenance contrat : leContrat){
+        System.out.println("le nom du contrat est : " + contrat.getNumContrat());
     }
-     
+    
     }
     
 }
