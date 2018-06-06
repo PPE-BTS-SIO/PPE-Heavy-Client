@@ -64,6 +64,7 @@ public class Essaie {
     ArrayList<ContratMaintenance> leContrat = new ArrayList();
     ArrayList<Materiel> leMateriel = new ArrayList();
     leContrat = leClient.getLesContrats();
+    leMateriel = leClient.getLesMateriels();
     for(ContratMaintenance contrat : leContrat){
         System.out.println("le nom du contrat est : " + contrat.getNumContrat());
    }
