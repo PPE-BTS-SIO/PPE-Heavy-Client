@@ -223,20 +223,19 @@ class Connecting {
    public Object chargerContrat(String id) throws SQLException{
     //Recuperation de donnee de la base de donnee
     ResultSet result = null;
-    result = this.Select("SELECT * FROM Contrat WHERE Num_contrat = '"+ id +"'" );
+    result = this.Select("SELECT * FROM Contrat WHERE NumeroClient = '"+ id +"'" );
     //initation de variable 
     String numContrat = null; 
     Date dateSignature = null;
     Date dateEcheance = null;
     while(result.next()){
        numContrat = result.getString("Num_Contrat");
-       System.out.println(numContrat);
        dateSignature = result.getDate(2);
-       dateEcheance = result.getDate("Date_Echeance");
+       dateEcheance = result.getDate("Date_Renouvellement");
        
    }
     ArrayList<ContratMaintenance> lstContrat = new ArrayList();
-    System.out.println(numContrat);
+    
     ContratMaintenance leContrat = new ContratMaintenance(numContrat, dateSignature, dateEcheance);
     lstContrat.add(leContrat);
     return lstContrat;
