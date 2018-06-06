@@ -40,7 +40,7 @@ public class GestionMateriels {
  
     private Client client;
  
-    public GestionMateriels(Client client) {
+    public GestionMateriels(Client client) throws SQLException {
         this.client = client;
         try {
             this.xmlClient() ;
@@ -49,11 +49,12 @@ public class GestionMateriels {
     }
 
  
-    private void xmlClient() throws IOException, DocumentException, URISyntaxException {
- 
+    private void xmlClient() throws IOException, DocumentException, URISyntaxException, SQLException {
+        Connecting connection = new Connecting();
         ArrayList<Materiel> lesMaterielsExpires     = new ArrayList<>();
         ArrayList<Materiel> lesMaterielsSousContrat = new ArrayList<>();
         ArrayList<Materiel> lesMaterielAssures      = new ArrayList<>();
+        
         if (this.client.getLesContrats() == null) {
             try {
                 this.client.loadContracts();
@@ -63,31 +64,29 @@ public class GestionMateriels {
  
         // Permet de remplir les listes des matériels
  
-        ArrayList<ContratMaintenance> lesContrats = this.client.getLesContrats();
-  
-        if(lesContrats.size() > 0){
-            for(ContratMaintenance unContrat : lesContrats){
-                
-                
-                 
-                lesMaterielAssures = unContrat.getLesMaterielsAssures();
-                for (Materiel unMateriel : lesMaterielAssures) {
-                    System.out.println(unMateriel.getNom());
-                    if (unMateriel.getNbrJourAvantEcheance() <= 0) {
-                        lesMaterielsExpires.add(unMateriel);
-                    }
-                    else{
-                        lesMaterielsSousContrat.add(unMateriel);
-                    }
-                }
-                
+        System.out.println("XML Traitement : ");
+            Client leClient = new Client();
+            leClient = (Client) connection.chargerDepuisBase(this.client.getNumClient(), "Client");
+            System.out.println("Le nom du client est : " + leClient.getNom());
+            ArrayList<ContratMaintenance> leContrat = new ArrayList();
+            ArrayList<Materiel> leMateriel = new ArrayList();
+            leContrat = leClient.getLesContrats();
+            leMateriel = leClient.getLesMateriels();
+            for(ContratMaintenance contrat : leContrat){
+                System.out.println("le nom du contrat est : " + contrat.getNumContrat());
             }
+            for (Materiel unMateriel : leMateriel){
+                System.out.println("le nom du materiel est : " + unMateriel.getNom());
             
+                if (unMateriel.getNbrJourAvantEcheance() <= 0) {
+                    lesMaterielsExpires.add(unMateriel);
+                }
+                else{
+                    lesMaterielsSousContrat.add(unMateriel);
+                }
+            } 
             
-            
-        }
- 
- 
+      
         try {
              DocumentBuilderFactory factory     =   DocumentBuilderFactory.newInstance();
             //Creation d'un parseur
@@ -136,10 +135,10 @@ public class GestionMateriels {
             type.setAttribute("libelle", unMaterielExpire.getNom());
  
             unMateriel.appendChild(type);
-            //System.out.println(unMaterielExpire.getLeType().get);
-            //famille.setAttribute("codeFamille", unMaterielExpire.getLeType().getCode());
-            //famille.setAttribute("libelle", String.valueOf(unMaterielExpire.getLeType().getLibelleTypeMateriel()));
-            unMateriel.appendChild(famille);
+            System.out.println(unMaterielExpire.getLeType().getLaFamille());
+            //famille.setAttribute("codeFamille", String.valueOf(unMaterielExpire.getLeType().getLaFamille().getCodeFamille()));
+            //famille.setAttribute("libelle", String.valueOf(unMaterielExpire.getLeType().getLaFamille().getLibelleFamille()));
+            //unMateriel.appendChild(famille);
             
             quantite.appendChild(document.createTextNode(String.valueOf(unMaterielExpire.getQuantite())));
             unMateriel.appendChild(quantite);

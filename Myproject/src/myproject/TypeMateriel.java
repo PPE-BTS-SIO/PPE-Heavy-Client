@@ -43,6 +43,10 @@ public class TypeMateriel {
     public String getCode() {
         return codeFamille;
     }
+    
+    public Famille getLaFamille(){
+        return laFamille;
+    }
 
     public TypeMateriel(String referenceInterne, String libelleTypeMateriel, String codeFamille, Famille laFamille) {
         this.referenceInterne = referenceInterne;
