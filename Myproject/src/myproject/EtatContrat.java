@@ -28,7 +28,7 @@ public class EtatContrat extends javax.swing.JFrame {
     public EtatContrat(Client client) throws SQLException{
         this.client = client;
         initComponents();
-        getContrat();
+        //getContrat();
     }
     /**
      * Creates new form EtatContrat
@@ -36,14 +36,7 @@ public class EtatContrat extends javax.swing.JFrame {
     
     public EtatContrat() throws SQLException {
         initComponents();
-        getContrat();
-        
-        //Groupe les boutons 
-       
-        groupRadioButton.add(rbYes);
-        
-        groupRadioButton.add(rbNo);
-        
+        //getContrat(); 
     }
 
     /**
@@ -56,21 +49,27 @@ public class EtatContrat extends javax.swing.JFrame {
     private void initComponents() {
 
         groupRadioButton = new javax.swing.ButtonGroup();
+        btnSoumettre1 = new javax.swing.JButton();
         lblNomClient = new javax.swing.JLabel();
         ContratExpire = new javax.swing.JLabel();
         cbMaterielVendu = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        rbYes = new javax.swing.JRadioButton();
-        rbNo = new javax.swing.JRadioButton();
         btnSoumettre = new javax.swing.JButton();
+        btnRetour = new javax.swing.JButton();
+
+        btnSoumettre1.setText("Soumettre");
+        btnSoumettre1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoumettre1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblNomClient.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblNomClient.setText("Nom du client");
 
         ContratExpire.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ContratExpire.setText("Contrat qui ont expire");
+        ContratExpire.setText("Matériels qui ont expirés");
 
         cbMaterielVendu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,24 +80,17 @@ public class EtatContrat extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Voulez vous vraiment renouveler ce contrat");
 
-        rbYes.setText("Oui");
-        rbYes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbYesActionPerformed(evt);
-            }
-        });
-
-        rbNo.setText("Non");
-        rbNo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbNoActionPerformed(evt);
-            }
-        });
-
         btnSoumettre.setText("Soumettre");
         btnSoumettre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSoumettreActionPerformed(evt);
+            }
+        });
+
+        btnRetour.setText("Retour");
+        btnRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetourActionPerformed(evt);
             }
         });
 
@@ -107,53 +99,50 @@ public class EtatContrat extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ContratExpire, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbMaterielVendu, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(rbYes)
-                                .addGap(68, 68, 68)
-                                .addComponent(rbNo))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(ContratExpire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbMaterielVendu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(btnSoumettre))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblNomClient)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                                .addGap(90, 90, 90)
+                                .addComponent(lblNomClient))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel3)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRetour)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(btnSoumettre)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(25, 25, 25)
                 .addComponent(lblNomClient)
-                .addGap(18, 18, 18)
-                .addComponent(ContratExpire)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbMaterielVendu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ContratExpire)
+                    .addComponent(cbMaterielVendu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbYes)
-                    .addComponent(rbNo))
-                .addGap(27, 27, 27)
                 .addComponent(btnSoumettre)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(btnRetour)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rbYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbYesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbYesActionPerformed
 
     private void cbMaterielVenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaterielVenduActionPerformed
         getContrat(evt);
@@ -175,9 +164,18 @@ public class EtatContrat extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSoumettreActionPerformed
 
-    private void rbNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoActionPerformed
+    private void btnSoumettre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoumettre1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rbNoActionPerformed
+    }//GEN-LAST:event_btnSoumettre1ActionPerformed
+
+    private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
+        this.setVisible(false);
+        try {
+            new SearchClient().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(EtatContrat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRetourActionPerformed
 private String getContrat(ActionEvent evt){
     
     if (cbMaterielVendu.getSelectedItem() != null){
@@ -228,7 +226,7 @@ private String getContrat(ActionEvent evt){
         
         
     }
-    private void getContrat() throws SQLException{
+    /*private void getContrat() throws SQLException{
         Connecting connection = new Connecting();
         lesContrats = (ArrayList<ContratMaintenance>) connection.chargerDepuisBase(client.getNumClient(), "Contrat");
         System.out.println("got in");
@@ -240,17 +238,17 @@ private String getContrat(ActionEvent evt){
             
                 }
         }
-    }
+    }*/
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ContratExpire;
+    private javax.swing.JButton btnRetour;
     private javax.swing.JButton btnSoumettre;
+    private javax.swing.JButton btnSoumettre1;
     private javax.swing.JComboBox<String> cbMaterielVendu;
     private javax.swing.ButtonGroup groupRadioButton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblNomClient;
-    private javax.swing.JRadioButton rbNo;
-    private javax.swing.JRadioButton rbYes;
     // End of variables declaration//GEN-END:variables
 }

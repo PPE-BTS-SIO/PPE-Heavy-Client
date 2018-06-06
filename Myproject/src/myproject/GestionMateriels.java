@@ -53,7 +53,7 @@ public class GestionMateriels {
  
         ArrayList<Materiel> lesMaterielsExpires     = new ArrayList<>();
         ArrayList<Materiel> lesMaterielsSousContrat = new ArrayList<>();
- 
+        ArrayList<Materiel> lesMaterielAssures      = new ArrayList<>();
         if (this.client.getLesContrats() == null) {
             try {
                 this.client.loadContracts();
@@ -64,26 +64,27 @@ public class GestionMateriels {
         // Permet de remplir les listes des matériels
  
         ArrayList<ContratMaintenance> lesContrats = this.client.getLesContrats();
-        if (lesContrats.size() > 0) {
-            for (ContratMaintenance contrat : lesContrats) {
-                if (contrat.getLesMaterielsAssures() == null) {
-                    try {
-                        contrat.loadMaterials();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                ArrayList<Materiel> lesMateriels = contrat.getLesMaterielsAssures();
-                for (Materiel materiel : lesMateriels) {
-                    if (materiel.getNbrJourAvantEcheance() <= 0) {
-                        lesMaterielsExpires.add(materiel);
+  
+        if(lesContrats.size() > 0){
+            for(ContratMaintenance unContrat : lesContrats){
+                
+                
+                 
+                lesMaterielAssures = unContrat.getLesMaterielsAssures();
+                for (Materiel unMateriel : lesMaterielAssures) {
+                    System.out.println(unMateriel.getNom());
+                    if (unMateriel.getNbrJourAvantEcheance() <= 0) {
+                        lesMaterielsExpires.add(unMateriel);
                     }
                     else{
-                        lesMaterielsSousContrat.add(materiel);
+                        lesMaterielsSousContrat.add(unMateriel);
                     }
- 
                 }
+                
             }
+            
+            
+            
         }
  
  

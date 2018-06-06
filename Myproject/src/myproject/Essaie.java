@@ -49,7 +49,7 @@ public class Essaie {
     System.out.println(leClient.size());
     for (Client unClient : leClient){
         leContrat = unClient.getLesContrats();
-        System.out.println(leContrat.isEmpty());
+        //System.out.println(leContrat.isEmpty());
         for(ContratMaintenance unContrat : leContrat){
             leMateriel = unContrat.getLesMaterielsAssures();
             for(Materiel unMateriel : leMateriel){
