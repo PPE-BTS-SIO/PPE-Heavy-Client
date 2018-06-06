@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class SearchClient extends javax.swing.JFrame {
     
     private Client selectedClient;
-    private Client selectedClient2;
+    private Connecting connection = new Connecting();
 
 
     /**
@@ -171,7 +171,12 @@ public class SearchClient extends javax.swing.JFrame {
     }//GEN-LAST:event_cboxClientActionPerformed
 
     private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            selectedClient = (Client) connection.chargerDepuisBase(selectedClient.getNumClient(), "Client");
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
         new GestionMateriels(selectedClient);
     }//GEN-LAST:event_btnXmlActionPerformed
 
