@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class SearchClient extends javax.swing.JFrame {
     
     private Client selectedClient;
+    private Client selectedClient2;
 
 
     /**
