@@ -15,6 +15,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -125,7 +126,9 @@ public class Materiel {
         return emplacement;
     }
 
-    public TypeMateriel getLeType() {
+    public TypeMateriel getLeType() throws SQLException {
+        Connecting connection = new Connecting();
+        leType = (TypeMateriel) connection.chargerTypeMateriel(ref);
         return leType;
     }
     
@@ -133,7 +136,7 @@ public class Materiel {
         return quantite;
     }
 
-    public String xmlMateriel() throws ParserConfigurationException {
+    public String xmlMateriel() throws ParserConfigurationException, SQLException {
         //Récuperation d'une instance de la classe "DocumentBuilderFactory
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try { 

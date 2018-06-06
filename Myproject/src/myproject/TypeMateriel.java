@@ -5,6 +5,7 @@
  */
 package myproject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -44,9 +45,7 @@ public class TypeMateriel {
         return codeFamille;
     }
     
-    public Famille getLaFamille(){
-        return laFamille;
-    }
+    
 
     public TypeMateriel(String referenceInterne, String libelleTypeMateriel, String codeFamille, Famille laFamille) {
         this.referenceInterne = referenceInterne;
@@ -58,4 +57,11 @@ public class TypeMateriel {
     public void setLaFamille(Famille laFamille) {
         this.laFamille = laFamille;
     }
+
+    public Famille getLaFamille() throws SQLException {
+        Connecting connection = new Connecting();
+        laFamille = (Famille) connection.chargerFamille(codeFamille);
+        return laFamille;
+    }
+    
 }

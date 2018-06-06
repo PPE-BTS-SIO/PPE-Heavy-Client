@@ -17,7 +17,10 @@ import java.util.logging.Logger;
 public class SearchClient extends javax.swing.JFrame {
     
     private Client selectedClient;
-    public Boolean flagConnection = false;
+
+    private Connecting connection = new Connecting();
+
+
 
     /**
      * Creates new form SearchClient
@@ -177,6 +180,12 @@ public class SearchClient extends javax.swing.JFrame {
     private void btnXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXmlActionPerformed
         try {
             // TODO add your handling code here:
+
+            selectedClient = (Client) connection.chargerDepuisBase(selectedClient.getNumClient(), "Client");
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             new GestionMateriels(selectedClient);
         } catch (SQLException ex) {
             Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,7 +202,7 @@ public class SearchClient extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseClicked
   
     private void connectionBDD() throws SQLException {
-        if (flagConnection == false){
+        
             Connecting connection = new Connecting();
 
             System.out.println("\nRécupération des clients...");
@@ -264,8 +273,7 @@ public class SearchClient extends javax.swing.JFrame {
                 );
             }
             System.out.println("\nTypes de Matériels récupérés : \u001B[36m" + TypeMateriel.getLesTypesMateriel().size() + "\u001B[0m .");
-            flagConnection = true ;
-        }
+            
     }
     /**
      * @param args the command line arguments
