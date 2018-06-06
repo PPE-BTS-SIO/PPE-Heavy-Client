@@ -24,7 +24,15 @@ public class Client {
     public ArrayList<Materiel> getLesMateriels() {
         return lesMateriels;
     }
-
+public String getNumContrat(){
+    ArrayList<ContratMaintenance> leContrat = new ArrayList();
+    
+    leContrat = this.getLesContrats();
+    for(ContratMaintenance contrat : leContrat){
+        return contrat.getNumContrat();
+   }
+        return null;
+}
     public void setLesMateriels(ArrayList<Materiel> lesMateriels) {
         this.lesMateriels = lesMateriels;
     }

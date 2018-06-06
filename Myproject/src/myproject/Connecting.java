@@ -189,7 +189,7 @@ class Connecting {
    public Object chargerMateriel(String id) throws SQLException{
        //Recuperation de donnee de la base de donnee
        ResultSet result = null;
-       result = this.Select("SELECT * FROM Materiel WHERE RefTypeMateriel = '"+ id +"'" );
+       result = this.Select("SELECT * FROM Materiel WHERE Num_contrat = '"+ id +"'" );
        String numSerie = null;
        String nom = null; 
        Date dateVente = null;
@@ -288,7 +288,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                         //Set le ArrayList de Contrat
                         String numContrat = null;
                         unClient.setLesContrat((ArrayList<ContratMaintenance>) this.chargerContrat(numClient)); 
-                        unClient.setLesMateriels((ArrayList<Materiel>) this.chargerMateriel(numContrat));
+                        unClient.setLesMateriels((ArrayList<Materiel>) this.chargerMateriel(unClient.getNumContrat()));
                     }
                     /*
                         ArrayList<Materiel> temporaire = new ArrayList();
