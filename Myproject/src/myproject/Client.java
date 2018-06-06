@@ -19,6 +19,7 @@ public class Client {
 
     private static ArrayList<Client> lesClients = new ArrayList<>();
     private ArrayList<Materiel> lesMateriels = new ArrayList();
+    
     private ArrayList<ContratMaintenance> lesContrats = new ArrayList();
 
     public ArrayList<Materiel> getLesMateriels() {

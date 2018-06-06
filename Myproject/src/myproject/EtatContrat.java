@@ -25,10 +25,11 @@ public class EtatContrat extends javax.swing.JFrame {
     private ArrayList<Materiel> lesMateriaux = new ArrayList<>();
     private ArrayList<ContratMaintenance> lesContrats = new ArrayList<>();
     
+    
     public EtatContrat(Client client) throws SQLException{
         this.client = client;
         initComponents();
-        //getContrat();
+        addMateriel();
     }
     /**
      * Creates new form EtatContrat
@@ -36,7 +37,7 @@ public class EtatContrat extends javax.swing.JFrame {
     
     public EtatContrat() throws SQLException {
         initComponents();
-        //getContrat(); 
+       
     }
 
     /**
@@ -151,30 +152,44 @@ public class EtatContrat extends javax.swing.JFrame {
     private void btnSoumettreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoumettreActionPerformed
         try {
             Connecting connection = new Connecting();
-            String contratSelectionne = contrat;
-        for(ContratMaintenance contrat: lesContrats){
-            if(String.valueOf(contrat.getNumContrat()) == contratSelectionne){
-                connection.rangerDansBase(contrat);
+            for(Materiel unMateriel : lesMateriaux){
+                if(cbMaterielVendu.getSelectedItem().toString() == unMateriel.getNom()){
+                    for (ContratMaintenance contrat : lesContrats){
+                        
+                        contrat.ajouterMateriel(unMateriel);
+                        break;
+                    }
+                    
+                  
+                    connection.rangerDansBase(unMateriel, lesContrats.get(0).getNumContrat());
+                    
+                    javax.swing.JOptionPane.showMessageDialog(null, "AJOUT OK!!!");
+                    getOut();
+                }
             }
-        }
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(EtatContrat.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
     }//GEN-LAST:event_btnSoumettreActionPerformed
-
-    private void btnSoumettre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoumettre1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSoumettre1ActionPerformed
-
-    private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
-        this.setVisible(false);
+public void getOut(){
+    //Methode pour sortir du windows et retourne a l'accueil
+    this.setVisible(false);
         try {
             new SearchClient().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EtatContrat.class.getName()).log(Level.SEVERE, null, ex);
         }
+}
+    private void btnSoumettre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoumettre1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSoumettre1ActionPerformed
+
+    private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
+        getOut();
     }//GEN-LAST:event_btnRetourActionPerformed
 private String getContrat(ActionEvent evt){
     
@@ -220,25 +235,24 @@ private String getContrat(ActionEvent evt){
                 }
             }
         });
-        
-        
-        
-        
-        
+       
     }
-    /*private void getContrat() throws SQLException{
-        Connecting connection = new Connecting();
-        lesContrats = (ArrayList<ContratMaintenance>) connection.chargerDepuisBase(client.getNumClient(), "Contrat");
-        System.out.println("got in");
-        ArrayList<ContratMaintenance> expire = new ArrayList();
-        for (ContratMaintenance unContrat : lesContrats){
-            System.out.println("le numero du contrat :" + unContrat.getNumContrat());  
-            if (unContrat.getNbrJourAvantEcheance() <= 0) {
-                cbMaterielVendu.addItem(Integer.toString(unContrat.getNumContrat()));
+    private void addMateriel(){
+        //Methode pour ajouter les materiels dans le combo box
+        lesMateriaux = client.getLesMateriels();
+        lesContrats = client.getLesContrats();
+        for (Materiel unMateriel : lesMateriaux){
             
-                }
+            if(unMateriel.getNumContrat() == null || unMateriel.getNumContrat() == ""){
+                
+                cbMaterielVendu.addItem(unMateriel.getNom());
+            }
+            else{
+            
+            }
         }
-    }*/
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

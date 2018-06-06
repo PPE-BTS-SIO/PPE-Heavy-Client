@@ -21,7 +21,7 @@ public class ContratMaintenance {
 
     private String numContrat;
     private Date dateSignature, dateEcheance;
-    private ArrayList<Materiel> lesMaterielsAssures;
+    private ArrayList<Materiel> lesMaterielsAssures = new ArrayList();
 public ContratMaintenance(){
     //Pour initialisation sans mettre les valeurs directement
 }
@@ -61,36 +61,19 @@ public ContratMaintenance(){
         this.lesMaterielsAssures.add(unMateriel);
     }
 
-    public ArrayList<Materiel> getLesMaterielsAssures() {
+    public ArrayList<Materiel> getLesMaterielsAssures() throws SQLException {
+        this.loadMaterials();
         return lesMaterielsAssures;
     }
 
     public void loadMaterials() throws SQLException {
         Connecting connection = new Connecting();
         
-        if (connection == null) return;
-        
-        lesMaterielsAssures = (ArrayList<Materiel>) connection.chargerDepuisBase(String.valueOf(this.numContrat), "Materiel");
+        lesMaterielsAssures = (ArrayList<Materiel>) connection.chargerMaterielAssure(String.valueOf(this.numContrat));
         
         System.out.println("Matériels récupérés : \u001B[36m" + this.lesMaterielsAssures.size() + "\u001B[0m.");
     }
-    //Fonction pour avoir les jours avant fin contrat
-    public int getNbrJourAvantEcheance() {
-        //si object n'est pas sur contrat retourne 0
-        if (dateSignature != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Calendar c = Calendar.getInstance();
-            c.setTime(dateSignature); //Utilise la date de vente 
-            c.add(Calendar.DATE, 365); // la date de vente + 1 ans
-            Date DateEcheance = c.getTime();
-            if (dateSignature.after(DateEcheance)) {
-                int diffJour = (int) (DateEcheance.getTime() - dateSignature.getTime()) / (1000 * 60 * 60 * 24);
-                return diffJour; //retourne la difference 
-            } else {
-                return 0;
-            }
-        }
-        return 0;
-    }
+    
+    
 
 }

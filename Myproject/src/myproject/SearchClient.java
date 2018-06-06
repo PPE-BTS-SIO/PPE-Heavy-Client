@@ -152,13 +152,14 @@ public class SearchClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPDFActionPerformed
 
     private void btnContratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratActionPerformed
-        //new EtatContrat(selectedClient);
         this.setVisible(false);
         try {
-            new EtatContrat().setVisible(true);
+            selectedClient = (Client) connection.chargerDepuisBase(selectedClient.getNumClient(), "Client");
+            new EtatContrat(selectedClient).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_btnContratActionPerformed
 
     private void cboxClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxClientActionPerformed

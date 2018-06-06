@@ -119,7 +119,7 @@ class Connecting {
       }
   
     //Stocke les données de l'objet dans la base de donnée
-    public void rangerDansBase(Object unObjet) throws SQLException {
+    public void rangerDansBase(Object unObjet, String id) throws SQLException {
         this.ouvrirConnexion();
         //Si nous devions créer un client a partir d'un objet 
         if (unObjet instanceof Client) {
@@ -129,7 +129,9 @@ class Connecting {
         //permet d'entrer de nouveau materiel dans la base de donnée
         
         if (unObjet instanceof Materiel) {
-            this.UpdateInsert("INSERT INTO materiel(NumSerie, Nom, DateVente, DateInstallation, Prix, Emplacement, Ref, Num_contrat) VALUES ('" + ((Materiel) unObjet).getNumSerie() + "','" + ((Materiel) unObjet).getNom() + "','" + ((Materiel) unObjet).getDateVente() + "','" + ((Materiel) unObjet).getDateInstallation() + "','" + ((Materiel) unObjet).getPrixVente() + "','" + ((Materiel) unObjet).getEmplacement() + "','" + ((Materiel) unObjet).getRef() + "','" + ((Materiel) unObjet).getNumContrat() + "'");
+            //Ajouter dans la colone numContrat le numero de contrat du materiel
+           this.UpdateInsert("UPDATE Materiel SET Num_contrat='"+ id +"' WHERE NumSerie ='" + ((Materiel) unObjet).getNumSerie() + "'"  );
+                    
         }
         //Nous permet de modifier un contrat dans la base de donnée 
         if(unObjet instanceof ContratMaintenance){
@@ -140,7 +142,7 @@ class Connecting {
            //format la date d'aujoudhui 
            String formatDateTime = now.format(formatter);
            
-            this.UpdateInsert("UPDATE Contrat SET Date_Renouvellement=" + now + "WHERE Num_contrat='"+ ((ContratMaintenance) unObjet).getNumContrat() + "'");
+            this.UpdateInsert("UPDATE Contrat SET Date_Renouvellement='" + now + "' WHERE Num_contrat='"+ ((ContratMaintenance) unObjet).getNumContrat() + "'");
         }
         
 
@@ -186,10 +188,49 @@ class Connecting {
        TypeMateriel unType = new TypeMateriel(ref,libelle,code);
        return unType;
    }
-   public Object chargerMateriel(String id) throws SQLException{
+   public Object chargerMaterielAssure(String id) throws SQLException{
        //Recuperation de donnee de la base de donnee
        ResultSet result = null;
        result = this.Select("SELECT * FROM Materiel WHERE Num_contrat = '"+ id +"'" );
+       String numSerie = null;
+       String nom = null; 
+       Date dateVente = null;
+       Date dateInstallation = null; 
+       double prix = 0;
+       String emplacement = null;
+       String ref = null; 
+       String numContrat = null;
+       int quantite = 0;
+       
+       
+       while (result.next()){
+           numSerie = result.getString(1);
+           nom = result.getString(2);
+           dateVente = result.getDate(3);
+           dateInstallation = result.getDate(4);
+           prix = result.getDouble(5);
+           emplacement  = result.getString(6);
+           quantite = result.getInt(7);
+           ref = result.getString(8);
+           numContrat = result.getString(9);  
+           //creation de l'objet avec les valeurs de la BDD
+           Materiel leMateriel = new Materiel(numContrat, quantite, dateVente, dateInstallation, prix, numSerie, emplacement, ref, nom, (TypeMateriel) this.chargerTypeMateriel(ref));
+           //Si materiel n'est pas sous contrat, je fais rien sinon je l'ajoute a mon ArrayList
+           if(leMateriel.getNbrJourAvantEcheance() <= 0){
+               
+           }
+           else{
+              lesMaterielsAssures.add(leMateriel); 
+           }
+           
+       }
+       
+       return lesMaterielsAssures;
+   }
+   public Object chargerMateriel(String id) throws SQLException{
+       //Recuperation de donnee de la base de donnee
+       ResultSet result = null;
+       result = this.Select("SELECT * FROM Materiel WHERE NumeroClient = '"+ id +"'" );
        String numSerie = null;
        String nom = null; 
        Date dateVente = null;
@@ -219,6 +260,7 @@ class Connecting {
        
        return lesMaterielsAssures;
    }
+   
    
    public Object chargerContrat(String id) throws SQLException{
     //Recuperation de donnee de la base de donnee
@@ -288,17 +330,9 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                         //Set le ArrayList de Contrat
                         String numContrat = null;
                         unClient.setLesContrat((ArrayList<ContratMaintenance>) this.chargerContrat(numClient)); 
-                        unClient.setLesMateriels((ArrayList<Materiel>) this.chargerMateriel(unClient.getNumContrat()));
+                        unClient.setLesMateriels((ArrayList<Materiel>) this.chargerMateriel(numClient));
                     }
-                    /*
-                        ArrayList<Materiel> temporaire = new ArrayList();
-                        temporaire =  (ArrayList<Materiel>) this.chargerMateriel(Integer.toString(unContrat.getNumContrat()));
-                        for (Materiel leMateriel : temporaire){
-                            lesMaterielsAssures.add(leMateriel);
-                        }
-                        
                     }
-                */}
                 //Des que l'on a les donnees on les places dans une classe
                 
                 return unClient;
@@ -313,10 +347,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                 Materiel materiel = new Materiel();
                 
                 lesMaterielsAssures = (ArrayList<Materiel>) this.chargerMateriel(id);
-                    
                 
-                
-
                 return lesMaterielsAssures; // retourne une ArrayList -> dois voir comment convertir en Object
             default:
                 break;
