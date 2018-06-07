@@ -26,11 +26,11 @@ public class Famille {
         addFamille(this);
      
     }
-    
+    //ajoute une Famille dans la liste de famille 
     public static void addFamille(Famille famille){
         lesFamilles.add(famille);
     }
-    
+    //GETTER
     public static ArrayList<Famille> getLesFamilles(){
         return lesFamilles;
     }

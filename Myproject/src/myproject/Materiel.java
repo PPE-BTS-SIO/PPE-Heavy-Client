@@ -90,7 +90,7 @@ public class Materiel {
         }
         return 0;
     }
-
+//GETTER
     public String getNumContrat() {
         return numContrat;
     }
