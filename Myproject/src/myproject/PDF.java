@@ -41,11 +41,11 @@ public class PDF {
             leContrat = leClient.getLesContrats();
             leMateriel = leClient.getLesMateriels();
             for(ContratMaintenance contrat : leContrat){
-                System.out.println("le nom du contrat est : " + contrat.getNumContrat());
+               // System.out.println("le nom du contrat est : " + contrat.getNumContrat());
             int jourRestants = contrat.getJourRestants();
                
                 for (Materiel unMateriel : leMateriel){
-                    System.out.println("le nom du materiel est : " + unMateriel.getNom());
+                    //System.out.println("le nom du materiel est : " + unMateriel.getNom());
                     String numContrat = unMateriel.getNumContrat();
                     if (jourRestants <= 0 | numContrat == null) {
                         lesMaterielsExpirés.add(unMateriel);
