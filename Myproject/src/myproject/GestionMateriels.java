@@ -51,23 +51,23 @@ public class GestionMateriels {
  
     private void xmlClient() throws IOException, DocumentException, URISyntaxException, SQLException {
         Connecting connection = new Connecting();
-        ArrayList<Materiel> lesMaterielsExpires     = new ArrayList<>();
+        ArrayList<Materiel> lesMaterielsExpires = new ArrayList<>();
         ArrayList<Materiel> lesMaterielsSousContrat = new ArrayList<>();
-        ArrayList<Materiel> lesMaterielAssures      = new ArrayList<>();
+        ArrayList<Materiel> lesMaterielAssures = new ArrayList<>();
         
         if (this.client.getLesContrats() == null) {
             try {
                 this.client.loadContracts();
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
  
         // Permet de remplir les listes des matériels
- 
-        System.out.println("XML Traitement : ");
+        System.out.println("\nGénération du fichier XML...");
             Client leClient = new Client();
             leClient = (Client) connection.chargerDepuisBase(this.client.getNumClient(), "Client");
-            System.out.println("Le nom du client est : " + leClient.getNom());
+            System.out.println("Client récupéré : " + leClient.getNom());
             ArrayList<ContratMaintenance> leContrat = new ArrayList();
             ArrayList<Materiel> leMateriel = new ArrayList();
             leContrat = leClient.getLesContrats();
@@ -88,42 +88,38 @@ public class GestionMateriels {
             
       
         try {
-             DocumentBuilderFactory factory     =   DocumentBuilderFactory.newInstance();
+             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             //Creation d'un parseur
-            final DocumentBuilder builder       =   factory.newDocumentBuilder();
+            final DocumentBuilder builder = factory.newDocumentBuilder();
  
             //Creation d'un document
-            final Document document             =   builder.newDocument();
+            final Document document = builder.newDocument();
  
             //Creation des éléments racine
-            final Element listeMateriel         =   document.createElement("listeMateriel");
-            final Element lesMateriels          =   document.createElement("materiels");   
+            final Element listeMateriel = document.createElement("listeMateriel");
+            final Element lesMateriels = document.createElement("materiels");
  
  
  
             //ajout élément racine au document
             document.appendChild(listeMateriel);
- 
             listeMateriel.appendChild(lesMateriels);
- 
             lesMateriels.setAttribute("idClient", String.valueOf(client.getNumClient()));
- 
- 
- 
+
         for (Materiel unMaterielExpire : lesMaterielsExpires) {
             //Creation des sous éléments
  
-            final Element type                  =   document.createElement("type");
-            final Element famille               =   document.createElement("famille");
-            final Element quantite              =   document.createElement("quantite");
-            final Element date_vente            =   document.createElement("date_vente");
-            final Element date_installation     =   document.createElement("date_installation");
-            final Element prix_vente            =   document.createElement("prix_vente");
-            final Element emplacement           =   document.createElement("emplacement");
-            final Element nbJourAvantEcheance   =   document.createElement("nbJourAvantEcheance");
-            final Element sousContrat           =   document.createElement("sousContrat");
-            final Element horsContrat           =   document.createElement("horsContrat");
-            final Element unMateriel            =   document.createElement("materiel");
+            final Element type = document.createElement("type");
+            final Element famille = document.createElement("famille");
+            final Element quantite = document.createElement("quantite");
+            final Element date_vente = document.createElement("date_vente");
+            final Element date_installation = document.createElement("date_installation");
+            final Element prix_vente = document.createElement("prix_vente");
+            final Element emplacement = document.createElement("emplacement");
+            final Element nbJourAvantEcheance = document.createElement("nbJourAvantEcheance");
+            final Element sousContrat = document.createElement("sousContrat");
+            final Element horsContrat = document.createElement("horsContrat");
+            final Element unMateriel = document.createElement("materiel");
  
             lesMateriels.appendChild(horsContrat);
             horsContrat.appendChild(unMateriel);
@@ -162,17 +158,17 @@ public class GestionMateriels {
  
         for (Materiel unMaterielSousContrat : lesMaterielsSousContrat){
  
-            final Element type                  =   document.createElement("type");
-            final Element famille               =   document.createElement("famille");
-            final Element quantite              =   document.createElement("quantite");
-            final Element date_vente            =   document.createElement("date_vente");
-            final Element date_installation     =   document.createElement("date_installation");
-            final Element prix_vente            =   document.createElement("prix_vente");
-            final Element emplacement           =   document.createElement("emplacement");
-            final Element nbJourAvantEcheance   =   document.createElement("nbJourAvantEcheance");
-            final Element sousContrat           =   document.createElement("sousContrat");
-            final Element horsContrat           =   document.createElement("horsContrat");
-            final Element unMateriel            =   document.createElement("materiel");
+            final Element type = document.createElement("type");
+            final Element famille = document.createElement("famille");
+            final Element quantite = document.createElement("quantite");
+            final Element date_vente = document.createElement("date_vente");
+            final Element date_installation = document.createElement("date_installation");
+            final Element prix_vente = document.createElement("prix_vente");
+            final Element emplacement = document.createElement("emplacement");
+            final Element nbJourAvantEcheance = document.createElement("nbJourAvantEcheance");
+            final Element sousContrat = document.createElement("sousContrat");
+            final Element horsContrat = document.createElement("horsContrat");
+            final Element unMateriel = document.createElement("materiel");
  
             sousContrat.appendChild(unMateriel);
  
@@ -222,15 +218,24 @@ public class GestionMateriels {
             //INDENTATION
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
- 
-            // Sortie sur un ficher xml
-            StreamResult result = new StreamResult(new File("/Users/raphaeltribouilloy/Desktop/PPE-Heavy-Client/Myproject/generated/xml/Materielclientcli"+ client.getNumClient() +".xml"));
+
+            String pdfName = "xml_" + client.getNumClient() + ".xml";
+            String destination = "generated/xml/" + pdfName;
+
+            File file = new File(destination);
+            if (file.exists()) {
+                if (!file.delete()) {
+                    System.out.println("Impossible de supprimer le fichier existant.");
+                }
+            }
+            file.getParentFile().mkdirs();
+            StreamResult result = new StreamResult(file);
           
             //Sortie sur la console
             //StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
  
-            System.out.println("File Saved");
+            System.out.println("Fichier sauvegardé!");
  
         } catch (final ParserConfigurationException | TransformerException e) {
             e.printStackTrace();

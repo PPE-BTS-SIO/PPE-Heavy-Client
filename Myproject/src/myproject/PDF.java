@@ -20,7 +20,7 @@ public class PDF {
         this.client = client;
         try {
             this.generatePDF();
-        } catch (DocumentException | IOException | URISyntaxException e) {
+        } catch (DocumentException | IOException | URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
     }
