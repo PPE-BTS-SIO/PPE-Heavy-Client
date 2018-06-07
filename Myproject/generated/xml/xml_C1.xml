@@ -13,7 +13,7 @@
         <nbJourAvantEcheance>0</nbJourAvantEcheance>
       </materiel>
     </horsContrat>
-    <sousContrat>
+    <horsContrat>
       <materiel numSerie="S202">
         <type libelle="Hub ethernet" refInterne="PC"/>
         <famille codeFamille="A508" libelle="ordinateur avec fil"/>
@@ -24,8 +24,8 @@
         <emplacement>Main</emplacement>
         <nbJourAvantEcheance>0</nbJourAvantEcheance>
       </materiel>
-    </sousContrat>
-    <sousContrat>
+    </horsContrat>
+    <horsContrat>
       <materiel numSerie="S203">
         <type libelle="Routeur" refInterne="PC"/>
         <famille codeFamille="A508" libelle="ordinateur avec fil"/>
@@ -36,8 +36,8 @@
         <emplacement>Main</emplacement>
         <nbJourAvantEcheance>0</nbJourAvantEcheance>
       </materiel>
-    </sousContrat>
-    <sousContrat>
+    </horsContrat>
+    <horsContrat>
       <materiel numSerie="S901">
         <type libelle="Portable" refInterne="PC"/>
         <famille codeFamille="A508" libelle="ordinateur avec fil"/>
@@ -48,6 +48,6 @@
         <emplacement>Main bat</emplacement>
         <nbJourAvantEcheance>0</nbJourAvantEcheance>
       </materiel>
-    </sousContrat>
+    </horsContrat>
   </materiels>
 </listeMateriel>

@@ -148,7 +148,16 @@ public class SearchClient extends javax.swing.JFrame {
                                    
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
-        new PDF(selectedClient);
+        try {
+             selectedClient = (Client) connection.chargerDepuisBase(selectedClient.getNumClient(), "Client");
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            new PDF(selectedClient);
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnPDFActionPerformed
 
     private void btnContratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratActionPerformed

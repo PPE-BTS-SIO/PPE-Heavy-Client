@@ -73,18 +73,20 @@ public class GestionMateriels {
             leContrat = leClient.getLesContrats();
             leMateriel = leClient.getLesMateriels();
             for(ContratMaintenance contrat : leContrat){
-                //System.out.println("le nom du contrat est : " + contrat.getNumContrat());
+                System.out.println("le nom du contrat est : " + contrat.getNumContrat());
+            int jourRestants = contrat.getJourRestants();
+               
+                for (Materiel unMateriel : leMateriel){
+                    System.out.println("le nom du materiel est : " + unMateriel.getNom());
+                    String numContrat = unMateriel.getNumContrat();
+                    if (jourRestants <= 0 | numContrat == null) {
+                        lesMaterielsExpires.add(unMateriel);
+                    }
+                    else{
+                        lesMaterielsSousContrat.add(unMateriel);
+                    }
+                } 
             }
-            for (Materiel unMateriel : leMateriel){
-                //System.out.println("le nom du materiel est : " + unMateriel.getNom());
-            
-                if (unMateriel.getNbrJourAvantEcheance() <= 0) {
-                    lesMaterielsExpires.add(unMateriel);
-                }
-                else{
-                    lesMaterielsSousContrat.add(unMateriel);
-                }
-            } 
             
       
         try {
@@ -169,7 +171,8 @@ public class GestionMateriels {
             final Element sousContrat = document.createElement("sousContrat");
             final Element horsContrat = document.createElement("horsContrat");
             final Element unMateriel = document.createElement("materiel");
- 
+            
+            lesMateriels.appendChild(sousContrat);
             sousContrat.appendChild(unMateriel);
  
             unMateriel.setAttribute("numSerie", String.valueOf(unMaterielSousContrat.getNumSerie()));
@@ -221,7 +224,7 @@ public class GestionMateriels {
 
             String pdfName = "xml_" + client.getNumClient() + ".xml";
             String destination = "generated/xml/" + pdfName;
-
+            //StreamResult result = new StreamResult(new File("/Users/raphaeltribouilloy/Desktop/PPE-Heavy-Client/Myproject/generated/xml/Materielclientcli"+ client.getNumClient() +".xml"));
             File file = new File(destination);
             if (file.exists()) {
                 if (!file.delete()) {
