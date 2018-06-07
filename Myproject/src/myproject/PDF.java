@@ -20,12 +20,12 @@ public class PDF {
         this.client = client;
         try {
             this.generatePDF();
-        } catch (DocumentException | IOException | URISyntaxException e) {
+        } catch (DocumentException | IOException | URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean generatePDF() throws IOException, DocumentException, URISyntaxException {
+    private boolean generatePDF() throws IOException, DocumentException, URISyntaxException, SQLException {
         if (this.client == null) return false;
 
         ArrayList<Materiel> lesMaterielsExpirés = new ArrayList<>();

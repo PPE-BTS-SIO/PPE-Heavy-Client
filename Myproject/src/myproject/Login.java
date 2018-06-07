@@ -120,7 +120,7 @@ public class Login extends javax.swing.JFrame {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("Encrypted password : \u001B[36m" + encryptedPass + "\u001B[0m");
-            System.out.println("Database's password \u001B[36m" + passBD + "\u001B[0m");
+
             // Si le nom d'utilisateur et mot de passe sont corrects, on va a la page suivante.
             // Sinon on envoie un message d'erreur.
             if (passBD.equals(encryptedPass)) {
@@ -129,12 +129,11 @@ public class Login extends javax.swing.JFrame {
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Nom d'utilisateur et/ou mot de passe incorrect");
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }
 
     /**
      * @param args the command line arguments
