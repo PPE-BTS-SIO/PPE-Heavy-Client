@@ -16,7 +16,7 @@ public class PDF {
 
     private Client client;
 
-    public PDF(Client client) {
+    public PDF(Client client) throws SQLException {
         this.client = client;
         try {
             this.generatePDF();
@@ -25,7 +25,7 @@ public class PDF {
         }
     }
 
-    private boolean generatePDF() throws IOException, DocumentException, URISyntaxException {
+    private boolean generatePDF() throws IOException, DocumentException, URISyntaxException, SQLException {
         if (this.client == null) return false;
 
         ArrayList<Materiel> lesMaterielsExpirés = new ArrayList<>();

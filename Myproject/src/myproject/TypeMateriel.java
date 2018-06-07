@@ -54,9 +54,7 @@ public class TypeMateriel {
         this.laFamille = laFamille;
     }
 
-    public void setLaFamille(Famille laFamille) {
-        this.laFamille = laFamille;
-    }
+    
 
     public Famille getLaFamille() throws SQLException {
         Connecting connection = new Connecting();
