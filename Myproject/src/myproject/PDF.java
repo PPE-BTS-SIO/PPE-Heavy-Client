@@ -28,9 +28,33 @@ public class PDF {
     private boolean generatePDF() throws IOException, DocumentException, URISyntaxException, SQLException {
         if (this.client == null) return false;
 
+        System.out.println("PDF Traitement :");
+        Connecting connection = new Connecting();
         ArrayList<Materiel> lesMaterielsExpirés = new ArrayList<>();
 
-        if (this.client.getLesContrats() == null) {
+        
+        Client leClient = new Client();
+            leClient = (Client) connection.chargerDepuisBase(this.client.getNumClient(), "Client");
+            System.out.println("Client récupéré : " + leClient.getNom());
+            ArrayList<ContratMaintenance> leContrat = new ArrayList();
+            ArrayList<Materiel> leMateriel = new ArrayList();
+            leContrat = leClient.getLesContrats();
+            leMateriel = leClient.getLesMateriels();
+            for(ContratMaintenance contrat : leContrat){
+                System.out.println("le nom du contrat est : " + contrat.getNumContrat());
+            int jourRestants = contrat.getJourRestants();
+               
+                for (Materiel unMateriel : leMateriel){
+                    System.out.println("le nom du materiel est : " + unMateriel.getNom());
+                    String numContrat = unMateriel.getNumContrat();
+                    if (jourRestants <= 0 | numContrat == null) {
+                        lesMaterielsExpirés.add(unMateriel);
+                    }
+                } 
+            }
+        
+        
+        /*if (this.client.getLesContrats() == null) {
             try {
                 this.client.loadContracts();
             } catch (SQLException e) {
@@ -55,7 +79,7 @@ public class PDF {
                     }
                 }
             }
-        }
+        }*/
 
         String pdfName = "outdated_materials_" + client.getNumClient() + ".pdf";
         String destination = "generated/pdf/" + pdfName;

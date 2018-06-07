@@ -224,7 +224,6 @@ public class GestionMateriels {
 
             String pdfName = "xml_" + client.getNumClient() + ".xml";
             String destination = "generated/xml/" + pdfName;
-            //StreamResult result = new StreamResult(new File("/Users/raphaeltribouilloy/Desktop/PPE-Heavy-Client/Myproject/generated/xml/Materielclientcli"+ client.getNumClient() +".xml"));
             File file = new File(destination);
             if (file.exists()) {
                 if (!file.delete()) {
@@ -233,6 +232,9 @@ public class GestionMateriels {
             }
             file.getParentFile().mkdirs();
             StreamResult result = new StreamResult(file);
+            
+            //StreamResult result = new StreamResult(new File("/Users/raphaeltribouilloy/Desktop/PPE-Heavy-Client/Myproject/generated/xml/Materielclientcli"+ client.getNumClient() +".xml"));
+            
           
             //Sortie sur la console
             //StreamResult result = new StreamResult(System.out);
