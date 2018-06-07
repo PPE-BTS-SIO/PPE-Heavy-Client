@@ -9,8 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.*;
 
 /**
  *
@@ -114,6 +113,14 @@ public class ConnectingTest {
              fail("N'a pas remplie la table de materel");
         }
         
+    }
+
+    private void fail(String na_pas_le_bon_client) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void assertNotEquals(Object expResult, Object result) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
