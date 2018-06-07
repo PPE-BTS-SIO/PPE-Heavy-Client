@@ -17,8 +17,17 @@ public class Famille {
     private static ArrayList<Famille> lesFamilles = new ArrayList<>();
     
     // Constructeur
+
+    /**
+     *
+     */
     public Famille(){}
     
+    /**
+     *
+     * @param unCodeFamille
+     * @param unLibelleFamille
+     */
     public Famille (String unCodeFamille , String unLibelleFamille){
         this.codeFamille = unCodeFamille; 
         this.libelleFamille = unLibelleFamille;
@@ -27,18 +36,36 @@ public class Famille {
      
     }
     //ajoute une Famille dans la liste de famille 
+
+    /**
+     *
+     * @param famille
+     */
     public static void addFamille(Famille famille){
         lesFamilles.add(famille);
     }
     //GETTER
+
+    /**
+     *
+     * @return
+     */
     public static ArrayList<Famille> getLesFamilles(){
         return lesFamilles;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getCodeFamille(){
         return codeFamille;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLibelleFamille(){
         return libelleFamille;
     }
