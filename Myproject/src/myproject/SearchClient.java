@@ -162,7 +162,9 @@ public class SearchClient extends javax.swing.JFrame {
 
     private void btnContratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratActionPerformed
         this.setVisible(false);
+        //ferme la fenetre 
         try {
+            //renvoie selectedClient a la classe EtatContrat et ouvre fenetre etatcontrat
             selectedClient = (Client) connection.chargerDepuisBase(selectedClient.getNumClient(), "Client");
             new EtatContrat(selectedClient).setVisible(true);
         } catch (SQLException ex) {
@@ -172,6 +174,7 @@ public class SearchClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnContratActionPerformed
 
     private void cboxClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxClientActionPerformed
+        //Renvoie le client selectionne par le combo box 
         JComboBox cb = (JComboBox) evt.getSource();
         String clientName = (String) cb.getSelectedItem();
         for (Client client : Client.getLesClients()) {
@@ -197,6 +200,7 @@ public class SearchClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXmlActionPerformed
 
     private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
+        //retourne en arriere
         this.setVisible(false);
         new Login().setVisible(true);
     }//GEN-LAST:event_btnRetourActionPerformed

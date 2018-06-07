@@ -32,27 +32,33 @@ public ContratMaintenance(){
         this.dateEcheance = dateEcheance;
         this.lesMaterielsAssures = lesMaterielsAssures;
     }
-
+//GETTER AND SETTER 
     public String getNumContrat() {
         return numContrat;
     }
+    public int getJourRestants() {
+        Date currentDate = new Date();
+        long diff = dateEcheance.getTime() - currentDate.getTime();
+        return (int)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+    public ArrayList<Materiel> getLesMaterielsAssures() throws SQLException {
+        this.loadMaterials();
+        return lesMaterielsAssures;
+    }
+    //CONSTRUCTOR
     public ContratMaintenance(String numContrat, Date dateSignature, Date dateEcheance) {
         this.numContrat = numContrat;
         this.dateSignature = dateSignature;
         this.dateEcheance = dateEcheance;
     }
 
-    public int getJourRestants() {
-        Date currentDate = new Date();
-        long diff = dateEcheance.getTime() - currentDate.getTime();
-        return (int)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-    }
-
+    
+    //determine si le contrat est valide en fonction de la date 
     public boolean estValide() {
         Date currentDate = new Date();
         return currentDate.after(dateSignature) && currentDate.before(dateEcheance);
     }
-
+    //Ajoute un Materiel a la liste de materiel sous contrat 
     public void ajouterMateriel(Materiel unMateriel) {
         if (!dateSignature.before(unMateriel.getDateInstallation())) {
             System.out.println("La date d'installation du matériel doit être supérieure à la date de signature du contrat!");
@@ -60,12 +66,7 @@ public ContratMaintenance(){
         }
         this.lesMaterielsAssures.add(unMateriel);
     }
-
-    public ArrayList<Materiel> getLesMaterielsAssures() throws SQLException {
-        this.loadMaterials();
-        return lesMaterielsAssures;
-    }
-
+    //Remplie la liste de materiel
     public void loadMaterials() throws SQLException {
         Connecting connection = new Connecting();
         

@@ -279,6 +279,7 @@ class Connecting {
     ArrayList<ContratMaintenance> lstContrat = new ArrayList();
     
     ContratMaintenance leContrat = new ContratMaintenance(numContrat, dateSignature, dateEcheance);
+    //Ajout du contrat dans la liste du de contrat 
     lstContrat.add(leContrat);
     return lstContrat;
     
@@ -288,14 +289,18 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
     //Recuperation de donnee de la base de donnee
         Connection connection = Connecting.getConnexion();
         if (connection == null) return null;
+        //Initialisation de valeur 
         Object unObjet = null;
         ResultSet result = null;
         Client unClient = new Client();
         ContratMaintenance unContrat = new ContratMaintenance();
         Materiel unMateriel = new Materiel();
 
-        
+        //si la classe Client est demande
         if (null != nomClasse)switch (nomClasse) {
+            //si la classe Client est demande
+            //Recupere out les info sur le client
+            //y compris ses materiels et contrat
             case "Client":
                 result = this.Select("SELECT * FROM Client WHERE NumeroClient = '"+ id + "'");
                 while (result.next()){
@@ -329,6 +334,7 @@ public Object chargerDepuisBase(String id, String nomClasse) throws SQLException
                     while(resultContrat.next()){
                         //Set le ArrayList de Contrat
                         String numContrat = null;
+                        //Met dans la liste du contrat et materiel du clients ses materiaux et contrat
                         unClient.setLesContrat((ArrayList<ContratMaintenance>) this.chargerContrat(numClient)); 
                         unClient.setLesMateriels((ArrayList<Materiel>) this.chargerMateriel(numClient));
                     }

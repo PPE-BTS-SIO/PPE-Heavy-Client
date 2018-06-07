@@ -244,11 +244,10 @@ private String getContrat(ActionEvent evt){
         for (Materiel unMateriel : lesMateriaux){
             
             if(unMateriel.getNumContrat() == null || unMateriel.getNumContrat() == ""){
-                
                 cbMaterielVendu.addItem(unMateriel.getNom());
             }
             else{
-            
+                
             }
         }
     }
